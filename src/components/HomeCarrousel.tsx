@@ -11,10 +11,10 @@ export function HomeCarrousel() {
     slidesToScroll: 1,
   };
 
-  const w = 377;
+  const w = 367;
 
   return (
-    <div style={{ height: 182, width: 380, marginTop: 10 }}>
+    <div style={{ height: 182, width: 370, marginTop: 10 }}>
       <Slider arrows={false} {...settings}>
         <div>
           <img
