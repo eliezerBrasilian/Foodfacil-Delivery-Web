@@ -18,6 +18,7 @@ export function BottomBar() {
     handleCarrinhoBottomBar,
     handlePedidosBottomBar,
     handlePerfilBottomBar,
+    removeVisibility,
   } = useBottomBarContext();
 
   const location = useLocation();
@@ -33,6 +34,8 @@ export function BottomBar() {
       handleCarrinhoBottomBar();
     } else if (location.pathname === Rotas.TELA_PERFIL) {
       handlePerfilBottomBar();
+    } else {
+      removeVisibility();
     }
   }, [location]);
 

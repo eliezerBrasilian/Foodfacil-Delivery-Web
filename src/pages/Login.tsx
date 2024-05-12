@@ -5,6 +5,7 @@ import { GoogleSignInBtn } from "../components/GoogleSignInBtn.js";
 import { Imagem } from "../components/Imagem.js";
 import { useAuthContext } from "../context/AuthContext.jsx";
 import { useCabecalhoContext } from "../context/CabecalhoContext.js";
+import { useLarguraAtual } from "../custom_hooks/useLarguraAtual.js";
 import { LocalStorageKeys } from "../enums/LocalStorageKeys";
 import { Rotas } from "../enums/Rotas.js";
 import ls from "../modules/Login.module.css";
@@ -21,6 +22,8 @@ export function Login() {
 
   const { login, cadastro } = useAuthContext();
 
+  const larguraTotal = useLarguraAtual();
+
   useEffect(() => {
     removeVisibility();
   }, []);
@@ -36,7 +39,13 @@ export function Login() {
   };
 
   return (
-    <div className={ls.container}>
+    <div
+      className={ls.container}
+      style={{
+        padding: larguraTotal <= 500 ? 15 : 0,
+        paddingLeft: larguraTotal > 500 ? 80 : 0,
+      }}
+    >
       <div className={ls.a_esquerda}>
         <h3>{loginAtivo ? "Entrar" : "Cadastrar"} </h3>
         <p>
@@ -44,7 +53,16 @@ export function Login() {
             ? "Acesse já sua conta no Foodfacil - delivery"
             : "Faça seu cadastro no Foodfacil - delivery"}
         </p>
-        <form>
+        <form
+          style={
+            larguraTotal <= 500
+              ? {
+                  display: "flex",
+                  alignItems: "center",
+                }
+              : {}
+          }
+        >
           {!loginAtivo && (
             <div>
               <p>Nome</p>
@@ -80,7 +98,19 @@ export function Login() {
             />
           </div>
 
-          <div className={ls.btns}>
+          <div
+            className={ls.btns}
+            style={
+              larguraTotal <= 500
+                ? {
+                    display: "flex",
+                    width: "100%",
+                    justifyContent: "center",
+                    alignItems: "center",
+                  }
+                : {}
+            }
+          >
             <AuthBtn
               text={loginAtivo ? "Acessar minha conta" : "Criar minha conta"}
               onClick={() => {
@@ -111,6 +141,14 @@ export function Login() {
             <p
               className={ls.ja_possui_login}
               onClick={() => setLoginAtivo(!loginAtivo)}
+              style={
+                larguraTotal <= 500
+                  ? {
+                      width: "100%",
+                      textAlign: "center",
+                    }
+                  : {}
+              }
             >
               Não possui login? <strong>Cadastrar</strong>
             </p>
@@ -118,18 +156,26 @@ export function Login() {
             <p
               className={ls.ja_possui_login}
               onClick={() => setLoginAtivo(!loginAtivo)}
+              style={
+                larguraTotal <= 500
+                  ? {
+                      width: "100%",
+                      textAlign: "center",
+                    }
+                  : {}
+              }
             >
               Já possui login? <strong>Entrar</strong>
             </p>
           )}
-
-          {/* <input type="submit" value="Acessar" /> */}
         </form>
       </div>
 
-      <div className={ls.a_direita}>
-        <Imagem imagePath="foodfacillogo_splash.png" />
-      </div>
+      {larguraTotal > 500 && (
+        <div className={ls.a_direita}>
+          <Imagem imagePath="foodfacillogo_splash.png" />
+        </div>
+      )}
     </div>
   );
 }

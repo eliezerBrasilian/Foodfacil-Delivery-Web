@@ -9,7 +9,7 @@ body {
   background-color: #f7ffe0;
   column-gap: 10px;
   border-radius: 6px;
-  padding-left: 80px;
+  /* padding-left: 80px; */
 
   .a_esquerda {
     display: flex;

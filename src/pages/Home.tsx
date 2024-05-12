@@ -17,6 +17,8 @@ export function Home() {
   const nav = useNavigate();
   const larguraAtual = useLarguraAtual();
 
+  // useEffect(() => localStorage.clear());
+
   // const onError = (message: string) => {
   //   if (message == "Access Denied") {
   //     window.alert("Acesso negado !");
