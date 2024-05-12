@@ -1,0 +1,51 @@
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.container {
+  display: flex;
+  background-color: #f7ffe0;
+  column-gap: 10px;
+  border-radius: 6px;
+  padding-left: 80px;
+
+  .a_esquerda {
+    display: flex;
+    flex-direction: column;
+    row-gap: 2px;
+    margin-top: 70px;
+    margin-bottom: 70px;
+
+    form {
+      display: flex;
+      flex-direction: column;
+      row-gap: 10px;
+      margin-top: 15px;
+
+      input {
+        width: 210px;
+        height: 40px;
+      }
+
+      .btns {
+        display: flex;
+        flex-direction: column;
+        row-gap: 15px;
+        margin-top: 20px;
+      }
+      .ja_possui_login {
+        cursor: pointer;
+      }
+    }
+  }
+
+  .a_direita {
+    background-color: red;
+    width: 300px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+}

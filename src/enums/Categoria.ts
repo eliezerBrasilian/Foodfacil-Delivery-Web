@@ -1,0 +1,11 @@
+enum Categoria {
+  SALGADONOCOPO = "SALGADONOCOPO",
+  RISOLE = "RISOLE",
+  COXINHA = "COXINHA",
+  PASTEL = "PASTEL",
+  HOTDOG = "HOTDOG",
+  COMBO = "COMBO",
+  CONGELADOS = "CONGELADOS",
+  BATATAS = "BATATAS",
+}
+export { Categoria };
