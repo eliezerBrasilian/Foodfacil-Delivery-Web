@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { CustomLoading } from "../components/CustomLoading";
 import { Salgado } from "../components/Salgado";
 import { useBottomBarContext } from "../context/BottomBarContext";
+import { useSaborContext } from "../context/SaborContext";
 import { useSalgadosContext } from "../context/SalgadosContext";
 import { LocalStorageKeys } from "../enums/LocalStorageKeys";
 import { Rotas } from "../enums/Rotas";
@@ -15,11 +16,19 @@ export function TelaCardapio() {
     useSalgadosContext();
   const { handleCardapioBottomBar, activateVisibility } = useBottomBarContext();
 
+  const { getAll, carregado: saborFoiCarregado } = useSaborContext();
+
   const nav = useNavigate();
 
   useEffect(() => {
     activateVisibility();
     handleCardapioBottomBar();
+  }, []);
+
+  useEffect(() => {
+    if (!saborFoiCarregado) {
+      getAll();
+    }
   }, []);
 
   useEffect(() => {

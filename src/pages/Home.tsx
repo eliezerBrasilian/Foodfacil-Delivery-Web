@@ -25,20 +25,6 @@ export function Home() {
 
   // useEffect(() => localStorage.clear());
 
-  // const onError = (message: string) => {
-  //   if (message == "Access Denied") {
-  //     window.alert("Acesso negado !");
-  //     localStorage.clear();
-  //     nav(Rotas.LOGIN);
-  //   }
-
-  //   if (message == "AxiosError: Network Error") {
-  //     window.alert("Erro ao se conectar com o servidor!");
-  //     localStorage.clear();
-  //     nav(Rotas.LOGIN);
-  //   }
-  // };
-
   useEffect(() => {
     activateVisibility();
     handleHomeBottomBar();
