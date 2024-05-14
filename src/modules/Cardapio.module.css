@@ -1,0 +1,10 @@
+body {
+  background-color: white;
+  display: flex;
+  margin: 0;
+  padding: 0;
+}
+
+.container {
+  width: 100vw;
+}

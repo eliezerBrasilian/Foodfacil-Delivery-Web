@@ -3,7 +3,6 @@ import { useNavigate } from "react-router-dom";
 import { HomeCarrousel } from "../components/HomeCarrousel";
 import { HomeHeader } from "../components/HomeHeader";
 import { HomeSalgado } from "../components/HomeSalgado";
-import { VazioComponente } from "../components/VazioComponente";
 import { useSalgadosContext } from "../context/SalgadosContext";
 import { LocalStorageKeys } from "../enums/LocalStorageKeys";
 import { Rotas } from "../enums/Rotas";
@@ -12,7 +11,8 @@ import { AppUtils } from "../utils/AppUtils";
 import { useLarguraAtual } from "./../custom_hooks/useLarguraAtual";
 
 export function Home() {
-  const { getAllSalgados, salgados, carregado } = useSalgadosContext();
+  const { getAllSalgados, salgadosEmPromocao, carregado } =
+    useSalgadosContext();
 
   const nav = useNavigate();
   const larguraAtual = useLarguraAtual();
@@ -58,14 +58,14 @@ export function Home() {
       <HomeCarrousel />
 
       <h1 style={{ fontSize: 19 }}>Promoções imperdíveis</h1>
-      <p style={{ fontSize: 18 }}>
-        Não temos promções no momento, mas fique ligado(a)
-      </p>
-      {salgados.length == 0 ? (
-        <VazioComponente titulo="Salgado" />
+
+      {salgadosEmPromocao.length == 0 ? (
+        <p style={{ fontSize: 18 }}>
+          Não temos promções no momento, mas fique ligado(a)
+        </p>
       ) : (
         <div style={{ marginTop: 25, marginBottom: 50 }}>
-          {salgados?.map((item, index) => (
+          {salgadosEmPromocao?.map((item, index) => (
             <HomeSalgado
               key={index}
               salgadoResponseDto={item}

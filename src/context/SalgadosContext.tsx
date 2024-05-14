@@ -2,6 +2,7 @@ import { ReactNode, createContext, useContext, useState } from "react";
 import { api } from "../api/client/client";
 import { Categoria } from "../enums/Categoria";
 import { Disponibilidade } from "../enums/Disponibilidade";
+import { SalgadoRepository } from "../repositories/SalgadoRepository";
 import { SalgadoContextInterface } from "../types/SalgadoContextInterface";
 import { SalgadoRequestDto } from "../types/SalgadoRequestDto";
 import { SalgadoRequestEditDto } from "../types/SalgadoRequestEditDto";
@@ -10,6 +11,8 @@ import { SalgadoResponseDto } from "../types/SalgadoResponseDto";
 const defaultSalgadoContext = {
   getAllSalgados: (_err: (str: string) => void) => {},
   salgados: Array<SalgadoResponseDto>(),
+  salgadosEmPromocao: Array<SalgadoResponseDto>(),
+  combos: Array<SalgadoResponseDto>(),
   salvarSalgado: (
     _salg: SalgadoRequestDto,
     _t: string,
@@ -37,7 +40,13 @@ export function SalgadosContextProvider({ children }: SalgadoProviderProps) {
   const [salgados, setSalgados] =
     useState<Array<SalgadoResponseDto>>(ArrayVazio);
 
+  const [salgadosEmPromocao, setSalgadosEmPromocao] =
+    useState<Array<SalgadoResponseDto>>(ArrayVazio);
+  const [combos, setCombos] = useState<Array<SalgadoResponseDto>>(ArrayVazio);
+
   const [carregado, setCarregado] = useState(false);
+
+  const salgadoRepository = new SalgadoRepository();
 
   async function excluirTodos(token: string, onError: (s: string) => void) {
     const config = {
@@ -62,19 +71,13 @@ export function SalgadosContextProvider({ children }: SalgadoProviderProps) {
   }
 
   async function getAllSalgados(onError: (str: string) => void) {
-    try {
-      var response = await api.get("/salgado");
-      console.log(response);
+    var salgados = await salgadoRepository.getAll(onError);
 
-      var lista: Array<SalgadoResponseDto> = response.data.lista;
-      console.log(lista);
-      setSalgados(lista);
-      setCarregado(true);
-    } catch (e) {
-      console.log("erro: " + e);
+    setSalgados(salgados);
 
-      onError("AxiosError: Network Error");
-    }
+    setSalgadosEmPromocao(salgados.filter((salg) => salg.emOferta == true));
+    setCombos(salgados.filter((salg) => salg.categoria == Categoria.COMBO));
+    setCarregado(true);
   }
 
   async function salvarSalgado(
@@ -210,6 +213,8 @@ export function SalgadosContextProvider({ children }: SalgadoProviderProps) {
       value={{
         getAllSalgados,
         salgados,
+        salgadosEmPromocao,
+        combos,
         salvarSalgado,
         editarSalgado,
         excluirSalgado,

@@ -5,6 +5,8 @@ import { SalgadoResponseDto } from "./SalgadoResponseDto";
 export interface SalgadoContextInterface {
   getAllSalgados: (onError: (s: string) => void) => {};
   salgados: Array<SalgadoResponseDto>;
+  salgadosEmPromocao: Array<SalgadoResponseDto>;
+  combos: Array<SalgadoResponseDto>;
   salvarSalgado: (
     salgadoObj: SalgadoRequestDto,
     token: string,
