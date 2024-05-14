@@ -13,6 +13,7 @@ const defaultSalgadoContext = {
   salgadosEmPromocao: Array<SalgadoResponseDto>(),
   combos: Array<SalgadoResponseDto>(),
   carregado: false,
+  carregando: true,
   getAllSalgados: (_err: (str: string) => void) => {},
   salvarSalgado: (
     _salg: SalgadoRequestDto,
@@ -48,6 +49,7 @@ export function SalgadosContextProvider({ children }: SalgadoProviderProps) {
   const [combos, setCombos] = useState<Array<SalgadoResponseDto>>(ArrayVazio);
 
   const [carregado, setCarregado] = useState(false);
+  const [carregando, setCarregando] = useState(true);
 
   const salgadoRepository = new SalgadoRepository();
 
@@ -74,6 +76,7 @@ export function SalgadosContextProvider({ children }: SalgadoProviderProps) {
   }
 
   async function getAllSalgados(onError: (str: string) => void) {
+    setCarregando(true);
     var salgados = await salgadoRepository.getAll(onError);
 
     setSalgados(salgados);
@@ -81,6 +84,7 @@ export function SalgadosContextProvider({ children }: SalgadoProviderProps) {
     setSalgadosEmPromocao(salgados.filter((salg) => salg.emOferta == true));
     setCombos(salgados.filter((salg) => salg.categoria == Categoria.COMBO));
     setCarregado(true);
+    setCarregando(false);
   }
 
   async function salvarSalgado(
@@ -218,16 +222,17 @@ export function SalgadosContextProvider({ children }: SalgadoProviderProps) {
   return (
     <SalgadosContext.Provider
       value={{
-        getAllSalgados,
-        buscaItem,
         salgados,
         salgadosEmPromocao,
         combos,
+        carregado,
+        carregando,
+        getAllSalgados,
+        buscaItem,
         salvarSalgado,
         editarSalgado,
         excluirSalgado,
         excluirTodos,
-        carregado,
       }}
     >
       {children}

@@ -1,17 +1,15 @@
-import { api } from "../api/client/client";
 import { SalgadoResponseDto } from "../types/SalgadoResponseDto";
+import { ApiUtils } from "../utils/ApiUtils";
 
 export class SalgadoRepository {
   async getAll(onError: (str: string) => void) {
     try {
-      var response = await api.get("/salgado");
-      console.log(response);
+      const res: any = await new ApiUtils().fazerRequisicao("/salgado");
 
-      var lista: Array<SalgadoResponseDto> = response.data.lista;
-      return lista;
-    } catch (e: any) {
-      console.log("erro: " + e);
-      onError(e.response.data);
+      return res.lista as Array<SalgadoResponseDto>;
+    } catch (error: any) {
+      console.error("Erro ao obter os dados:", error.message);
+      onError(error.message);
       return [];
     }
   }

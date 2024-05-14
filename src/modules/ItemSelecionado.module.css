@@ -18,10 +18,23 @@ body {
     height: 200px;
     width: 100%;
   }
+  .detalhes_container {
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
+    row-gap: 8px;
+
+    .chao {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+  }
 
   .titulo {
-    font-size: 18px;
+    font-size: 19px;
     color: black;
+    font-weight: 700;
   }
 
   .descricao {
@@ -35,7 +48,7 @@ body {
   }
 
   .taxa_de_entrega {
-    font-size: 18px;
+    font-size: 15px;
     color: #3c3b3b;
   }
 }

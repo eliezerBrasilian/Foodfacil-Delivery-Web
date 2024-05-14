@@ -4,6 +4,7 @@ import { HomeCarrousel } from "../components/HomeCarrousel";
 import { HomeHeader } from "../components/HomeHeader";
 import { HomeSalgado } from "../components/HomeSalgado";
 import { useBottomBarContext } from "../context/BottomBarContext";
+import { useSaborContext } from "../context/SaborContext";
 import { useSalgadosContext } from "../context/SalgadosContext";
 import { LocalStorageKeys } from "../enums/LocalStorageKeys";
 import { Rotas } from "../enums/Rotas";
@@ -14,6 +15,8 @@ import { useLarguraAtual } from "./../custom_hooks/useLarguraAtual";
 export function Home() {
   const { getAllSalgados, salgadosEmPromocao, carregado } =
     useSalgadosContext();
+
+  const { getAll, carregado: saborFoiCarregado } = useSaborContext();
 
   const { handleHomeBottomBar, activateVisibility } = useBottomBarContext();
 
@@ -49,6 +52,12 @@ export function Home() {
           nav(Rotas.LOGIN);
         })
       );
+    }
+  }, []);
+
+  useEffect(() => {
+    if (!saborFoiCarregado) {
+      getAll();
     }
   }, []);
 

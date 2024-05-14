@@ -5,6 +5,7 @@ import { BottomBarContextProvider } from "./context/BottomBarContext";
 import { CabecalhoContextProvider } from "./context/CabecalhoContext";
 import { NotificacaoContextProvider } from "./context/NotificacaoContext";
 import { PedidoContextProvider } from "./context/PedidoContext";
+import { SaborContextProvider } from "./context/SaborContext";
 import { SalgadosContextProvider } from "./context/SalgadosContext";
 import { RoutesApp } from "./routes/Routes";
 function App() {
@@ -13,13 +14,15 @@ function App() {
       <CabecalhoContextProvider>
         <BottomBarContextProvider>
           <SalgadosContextProvider>
-            <AcompanhamentoContextProvider>
-              <PedidoContextProvider>
-                <NotificacaoContextProvider>
-                  <RoutesApp />
-                </NotificacaoContextProvider>
-              </PedidoContextProvider>
-            </AcompanhamentoContextProvider>
+            <SaborContextProvider>
+              <AcompanhamentoContextProvider>
+                <PedidoContextProvider>
+                  <NotificacaoContextProvider>
+                    <RoutesApp />
+                  </NotificacaoContextProvider>
+                </PedidoContextProvider>
+              </AcompanhamentoContextProvider>
+            </SaborContextProvider>
           </SalgadosContextProvider>
         </BottomBarContextProvider>
       </CabecalhoContextProvider>

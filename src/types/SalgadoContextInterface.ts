@@ -6,6 +6,7 @@ export interface SalgadoContextInterface {
   salgados: Array<SalgadoResponseDto>;
   salgadosEmPromocao: Array<SalgadoResponseDto>;
   combos: Array<SalgadoResponseDto>;
+  carregando: boolean;
   carregado: boolean;
   getAllSalgados: (onError: (s: string) => void) => {};
   salvarSalgado: (
