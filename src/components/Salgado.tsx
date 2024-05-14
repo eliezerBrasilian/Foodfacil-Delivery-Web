@@ -4,19 +4,19 @@ import { AppUtils } from "../utils/AppUtils";
 
 interface SalgadoProps {
   salgadoResponseDto: SalgadoResponseDto;
-  handlePopUpEdicaoVisibilidade: () => void;
+  onClick: () => void;
   ehCelular: boolean;
 }
 
 export function Salgado({
   salgadoResponseDto,
-  handlePopUpEdicaoVisibilidade,
+  onClick,
   ehCelular,
 }: SalgadoProps) {
   if (ehCelular)
     return (
       <div
-        onClick={handlePopUpEdicaoVisibilidade}
+        onClick={onClick}
         style={{
           display: "flex",
           alignItems: "center",
@@ -39,7 +39,7 @@ export function Salgado({
     return (
       <div
         className={salgadoStyles.container}
-        onClick={handlePopUpEdicaoVisibilidade}
+        onClick={onClick}
         style={ehCelular ? { flexDirection: "column" } : {}}
       >
         <img src={salgadoResponseDto?.imagemQuadrada} />

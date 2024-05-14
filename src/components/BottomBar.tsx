@@ -22,17 +22,18 @@ export function BottomBar() {
   } = useBottomBarContext();
 
   const location = useLocation();
+  const nome = location.pathname;
 
   useEffect(() => {
-    if (location.pathname === Rotas.HOME) {
+    if (nome === Rotas.HOME) {
       handleHomeBottomBar();
-    } else if (location.pathname === Rotas.TELA_PEDIDOS) {
+    } else if (nome === Rotas.TELA_PEDIDOS) {
       handlePedidosBottomBar();
-    } else if (location.pathname === Rotas.TELA_CARDAPIO) {
+    } else if (nome === Rotas.TELA_CARDAPIO) {
       handleCardapioBottomBar();
-    } else if (location.pathname === Rotas.TELA_CARRINHO) {
+    } else if (nome === Rotas.TELA_CARRINHO) {
       handleCarrinhoBottomBar();
-    } else if (location.pathname === Rotas.TELA_PERFIL) {
+    } else if (nome === Rotas.TELA_PERFIL) {
       handlePerfilBottomBar();
     } else {
       removeVisibility();

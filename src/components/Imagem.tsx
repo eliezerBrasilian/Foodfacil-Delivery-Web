@@ -6,7 +6,7 @@ interface ImagemProps {
   onClick?: () => void;
 }
 
-function Imagem({
+export function Imagem({
   imagePath = "public/foodfacillogo_splash.png",
   height = 200,
   width = 200,
@@ -21,5 +21,3 @@ function Imagem({
     />
   );
 }
-
-export { Imagem };

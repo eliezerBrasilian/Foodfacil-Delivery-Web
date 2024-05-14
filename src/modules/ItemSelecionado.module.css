@@ -1,0 +1,41 @@
+body {
+  margin: 0;
+  padding: 0;
+}
+
+.container {
+  min-width: 100vw;
+
+  .seta_voltar {
+    height: 25px;
+    width: 25px;
+    position: absolute;
+    top: 10px;
+    left: 10px;
+  }
+
+  .capa {
+    height: 200px;
+    width: 100%;
+  }
+
+  .titulo {
+    font-size: 18px;
+    color: black;
+  }
+
+  .descricao {
+    font-size: 18px;
+    color: #555353;
+  }
+
+  .preco {
+    font-size: 18px;
+    color: #28d84f;
+  }
+
+  .taxa_de_entrega {
+    font-size: 18px;
+    color: #3c3b3b;
+  }
+}

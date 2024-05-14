@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { HomeCarrousel } from "../components/HomeCarrousel";
 import { HomeHeader } from "../components/HomeHeader";
 import { HomeSalgado } from "../components/HomeSalgado";
+import { useBottomBarContext } from "../context/BottomBarContext";
 import { useSalgadosContext } from "../context/SalgadosContext";
 import { LocalStorageKeys } from "../enums/LocalStorageKeys";
 import { Rotas } from "../enums/Rotas";
@@ -13,6 +14,8 @@ import { useLarguraAtual } from "./../custom_hooks/useLarguraAtual";
 export function Home() {
   const { getAllSalgados, salgadosEmPromocao, carregado } =
     useSalgadosContext();
+
+  const { handleHomeBottomBar, activateVisibility } = useBottomBarContext();
 
   const nav = useNavigate();
   const larguraAtual = useLarguraAtual();
@@ -32,6 +35,11 @@ export function Home() {
   //     nav(Rotas.LOGIN);
   //   }
   // };
+
+  useEffect(() => {
+    activateVisibility();
+    handleHomeBottomBar();
+  }, []);
 
   useEffect(() => {
     if (!carregado) {

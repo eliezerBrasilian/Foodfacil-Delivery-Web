@@ -9,10 +9,11 @@ import { SalgadoRequestEditDto } from "../types/SalgadoRequestEditDto";
 import { SalgadoResponseDto } from "../types/SalgadoResponseDto";
 
 const defaultSalgadoContext = {
-  getAllSalgados: (_err: (str: string) => void) => {},
   salgados: Array<SalgadoResponseDto>(),
   salgadosEmPromocao: Array<SalgadoResponseDto>(),
   combos: Array<SalgadoResponseDto>(),
+  carregado: false,
+  getAllSalgados: (_err: (str: string) => void) => {},
   salvarSalgado: (
     _salg: SalgadoRequestDto,
     _t: string,
@@ -21,7 +22,9 @@ const defaultSalgadoContext = {
   editarSalgado: (_salg: SalgadoRequestEditDto, _t: string) => {},
   excluirSalgado: (_salgadoId, _token) => {},
   excluirTodos: (_t: string, _onError: (s: string) => void) => {},
-  carregado: false,
+  buscaItem: (_id: string): SalgadoResponseDto | undefined => {
+    return undefined;
+  },
 } as SalgadoContextInterface;
 
 const SalgadosContext = createContext(defaultSalgadoContext);
@@ -208,10 +211,15 @@ export function SalgadosContextProvider({ children }: SalgadoProviderProps) {
     }
   }
 
+  function buscaItem(id: string): SalgadoResponseDto | undefined {
+    return salgados.find((v) => v.id === id);
+  }
+
   return (
     <SalgadosContext.Provider
       value={{
         getAllSalgados,
+        buscaItem,
         salgados,
         salgadosEmPromocao,
         combos,

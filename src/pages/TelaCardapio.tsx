@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { Salgado } from "../components/Salgado";
+import { useBottomBarContext } from "../context/BottomBarContext";
 import { useSalgadosContext } from "../context/SalgadosContext";
 import { LocalStorageKeys } from "../enums/LocalStorageKeys";
 import { Rotas } from "../enums/Rotas";
@@ -9,9 +10,15 @@ import { useLarguraAtual } from "./../custom_hooks/useLarguraAtual";
 
 export function TelaCardapio() {
   const { combos, carregado, getAllSalgados } = useSalgadosContext();
+  const { handleCardapioBottomBar, activateVisibility } = useBottomBarContext();
 
   const nav = useNavigate();
   const larguraTotal = useLarguraAtual();
+
+  useEffect(() => {
+    activateVisibility();
+    handleCardapioBottomBar();
+  }, []);
 
   useEffect(() => {
     if (!carregado) {
@@ -43,8 +50,10 @@ export function TelaCardapio() {
             {combos?.map((item, index) => (
               <Salgado
                 key={index}
+                onClick={() => {
+                  nav(`${Rotas.TELA_ITEM_SELECIONADO}/${item.id}`);
+                }}
                 salgadoResponseDto={item}
-                handlePopUpEdicaoVisibilidade={() => {}}
                 ehCelular={larguraTotal <= 500}
               />
             ))}

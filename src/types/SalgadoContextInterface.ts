@@ -3,10 +3,11 @@ import { SalgadoRequestEditDto } from "./SalgadoRequestEditDto";
 import { SalgadoResponseDto } from "./SalgadoResponseDto";
 
 export interface SalgadoContextInterface {
-  getAllSalgados: (onError: (s: string) => void) => {};
   salgados: Array<SalgadoResponseDto>;
   salgadosEmPromocao: Array<SalgadoResponseDto>;
   combos: Array<SalgadoResponseDto>;
+  carregado: boolean;
+  getAllSalgados: (onError: (s: string) => void) => {};
   salvarSalgado: (
     salgadoObj: SalgadoRequestDto,
     token: string,
@@ -15,5 +16,5 @@ export interface SalgadoContextInterface {
   editarSalgado: (salgadoObj: SalgadoRequestEditDto, token: string) => void;
   excluirSalgado: (salgadoId: string, token: string) => void;
   excluirTodos: (token: string, onError: (s: string) => void) => void;
-  carregado: boolean;
+  buscaItem: (id: string) => SalgadoResponseDto | undefined;
 }
