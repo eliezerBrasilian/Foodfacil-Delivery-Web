@@ -1,4 +1,5 @@
 import { ReactNode, createContext, useContext, useState } from "react";
+import { LocalStorageKeys } from "../enums/LocalStorageKeys";
 import { SaborRepository } from "../repositories/SaborRepository";
 import { SaborContextInterface } from "../types/SaborContextInterface";
 import { SaborResponseDto } from "../types/SaborResponseDto";
@@ -30,10 +31,13 @@ export function SaborContextProvider({ children }: SaborProviderProps) {
 
   async function getAll() {
     setCarregando(true);
-    var _lista = await saborRepository.getAll();
+    var token = localStorage.getItem(LocalStorageKeys.TOKEN);
 
-    setLista(_lista);
+    if (token != null) {
+      var _lista = await saborRepository.getAll(token);
 
+      setLista(_lista);
+    }
     setCarregado(true);
     setCarregando(false);
   }

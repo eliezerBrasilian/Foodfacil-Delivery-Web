@@ -2,13 +2,19 @@ import { AxiosResponse } from "axios";
 import { api } from "../api/client/client";
 
 export class ApiUtils {
-  async fazerRequisicao<T>(rota: string) {
+  async fazerRequisicao<T>(rota: string, token: string) {
     const maxTentativas = 5;
     let tentativas = 0;
 
+    const config = {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    };
+
     async function requisicaoRecursiva(rota: string): Promise<T> {
       try {
-        const response: AxiosResponse<T> = await api.get(rota);
+        const response: AxiosResponse<T> = await api.get(rota, config);
         console.log(response);
         return response.data;
       } catch (error: any) {
