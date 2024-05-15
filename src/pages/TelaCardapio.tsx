@@ -33,9 +33,7 @@ export function TelaCardapio() {
 
   useEffect(() => {
     if (!carregado) {
-      getAllSalgados((msg) => {
-        alert(msg);
-      });
+      getAllSalgados();
     }
   }, []);
 

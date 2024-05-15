@@ -9,7 +9,6 @@ import { useSalgadosContext } from "../context/SalgadosContext";
 import { LocalStorageKeys } from "../enums/LocalStorageKeys";
 import { Rotas } from "../enums/Rotas";
 import hs from "../modules/Home.module.css";
-import { AppUtils } from "../utils/AppUtils";
 import { useLarguraAtual } from "./../custom_hooks/useLarguraAtual";
 
 export function Home() {
@@ -32,12 +31,7 @@ export function Home() {
 
   useEffect(() => {
     if (!carregado) {
-      getAllSalgados((msg) =>
-        AppUtils.trataErro(msg, () => {
-          localStorage.clear();
-          nav(Rotas.LOGIN);
-        })
-      );
+      getAllSalgados();
     }
   }, []);
 

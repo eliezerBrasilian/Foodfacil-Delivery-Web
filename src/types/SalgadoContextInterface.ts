@@ -8,7 +8,7 @@ export interface SalgadoContextInterface {
   combos: Array<SalgadoResponseDto>;
   carregando: boolean;
   carregado: boolean;
-  getAllSalgados: (onError: (s: string) => void) => {};
+  getAllSalgados: () => {};
   salvarSalgado: (
     salgadoObj: SalgadoRequestDto,
     token: string,

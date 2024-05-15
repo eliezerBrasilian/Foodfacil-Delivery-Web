@@ -2,6 +2,7 @@ import { ReactNode, createContext, useContext, useState } from "react";
 import { api } from "../api/client/client";
 import { Categoria } from "../enums/Categoria";
 import { Disponibilidade } from "../enums/Disponibilidade";
+import { LocalStorageKeys } from "../enums/LocalStorageKeys";
 import { SalgadoRepository } from "../repositories/SalgadoRepository";
 import { SalgadoContextInterface } from "../types/SalgadoContextInterface";
 import { SalgadoRequestDto } from "../types/SalgadoRequestDto";
@@ -14,7 +15,7 @@ const defaultSalgadoContext = {
   combos: Array<SalgadoResponseDto>(),
   carregado: false,
   carregando: true,
-  getAllSalgados: (_err: (str: string) => void) => {},
+  getAllSalgados: () => {},
   salvarSalgado: (
     _salg: SalgadoRequestDto,
     _t: string,
@@ -75,14 +76,20 @@ export function SalgadosContextProvider({ children }: SalgadoProviderProps) {
     }
   }
 
-  async function getAllSalgados(onError: (str: string) => void) {
+  async function getAllSalgados() {
     setCarregando(true);
-    var salgados = await salgadoRepository.getAll(onError);
 
-    setSalgados(salgados);
+    var token = localStorage.getItem(LocalStorageKeys.TOKEN);
 
-    setSalgadosEmPromocao(salgados.filter((salg) => salg.emOferta == true));
-    setCombos(salgados.filter((salg) => salg.categoria == Categoria.COMBO));
+    if (token != null) {
+      var salgados = await salgadoRepository.getAll(token);
+
+      setSalgados(salgados);
+
+      setSalgadosEmPromocao(salgados.filter((salg) => salg.emOferta == true));
+      setCombos(salgados.filter((salg) => salg.categoria == Categoria.COMBO));
+    }
+
     setCarregado(true);
     setCarregando(false);
   }
