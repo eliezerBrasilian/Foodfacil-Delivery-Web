@@ -7,7 +7,7 @@ interface ImagemProps {
 }
 
 export function Imagem({
-  imagePath = "public/foodfacillogo_splash.png",
+  imagePath = "/foodfacillogo_splash.png",
   height = 200,
   width = 200,
   objectFit = "contain",
