@@ -151,7 +151,7 @@ export function CustomCheckBox({
         justifyContent: "center",
       }}
     >
-      {checked && <Imagem imagePath="check.png" height={14} width={14} />}
+      {checked && <Imagem imagePath="/check.png" height={14} width={14} />}
     </div>
   );
 }
