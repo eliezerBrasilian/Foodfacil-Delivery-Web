@@ -18,4 +18,6 @@ export interface SalgadoContextInterface {
   excluirSalgado: (salgadoId: string, token: string) => void;
   excluirTodos: (token: string, onError: (s: string) => void) => void;
   buscaItem: (id: string) => SalgadoResponseDto | undefined;
+  adicionaSabor(salgadoId: string, sabor: string): void;
+  saborEstaAdicionado(salgadoId: string, nome: string): boolean;
 }

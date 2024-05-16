@@ -22,11 +22,13 @@ const defaultSalgadoContext = {
     _onError: (m: string) => void
   ) => {},
   editarSalgado: (_salg: SalgadoRequestEditDto, _t: string) => {},
-  excluirSalgado: (_salgadoId, _token) => {},
+  excluirSalgado: (_salgadoId: string, _token: string) => {},
   excluirTodos: (_t: string, _onError: (s: string) => void) => {},
   buscaItem: (_id: string): SalgadoResponseDto | undefined => {
     return undefined;
   },
+  adicionaSabor: (_salgadoId: string, _sabor: string) => {},
+  saborEstaAdicionado: (_salgadoId: string, _nome: string) => {},
 } as SalgadoContextInterface;
 
 const SalgadosContext = createContext(defaultSalgadoContext);
@@ -53,6 +55,37 @@ export function SalgadosContextProvider({ children }: SalgadoProviderProps) {
   const [carregando, setCarregando] = useState(true);
 
   const salgadoRepository = new SalgadoRepository();
+
+  function saborEstaAdicionado(salgadoId: string, nome: string) {
+    const index = salgados.findIndex((salg) => salg.id == salgadoId);
+
+    if (index != 1) {
+      return salgados[index].sabores.includes(nome);
+    }
+    return false;
+  }
+
+  function adicionaSabor(salgadoId: string, nome: string) {
+    const index = salgados.findIndex((salg) => salg.id === salgadoId);
+
+    if (index !== -1) {
+      setSalgados((oldStateList) => {
+        const newList = oldStateList.map((salgado, idx) => {
+          if (idx === index) {
+            if (salgado.sabores.includes(nome)) {
+              // Se o sabor já existe, remove-o da lista
+              salgado.sabores = salgado.sabores.filter((sab) => sab !== nome);
+            } else {
+              // Caso contrário, adiciona-o à lista
+              salgado.sabores.push(nome);
+            }
+          }
+          return salgado;
+        });
+        return newList;
+      });
+    }
+  }
 
   async function excluirTodos(token: string, onError: (s: string) => void) {
     const config = {
@@ -240,6 +273,8 @@ export function SalgadosContextProvider({ children }: SalgadoProviderProps) {
         editarSalgado,
         excluirSalgado,
         excluirTodos,
+        adicionaSabor,
+        saborEstaAdicionado,
       }}
     >
       {children}
