@@ -3,6 +3,7 @@ import { useParams } from "react-router-dom";
 import { AlgumaObservacaoRow } from "../components/AlgumaObservacaoRow";
 import { ButaoAdicionarComPreco } from "../components/ButaoAdicionarComPreco";
 import { ItemSelecionadoDetalhes } from "../components/ItemSelecionadoDetalhes";
+import { ItemSelecionadoTop } from "../components/ItemSelecionadoTop";
 import { MonteSeuPedido } from "../components/MonteSeuPedido";
 import { ObservacaoTextInput } from "../components/ObservacaoTextInput";
 import { SaboresParaEscolher } from "../components/SaboresParaEscolher";
@@ -10,7 +11,6 @@ import { useSaborContext } from "../context/SaborContext";
 import { useCarrinhoContext } from "../defaultContexts/CarrinhoContextDefault";
 import { useSalgadosContext } from "../defaultContexts/SalgadoContextDefault";
 import s from "../modules/ItemSelecionado.module.css";
-import { ItemSelecionadoTop } from "./ItemSelecionadoTop";
 
 export function ItemSelecionado() {
   const { id } = useParams();

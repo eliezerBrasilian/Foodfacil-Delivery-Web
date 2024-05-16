@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom";
-import { ItemSelecionadoTopProps } from "../components/ItemSelecionadoDetalhesProps";
 import s from "../modules/ItemSelecionado.module.css";
+import { ItemSelecionadoTopProps } from "./ItemSelecionadoDetalhesProps";
 
 export function ItemSelecionadoTop({ capa }: ItemSelecionadoTopProps) {
   const nav = useNavigate();

@@ -1,23 +1,23 @@
+import { useNavigate } from "react-router-dom";
 import { cores } from "../assets/cores";
 import { usePrecoTotalCarrinho } from "../custom_hooks/usePrecoTotalCarrinho";
 import { useCarrinhoContext } from "../defaultContexts/CarrinhoContextDefault";
+import { Rotas } from "../enums/Rotas";
 import { AppUtils } from "../utils/AppUtils";
 
 export type Preco = number | string | undefined;
 
-interface VerCarrinhoBtnProps {
-  onClick?: () => void;
-}
-
-export function VerCarrinhoBtn({ onClick = () => {} }: VerCarrinhoBtnProps) {
+export function VerCarrinhoBtn() {
   const precoTotal = usePrecoTotalCarrinho();
 
   const { carrinhoList } = useCarrinhoContext();
 
+  const nav = useNavigate();
+
   if (carrinhoList.length > 0)
     return (
       <div
-        onClick={onClick}
+        onClick={() => nav(Rotas.TELA_CARRINHO)}
         style={{
           backgroundColor: "white",
           margin: 0,

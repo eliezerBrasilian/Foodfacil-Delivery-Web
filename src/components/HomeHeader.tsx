@@ -1,4 +1,6 @@
+import { useNavigate } from "react-router-dom";
 import { cores } from "../assets/cores";
+import { Rotas } from "../enums/Rotas";
 import { Imagem } from "./Imagem";
 
 interface CarrinhoComCirculoProps {
@@ -25,8 +27,9 @@ export function HomeHeader({ contador = 0 }: CarrinhoComCirculoProps) {
 }
 
 function CarrinhoComCirculo({ contador }: CarrinhoComCirculoProps) {
+  const nav = useNavigate();
   return (
-    <div>
+    <div onClick={() => nav(Rotas.TELA_CARRINHO)}>
       <Imagem imagePath="top_carrinho.png" height={25} width={25} />
       <div
         style={{
