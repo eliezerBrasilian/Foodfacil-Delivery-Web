@@ -1,5 +1,5 @@
-import { Linha } from "../components/Linha";
 import { CustomCheckBox } from "./CustomCheckBox";
+import { Linha } from "./Linha";
 
 interface SaborComponentProps {
   nome: string;

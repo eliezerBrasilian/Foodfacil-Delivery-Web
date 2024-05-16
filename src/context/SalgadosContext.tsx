@@ -1,45 +1,17 @@
-import { ReactNode, createContext, useContext, useState } from "react";
+import { ReactNode, useState } from "react";
 import { api } from "../api/client/client";
+import { SalgadosContext } from "../defaultContexts/SalgadoContextDefault";
 import { Categoria } from "../enums/Categoria";
 import { Disponibilidade } from "../enums/Disponibilidade";
 import { LocalStorageKeys } from "../enums/LocalStorageKeys";
 import { SalgadoRepository } from "../repositories/SalgadoRepository";
-import { SalgadoContextInterface } from "../types/SalgadoContextInterface";
 import { SalgadoRequestDto } from "../types/SalgadoRequestDto";
 import { SalgadoRequestEditDto } from "../types/SalgadoRequestEditDto";
 import { SalgadoResponseDto } from "../types/SalgadoResponseDto";
 
-const defaultSalgadoContext = {
-  salgados: Array<SalgadoResponseDto>(),
-  salgadosEmPromocao: Array<SalgadoResponseDto>(),
-  combos: Array<SalgadoResponseDto>(),
-  carregado: false,
-  carregando: true,
-  getAllSalgados: () => {},
-  salvarSalgado: (
-    _salg: SalgadoRequestDto,
-    _t: string,
-    _onError: (m: string) => void
-  ) => {},
-  editarSalgado: (_salg: SalgadoRequestEditDto, _t: string) => {},
-  excluirSalgado: (_salgadoId: string, _token: string) => {},
-  excluirTodos: (_t: string, _onError: (s: string) => void) => {},
-  buscaItem: (_id: string): SalgadoResponseDto | undefined => {
-    return undefined;
-  },
-  adicionaSabor: (_salgadoId: string, _sabor: string) => {},
-  saborEstaAdicionado: (_salgadoId: string, _nome: string) => {},
-} as SalgadoContextInterface;
-
-const SalgadosContext = createContext(defaultSalgadoContext);
-
 type SalgadoProviderProps = {
   children: ReactNode;
 };
-
-export function useSalgadosContext() {
-  return useContext(SalgadosContext);
-}
 
 export function SalgadosContextProvider({ children }: SalgadoProviderProps) {
   const ArrayVazio = Array<SalgadoResponseDto>();
@@ -65,26 +37,28 @@ export function SalgadosContextProvider({ children }: SalgadoProviderProps) {
     return false;
   }
 
-  function adicionaSabor(salgadoId: string, nome: string) {
+  function adicionaSabores(
+    salgadoId: string,
+    sabores: string[],
+    observacao: string
+  ) {
     const index = salgados.findIndex((salg) => salg.id === salgadoId);
 
     if (index !== -1) {
       setSalgados((oldStateList) => {
         const newList = oldStateList.map((salgado, idx) => {
           if (idx === index) {
-            if (salgado.sabores.includes(nome)) {
-              // Se o sabor já existe, remove-o da lista
-              salgado.sabores = salgado.sabores.filter((sab) => sab !== nome);
-            } else {
-              // Caso contrário, adiciona-o à lista
-              salgado.sabores.push(nome);
-            }
+            salgado.sabores = sabores;
+            salgado.observacao = observacao;
           }
           return salgado;
         });
         return newList;
       });
+
+      return salgados[index];
     }
+    return null;
   }
 
   async function excluirTodos(token: string, onError: (s: string) => void) {
@@ -273,7 +247,7 @@ export function SalgadosContextProvider({ children }: SalgadoProviderProps) {
         editarSalgado,
         excluirSalgado,
         excluirTodos,
-        adicionaSabor,
+        adicionaSabores,
         saborEstaAdicionado,
       }}
     >

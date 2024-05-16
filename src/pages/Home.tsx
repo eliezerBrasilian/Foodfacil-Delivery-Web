@@ -5,7 +5,7 @@ import { HomeHeader } from "../components/HomeHeader";
 import { HomeSalgado } from "../components/HomeSalgado";
 import { useBottomBarContext } from "../context/BottomBarContext";
 import { useSaborContext } from "../context/SaborContext";
-import { useSalgadosContext } from "../context/SalgadosContext";
+import { useSalgadosContext } from "../defaultContexts/SalgadoContextDefault";
 import { LocalStorageKeys } from "../enums/LocalStorageKeys";
 import { Rotas } from "../enums/Rotas";
 import hs from "../modules/Home.module.css";

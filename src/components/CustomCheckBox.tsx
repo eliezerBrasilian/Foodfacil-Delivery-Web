@@ -1,5 +1,5 @@
 import { cores } from "../assets/cores";
-import { Imagem } from "../components/Imagem";
+import { Imagem } from "./Imagem";
 
 interface CustomCheckBoxProps {
   checked: boolean;

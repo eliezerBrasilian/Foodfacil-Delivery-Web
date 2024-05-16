@@ -1,6 +1,6 @@
-import { ItemSelecionadoDetalhesProps } from "../components/ItemSelecionadoDetalhesProps";
 import s from "../modules/ItemSelecionado.module.css";
 import { AppUtils } from "../utils/AppUtils";
+import { ItemSelecionadoDetalhesProps } from "./ItemSelecionadoDetalhesProps";
 
 export function ItemSelecionadoDetalhes({
   titulo,

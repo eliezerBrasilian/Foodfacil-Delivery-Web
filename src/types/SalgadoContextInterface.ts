@@ -8,7 +8,7 @@ export interface SalgadoContextInterface {
   combos: Array<SalgadoResponseDto>;
   carregando: boolean;
   carregado: boolean;
-  getAllSalgados: () => {};
+  getAllSalgados: () => void;
   salvarSalgado: (
     salgadoObj: SalgadoRequestDto,
     token: string,
@@ -18,6 +18,10 @@ export interface SalgadoContextInterface {
   excluirSalgado: (salgadoId: string, token: string) => void;
   excluirTodos: (token: string, onError: (s: string) => void) => void;
   buscaItem: (id: string) => SalgadoResponseDto | undefined;
-  adicionaSabor(salgadoId: string, sabor: string): void;
+  adicionaSabores(
+    salgadoId: string,
+    sabores: string[],
+    observacao: string
+  ): SalgadoResponseDto | null;
   saborEstaAdicionado(salgadoId: string, nome: string): boolean;
 }

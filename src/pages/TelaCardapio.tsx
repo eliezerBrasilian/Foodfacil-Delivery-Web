@@ -1,10 +1,11 @@
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { AppTitulo } from "../components/AppTitulo";
 import { CustomLoading } from "../components/CustomLoading";
 import { Salgado } from "../components/Salgado";
 import { useBottomBarContext } from "../context/BottomBarContext";
 import { useSaborContext } from "../context/SaborContext";
-import { useSalgadosContext } from "../context/SalgadosContext";
+import { useSalgadosContext } from "../defaultContexts/SalgadoContextDefault";
 import { LocalStorageKeys } from "../enums/LocalStorageKeys";
 import { Rotas } from "../enums/Rotas";
 import cs from "../modules/Cardapio.module.css";
@@ -69,10 +70,6 @@ export function TelaCardapio() {
   );
 }
 
-export interface AppTituloProps {
-  text: string;
-}
-
 export interface TelaCardapioMainContentProps {
   combos: Array<SalgadoResponseDto>;
 }
@@ -104,21 +101,4 @@ export function TelaCardapioMainContent({
         ))}
       </div>
     );
-}
-
-export function AppTitulo({ text }: AppTituloProps) {
-  return (
-    <div
-      style={{
-        backgroundColor: "#f1f1f1",
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "center",
-        width: "100%",
-        height: 100,
-      }}
-    >
-      <p style={{ color: "#FF0303" }}>{text}</p>
-    </div>
-  );
 }

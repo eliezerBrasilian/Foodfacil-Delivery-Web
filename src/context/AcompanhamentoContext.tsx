@@ -32,7 +32,7 @@ interface AcompanhamentoContextProps {
   children: ReactNode;
 }
 
-function AcompanhamentoContextProvider({
+export function AcompanhamentoContextProvider({
   children,
 }: AcompanhamentoContextProps) {
   const [acompanhamentos, setAcompanhamentos] = useState<
@@ -200,4 +200,3 @@ function AcompanhamentoContextProvider({
     </AcompanhamentoContext.Provider>
   );
 }
-export { AcompanhamentoContextProvider };
