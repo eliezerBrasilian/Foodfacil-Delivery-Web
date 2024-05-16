@@ -105,7 +105,7 @@ export function ButaoAdicionarComPreco({ preco }: ButaoAdicionarComPrecoProps) {
         alignItems: "center",
         columnGap: 20,
         width: "fit-content",
-        position: "absolute",
+        position: "fixed",
         bottom: 20,
         right: 20,
         color: "#fff",
