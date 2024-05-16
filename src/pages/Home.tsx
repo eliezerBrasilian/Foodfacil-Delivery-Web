@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { HomeCarrousel } from "../components/HomeCarrousel";
 import { HomeHeader } from "../components/HomeHeader";
 import { HomeSalgado } from "../components/HomeSalgado";
+import { VerCarrinhoBtn } from "../components/VerCarrinhoBtn";
 import { useBottomBarContext } from "../context/BottomBarContext";
 import { useSaborContext } from "../context/SaborContext";
 import { useSalgadosContext } from "../defaultContexts/SalgadoContextDefault";
@@ -72,6 +73,7 @@ export function Home() {
           ))}
         </div>
       )}
+      <VerCarrinhoBtn />
     </div>
   );
 }

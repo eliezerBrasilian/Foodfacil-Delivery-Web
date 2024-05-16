@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { AppTitulo } from "../components/AppTitulo";
 import { CustomLoading } from "../components/CustomLoading";
 import { Salgado } from "../components/Salgado";
+import { VerCarrinhoBtn } from "../components/VerCarrinhoBtn";
 import { useBottomBarContext } from "../context/BottomBarContext";
 import { useSaborContext } from "../context/SaborContext";
 import { useSalgadosContext } from "../defaultContexts/SalgadoContextDefault";
@@ -99,6 +100,8 @@ export function TelaCardapioMainContent({
             ehCelular={larguraTotal <= 500}
           />
         ))}
+
+        <VerCarrinhoBtn />
       </div>
     );
 }
