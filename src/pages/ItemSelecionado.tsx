@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { AlgumaObservacaoRow } from "../components/AlgumaObservacaoRow";
 import { ButaoAdicionarComPreco } from "../components/ButaoAdicionarComPreco";
 import { ItemSelecionadoDetalhes } from "../components/ItemSelecionadoDetalhes";
@@ -22,6 +22,8 @@ export function ItemSelecionado() {
   const [saboresEscolhidos, setSaboresEscolhidos] = useState<string[]>([]);
 
   const [observacaoText, setObservacaoText] = useState("");
+
+  const nav = useNavigate();
 
   const onChangeText = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
     if (event.target.value.length < 141) {
@@ -58,6 +60,7 @@ export function ItemSelecionado() {
       //adicionar esse salgado no carrinho
       if (optionalSalgadoAtualizado != null)
         addSalgado(optionalSalgadoAtualizado);
+      nav(-1);
     }
   };
 

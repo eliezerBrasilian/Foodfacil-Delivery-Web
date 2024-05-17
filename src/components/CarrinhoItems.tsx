@@ -1,19 +1,34 @@
 import { useCarrinhoContext } from "../defaultContexts/CarrinhoContextDefault";
-import { CarrinhoItem } from "./CarrinhoItem";
+import { CarrinhoItem, IdentificadorItem } from "./CarrinhoItem";
 
 export function CarrinhoItems() {
-  const { carrinhoList } = useCarrinhoContext();
+  const { salgadosList, acompanhamentoList } = useCarrinhoContext();
 
   return (
     <div>
-      {carrinhoList.map((v, i) => (
+      {salgadosList.map((v, i) => (
         <CarrinhoItem
           key={i}
           nome={v.nome}
           descricao={v.descricao}
           preco={v.preco}
           imagemTransparent={v.imagem}
-          contador={1}
+          contador={v.quantidade}
+          identificador={IdentificadorItem.SALGADO}
+          id={v.id}
+        />
+      ))}
+      <div style={{ marginTop: 10 }} />
+      {acompanhamentoList.map((v, i) => (
+        <CarrinhoItem
+          key={i}
+          nome={v.nome}
+          descricao={v.descricao}
+          preco={v.preco}
+          imagemTransparent={v.imagem}
+          contador={v.quantidade}
+          identificador={IdentificadorItem.ACOMPANHAMENTO}
+          id={v.id}
         />
       ))}
     </div>

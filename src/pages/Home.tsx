@@ -6,6 +6,7 @@ import { HomeSalgado } from "../components/HomeSalgado";
 import { VerCarrinhoBtn } from "../components/VerCarrinhoBtn";
 import { useBottomBarContext } from "../context/BottomBarContext";
 import { useSaborContext } from "../context/SaborContext";
+import { useAcompanhamentoContext } from "../defaultContexts/AcompanhamentoContextDefault";
 import { useSalgadosContext } from "../defaultContexts/SalgadoContextDefault";
 import { LocalStorageKeys } from "../enums/LocalStorageKeys";
 import { Rotas } from "../enums/Rotas";
@@ -17,6 +18,8 @@ export function Home() {
     useSalgadosContext();
 
   const { getAll, carregado: saborFoiCarregado } = useSaborContext();
+  const { getAllAcompanhamentos, carregado: carregadoAcompabhamento } =
+    useAcompanhamentoContext();
 
   const { handleHomeBottomBar, activateVisibility } = useBottomBarContext();
 
@@ -39,6 +42,12 @@ export function Home() {
   useEffect(() => {
     if (!saborFoiCarregado) {
       getAll();
+    }
+  }, []);
+
+  useEffect(() => {
+    if (!carregadoAcompabhamento) {
+      getAllAcompanhamentos();
     }
   }, []);
 
@@ -66,7 +75,7 @@ export function Home() {
           {salgadosEmPromocao?.map((item, index) => (
             <HomeSalgado
               key={index}
-              salgadoResponseDto={item}
+              salgadoDto={item}
               handlePopUpEdicaoVisibilidade={() => {}}
               ehCelular={larguraAtual <= 500}
             />

@@ -1,18 +1,14 @@
 import salgadoStyles from "../modules/Salgado.module.css";
-import { SalgadoResponseDto } from "../types/SalgadoResponseDto";
+import { SalgadoDto } from "../types/SalgadoDto";
 import { AppUtils } from "../utils/AppUtils";
 
 interface SalgadoProps {
-  salgadoResponseDto: SalgadoResponseDto;
+  salgadoDto: SalgadoDto;
   onClick: () => void;
   ehCelular: boolean;
 }
 
-export function Salgado({
-  salgadoResponseDto,
-  onClick,
-  ehCelular,
-}: SalgadoProps) {
+export function Salgado({ salgadoDto, onClick, ehCelular }: SalgadoProps) {
   if (ehCelular)
     return (
       <div
@@ -25,13 +21,13 @@ export function Salgado({
         }}
       >
         <img
-          src={salgadoResponseDto?.imagemQuadrada}
+          src={salgadoDto?.imagemQuadrada}
           style={{ height: 90, width: 90, borderRadius: 10 }}
         />
         <div className={salgadoStyles.direita}>
-          <h2>{salgadoResponseDto?.nome}</h2>
-          <p style={{ color: "#555353" }}>{salgadoResponseDto?.descricao}</p>
-          <p>{AppUtils.toMoedaBrasileira(salgadoResponseDto?.preco)}</p>
+          <h2>{salgadoDto?.nome}</h2>
+          <p style={{ color: "#555353" }}>{salgadoDto?.descricao}</p>
+          <p>{AppUtils.toMoedaBrasileira(salgadoDto?.preco)}</p>
         </div>
       </div>
     );
@@ -42,15 +38,13 @@ export function Salgado({
         onClick={onClick}
         style={ehCelular ? { flexDirection: "column" } : {}}
       >
-        <img src={salgadoResponseDto?.imagemQuadrada} />
+        <img src={salgadoDto?.imagemQuadrada} />
         <div className={salgadoStyles.direita}>
-          <h2>{salgadoResponseDto?.nome}</h2>
-          <p>{salgadoResponseDto?.descricao}</p>
-          <p>{salgadoResponseDto?.categoria}</p>
-          <p>{AppUtils.toMoedaBrasileira(salgadoResponseDto?.preco)}</p>
-          <p>
-            {salgadoResponseDto?.emOferta ? "Em oferta" : "Não está em oferta"}
-          </p>
+          <h2>{salgadoDto?.nome}</h2>
+          <p>{salgadoDto?.descricao}</p>
+          <p>{salgadoDto?.categoria}</p>
+          <p>{AppUtils.toMoedaBrasileira(salgadoDto?.preco)}</p>
+          <p>{salgadoDto?.emOferta ? "Em oferta" : "Não está em oferta"}</p>
         </div>
       </div>
     );

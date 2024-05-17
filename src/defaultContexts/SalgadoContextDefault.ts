@@ -1,25 +1,15 @@
 import { createContext, useContext } from "react";
 import { SalgadoContextInterface } from "../types/SalgadoContextInterface";
-import { SalgadoRequestDto } from "../types/SalgadoRequestDto";
-import { SalgadoRequestEditDto } from "../types/SalgadoRequestEditDto";
-import { SalgadoResponseDto } from "../types/SalgadoResponseDto";
+import { SalgadoDto } from "../types/SalgadoDto";
 
 const defaultContext: SalgadoContextInterface = {
-  salgados: Array<SalgadoResponseDto>(),
-  salgadosEmPromocao: Array<SalgadoResponseDto>(),
-  combos: Array<SalgadoResponseDto>(),
+  salgados: Array<SalgadoDto>(),
+  salgadosEmPromocao: Array<SalgadoDto>(),
+  combos: Array<SalgadoDto>(),
   carregado: false,
   carregando: true,
   getAllSalgados: () => {},
-  salvarSalgado: (
-    _salg: SalgadoRequestDto,
-    _t: string,
-    _onError: (m: string) => void
-  ) => {},
-  editarSalgado: (_salg: SalgadoRequestEditDto, _t: string) => {},
-  excluirSalgado: (_salgadoId: string, _token: string) => {},
-  excluirTodos: (_t: string, _onError: (s: string) => void) => {},
-  buscaItem: (_id: string): SalgadoResponseDto | undefined => {
+  buscaItem: (_id: string): SalgadoDto | undefined => {
     return undefined;
   },
   adicionaSabores: (

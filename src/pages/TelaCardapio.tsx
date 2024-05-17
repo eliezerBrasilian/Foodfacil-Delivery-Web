@@ -10,7 +10,7 @@ import { useSalgadosContext } from "../defaultContexts/SalgadoContextDefault";
 import { LocalStorageKeys } from "../enums/LocalStorageKeys";
 import { Rotas } from "../enums/Rotas";
 import cs from "../modules/Cardapio.module.css";
-import { SalgadoResponseDto } from "../types/SalgadoResponseDto";
+import { SalgadoDto } from "../types/SalgadoDto";
 import { useLarguraAtual } from "./../custom_hooks/useLarguraAtual";
 
 export function TelaCardapio() {
@@ -72,7 +72,7 @@ export function TelaCardapio() {
 }
 
 export interface TelaCardapioMainContentProps {
-  combos: Array<SalgadoResponseDto>;
+  combos: Array<SalgadoDto>;
 }
 
 export function TelaCardapioMainContent({
@@ -96,7 +96,7 @@ export function TelaCardapioMainContent({
             onClick={() => {
               nav(`${Rotas.TELA_ITEM_SELECIONADO}/${item.id}`);
             }}
-            salgadoResponseDto={item}
+            salgadoDto={item}
             ehCelular={larguraTotal <= 500}
           />
         ))}

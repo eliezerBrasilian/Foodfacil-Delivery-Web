@@ -1,8 +1,13 @@
-import { SalgadoResponseDto } from "./SalgadoResponseDto";
+import { AcompanhamentoDto } from "./AcompanhamentoDto";
+import { SalgadoDto } from "./SalgadoDto";
 
 export interface CarrinhoContextInterface {
-  carrinhoList: Array<SalgadoResponseDto>;
+  salgadosList: Array<SalgadoDto>;
+  acompanhamentoList: Array<AcompanhamentoDto>;
   incrementar: (salgadoId: string) => void;
   decrementar: (salgadoId: string) => void;
-  addSalgado: (salgado: SalgadoResponseDto) => void;
+  addSalgado: (salgado: SalgadoDto) => void;
+  addAcompanhamento: (acomp: AcompanhamentoDto) => void;
+  incrementarAcompanhamento: (id: string) => void;
+  decrementarAcompanhamento: (id: string) => void;
 }

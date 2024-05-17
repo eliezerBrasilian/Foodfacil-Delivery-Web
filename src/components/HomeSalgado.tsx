@@ -1,16 +1,16 @@
 import { cores } from "../assets/cores";
 import salgadoStyles from "../modules/HomeSalgado.module.css";
-import { SalgadoResponseDto } from "../types/SalgadoResponseDto";
+import { SalgadoDto } from "../types/SalgadoDto";
 import { AppUtils } from "../utils/AppUtils";
 
 interface SalgadoProps {
-  salgadoResponseDto: SalgadoResponseDto;
+  salgadoDto: SalgadoDto;
   handlePopUpEdicaoVisibilidade: () => void;
   ehCelular: boolean;
 }
 
 export function HomeSalgado({
-  salgadoResponseDto,
+  salgadoDto,
   handlePopUpEdicaoVisibilidade,
 }: SalgadoProps) {
   return (
@@ -19,14 +19,14 @@ export function HomeSalgado({
       onClick={handlePopUpEdicaoVisibilidade}
     >
       <div className={salgadoStyles.esquerda}>
-        <h2>{salgadoResponseDto?.nome}</h2>
-        <p style={{ color: "#555353" }}>{salgadoResponseDto?.descricao}</p>
+        <h2>{salgadoDto?.nome}</h2>
+        <p style={{ color: "#555353" }}>{salgadoDto?.descricao}</p>
         <p className={salgadoStyles.preco} style={{ color: cores.preco }}>
-          {AppUtils.toMoedaBrasileira(salgadoResponseDto?.preco)}
+          {AppUtils.toMoedaBrasileira(salgadoDto?.preco)}
         </p>
       </div>
 
-      <img src={salgadoResponseDto?.imagem} />
+      <img src={salgadoDto?.imagem} />
     </div>
   );
 }

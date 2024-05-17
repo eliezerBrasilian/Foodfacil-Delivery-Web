@@ -1,27 +1,17 @@
-import { SalgadoRequestDto } from "./SalgadoRequestDto";
-import { SalgadoRequestEditDto } from "./SalgadoRequestEditDto";
-import { SalgadoResponseDto } from "./SalgadoResponseDto";
+import { SalgadoDto } from "./SalgadoDto";
 
 export interface SalgadoContextInterface {
-  salgados: Array<SalgadoResponseDto>;
-  salgadosEmPromocao: Array<SalgadoResponseDto>;
-  combos: Array<SalgadoResponseDto>;
+  salgados: Array<SalgadoDto>;
+  salgadosEmPromocao: Array<SalgadoDto>;
+  combos: Array<SalgadoDto>;
   carregando: boolean;
   carregado: boolean;
   getAllSalgados: () => void;
-  salvarSalgado: (
-    salgadoObj: SalgadoRequestDto,
-    token: string,
-    onError: (message: string) => void
-  ) => void;
-  editarSalgado: (salgadoObj: SalgadoRequestEditDto, token: string) => void;
-  excluirSalgado: (salgadoId: string, token: string) => void;
-  excluirTodos: (token: string, onError: (s: string) => void) => void;
-  buscaItem: (id: string) => SalgadoResponseDto | undefined;
+  buscaItem: (id: string) => SalgadoDto | undefined;
   adicionaSabores(
     salgadoId: string,
     sabores: string[],
     observacao: string
-  ): SalgadoResponseDto | null;
+  ): SalgadoDto | null;
   saborEstaAdicionado(salgadoId: string, nome: string): boolean;
 }

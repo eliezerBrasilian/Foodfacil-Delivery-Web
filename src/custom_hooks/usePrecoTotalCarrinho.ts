@@ -2,19 +2,31 @@ import { useMemo } from "react";
 import { useCarrinhoContext } from "../defaultContexts/CarrinhoContextDefault";
 
 export function usePrecoTotalCarrinho() {
-  const { carrinhoList } = useCarrinhoContext();
+  const { salgadosList, acompanhamentoList } = useCarrinhoContext();
 
-  const precoTotal = useMemo(() => {
+  const precoTotalSalgados = useMemo(() => {
     var total = 0;
-    carrinhoList.forEach((salg) => {
+    salgadosList.forEach((salg) => {
+      var quantidade = salg.quantidade;
+
       if (salg.emOferta) {
-        total += salg.precoEmOferta;
+        total += salg.precoEmOferta * quantidade;
       } else {
-        total += salg.preco;
+        total += salg.preco * quantidade;
       }
     });
     return total;
-  }, [carrinhoList]);
+  }, [salgadosList]);
 
-  return precoTotal;
+  const precoTotalAcompanhamentos = useMemo(() => {
+    var total = 0;
+    acompanhamentoList.forEach((a) => {
+      var quantidade = a.quantidade;
+
+      total += a.preco * quantidade;
+    });
+    return total;
+  }, [salgadosList]);
+
+  return precoTotalSalgados + precoTotalAcompanhamentos;
 }

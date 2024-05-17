@@ -1,3 +1,4 @@
+import { useMemo } from "react";
 import { useNavigate } from "react-router-dom";
 import { cores } from "../assets/cores";
 import { usePrecoTotalCarrinho } from "../custom_hooks/usePrecoTotalCarrinho";
@@ -10,11 +11,31 @@ export type Preco = number | string | undefined;
 export function VerCarrinhoBtn() {
   const precoTotal = usePrecoTotalCarrinho();
 
-  const { carrinhoList } = useCarrinhoContext();
+  const { salgadosList, acompanhamentoList } = useCarrinhoContext();
 
   const nav = useNavigate();
 
-  if (carrinhoList.length > 0)
+  const contadorTotalSalgados = useMemo(() => {
+    var total = 0;
+    salgadosList.forEach((salg) => {
+      var quantidade = salg.quantidade;
+
+      total += quantidade;
+    });
+    return total;
+  }, [salgadosList]);
+
+  const contadorAcompanhamentos = useMemo(() => {
+    var total = 0;
+    acompanhamentoList.forEach((a) => {
+      var quantidade = a.quantidade;
+
+      total += quantidade;
+    });
+    return total;
+  }, [salgadosList]);
+
+  if (salgadosList.length > 0)
     return (
       <div
         onClick={() => nav(Rotas.TELA_CARRINHO)}
@@ -32,7 +53,10 @@ export function VerCarrinhoBtn() {
           left: 0,
         }}
       >
-        <Esquerdo contador={carrinhoList.length} preco={precoTotal} />
+        <Esquerdo
+          contador={contadorTotalSalgados + contadorAcompanhamentos}
+          preco={precoTotal}
+        />
         <Btn text="Ver carrinho" />
       </div>
     );

@@ -1,0 +1,31 @@
+/* styles.css */
+.cima {
+  position: relative;
+  width: 140px;
+  height: 110px;
+  background-color: #ccc;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 10px;
+  padding: 15px;
+  border-radius: 10px;
+}
+
+.imagem {
+  width: 60px;
+  height: 60px;
+}
+
+.circle {
+  position: absolute;
+  left: 57%;
+  top: 50%;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-color: #febf08; /* Cor de fundo do círculo */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
