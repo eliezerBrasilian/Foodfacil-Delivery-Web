@@ -96,6 +96,7 @@ export function SalgadosContextProvider({ children }: SalgadoProviderProps) {
         precoEmOferta: v.precoEmOferta,
         quantidade: 0,
         sabores: v.sabores,
+        observacao: "",
         createdAt: v.createdAt,
       };
       novaLista.push(item);

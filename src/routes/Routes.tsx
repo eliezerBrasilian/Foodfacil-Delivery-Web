@@ -7,6 +7,7 @@ import { ItemSelecionado } from "../pages/ItemSelecionado";
 import { Login } from "../pages/Login";
 import { TelaCardapio } from "../pages/TelaCardapio";
 import { TelaCarrinhoDeCompras } from "../pages/TelaCarrinhoDeCompras";
+import { TelaFinalizarPedido } from "../pages/TelaFinalizarPedido";
 import { TelaNotificacoes } from "../pages/TelaNotificacoes";
 import { TelaPedidos } from "./../pages/TelaPedidos";
 
@@ -22,6 +23,10 @@ export function RoutesApp() {
         <Route path={Rotas.TELA_PERFIL} element={<TelaNotificacoes />} />
         <Route path={rotaItemSelecionado} element={<ItemSelecionado />} />
         <Route path={Rotas.TELA_CARRINHO} element={<TelaCarrinhoDeCompras />} />
+        <Route
+          path={Rotas.TELA_FINALIZAR_PEDIDO}
+          element={<TelaFinalizarPedido />}
+        />
       </Routes>
       <BottomBar />
     </BrowserRouter>

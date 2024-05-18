@@ -14,7 +14,7 @@ export function FinalizarPedidoBtn() {
   if (precoTotal >= 20)
     return (
       <div
-        onClick={() => nav(Rotas.TELA_CARRINHO)}
+        onClick={() => nav(Rotas.TELA_FINALIZAR_PEDIDO)}
         style={{
           backgroundColor: "white",
           margin: 0,

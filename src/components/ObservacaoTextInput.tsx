@@ -1,13 +1,16 @@
 interface ObservacaoTextInputProps {
+  value: string;
   onChangeText: (event: React.ChangeEvent<HTMLTextAreaElement>) => void;
 }
 
 export function ObservacaoTextInput({
+  value,
   onChangeText,
 }: ObservacaoTextInputProps) {
   return (
     <div style={{ width: "100%", padding: 15, marginBottom: 20 }}>
       <textarea
+        value={value}
         onChange={onChangeText}
         style={{
           border: "1px solid #ccc",

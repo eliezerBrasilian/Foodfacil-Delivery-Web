@@ -1,14 +1,25 @@
+import { useEffect, useState } from "react";
+import { useTaxaContext } from "../context/TaxaContext";
 import { usePrecoTotalCarrinho } from "../custom_hooks/usePrecoTotalCarrinho";
 import { AppUtils } from "../utils/AppUtils";
 
 export function ResumoDoPedido() {
   const subtotal = usePrecoTotalCarrinho();
+
+  const { taxa } = useTaxaContext();
+
+  const [total, setTotal] = useState<number>(0);
+
+  useEffect(() => {
+    setTotal(taxa + subtotal);
+  }, [taxa]);
+
   return (
-    <div style={{ marginTop: 40 }}>
+    <div style={{ marginTop: 30 }}>
       <h4>Resumo do pedido</h4>
       <PedidoRow chave="Subtotal" valor={subtotal} />
-      <PedidoRow chave="Taxa de entrega" valor={"à calcular"} />
-      {/* <PedidoRow chave="Total" valor={16} /> */}
+      <PedidoRow chave="Taxa de entrega" valor={taxa} />
+      {taxa != -1 && <PedidoRow chave="Total" valor={total} />}
     </div>
   );
 }
@@ -29,9 +40,7 @@ function PedidoRow({ chave, valor }: PedidoRowProps) {
     >
       <p style={{ color: chave == "Total" ? "#000" : "#666666" }}>{chave}</p>
       <p style={{ color: chave == "Taxa de entrega" ? "#0B8900" : "#666666" }}>
-        {valor == "à calcular"
-          ? valor
-          : AppUtils.toMoedaBrasileira(valor as number)}
+        {valor == -1 ? valor : AppUtils.toMoedaBrasileira(valor as number)}
       </p>
     </div>
   );

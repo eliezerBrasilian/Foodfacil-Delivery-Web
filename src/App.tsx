@@ -8,25 +8,28 @@ import { NotificacaoContextProvider } from "./context/NotificacaoContext";
 import { PedidoContextProvider } from "./context/PedidoContext";
 import { SaborContextProvider } from "./context/SaborContext";
 import { SalgadosContextProvider } from "./context/SalgadosContext";
+import { TaxaContextProvider } from "./context/TaxaContext";
 import { RoutesApp } from "./routes/Routes";
 function App() {
   return (
     <AuthContextProvider>
       <CabecalhoContextProvider>
         <BottomBarContextProvider>
-          <SalgadosContextProvider>
-            <CarrinhoContextProvider>
-              <SaborContextProvider>
-                <AcompanhamentoContextProvider>
-                  <PedidoContextProvider>
-                    <NotificacaoContextProvider>
-                      <RoutesApp />
-                    </NotificacaoContextProvider>
-                  </PedidoContextProvider>
-                </AcompanhamentoContextProvider>
-              </SaborContextProvider>
-            </CarrinhoContextProvider>
-          </SalgadosContextProvider>
+          <TaxaContextProvider>
+            <SalgadosContextProvider>
+              <CarrinhoContextProvider>
+                <SaborContextProvider>
+                  <AcompanhamentoContextProvider>
+                    <PedidoContextProvider>
+                      <NotificacaoContextProvider>
+                        <RoutesApp />
+                      </NotificacaoContextProvider>
+                    </PedidoContextProvider>
+                  </AcompanhamentoContextProvider>
+                </SaborContextProvider>
+              </CarrinhoContextProvider>
+            </SalgadosContextProvider>
+          </TaxaContextProvider>
         </BottomBarContextProvider>
       </CabecalhoContextProvider>
     </AuthContextProvider>

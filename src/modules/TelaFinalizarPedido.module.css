@@ -1,0 +1,46 @@
+body {
+  margin: 0;
+  padding: 0;
+}
+
+.container {
+  min-width: 100vw;
+  padding: 15px;
+  .capa {
+    height: 200px;
+    width: 100%;
+  }
+  .detalhes_container {
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
+    row-gap: 8px;
+
+    .chao {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+  }
+
+  .titulo {
+    font-size: 19px;
+    color: black;
+    font-weight: 700;
+  }
+
+  .descricao {
+    font-size: 18px;
+    color: #555353;
+  }
+
+  .preco {
+    font-size: 18px;
+    color: #28d84f;
+  }
+
+  .taxa_de_entrega {
+    font-size: 15px;
+    color: #3c3b3b;
+  }
+}

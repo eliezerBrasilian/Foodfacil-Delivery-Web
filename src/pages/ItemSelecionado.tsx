@@ -70,6 +70,7 @@ export function ItemSelecionado() {
 
       if (optionalSalg != undefined) {
         setSaboresEscolhidos(optionalSalg.sabores);
+        setObservacaoText(optionalSalg.observacao);
       }
     }
   }, []);
@@ -93,7 +94,10 @@ export function ItemSelecionado() {
           <AlgumaObservacaoRow
             contadorDeCaracteresDigitados={observacaoText.length}
           />
-          <ObservacaoTextInput onChangeText={onChangeText} />
+          <ObservacaoTextInput
+            value={observacaoText}
+            onChangeText={onChangeText}
+          />
           <ButaoAdicionarComPreco
             preco={buscaItem(id)?.preco}
             onClick={onClickAdd}

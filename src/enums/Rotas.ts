@@ -6,6 +6,7 @@ enum Rotas {
   TELA_CARRINHO = "/carrinho",
   TELA_PERFIL = "/perfil",
   TELA_ITEM_SELECIONADO = "/item",
+  TELA_FINALIZAR_PEDIDO = "/finalizar-pedido",
 }
 
 export { Rotas };

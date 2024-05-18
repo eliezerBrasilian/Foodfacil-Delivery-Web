@@ -15,6 +15,6 @@ export interface SalgadoDto {
   disponibilidade: Disponibilidade;
   quantidade: number;
   createdAt: number;
-  observacao?: string | null;
+  observacao: string;
   sabores: string[];
 }

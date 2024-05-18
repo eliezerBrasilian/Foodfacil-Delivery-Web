@@ -14,7 +14,6 @@ interface SalgadoResponseDto {
   precoEmOferta: number;
   disponibilidade: Disponibilidade;
   createdAt: number;
-  observacao?: string | null;
   sabores: string[];
 }
 
