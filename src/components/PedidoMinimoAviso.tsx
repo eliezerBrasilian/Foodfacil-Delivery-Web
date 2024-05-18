@@ -3,6 +3,7 @@ import { Imagem } from "./Imagem";
 
 export function PedidoMinimoAviso() {
   const precoTotal = usePrecoTotalCarrinho();
+
   if (precoTotal < 20)
     return (
       <div

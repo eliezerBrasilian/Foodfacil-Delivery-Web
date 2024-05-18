@@ -26,7 +26,7 @@ export function usePrecoTotalCarrinho() {
       total += a.preco * quantidade;
     });
     return total;
-  }, [salgadosList]);
+  }, [acompanhamentoList]);
 
   return precoTotalSalgados + precoTotalAcompanhamentos;
 }
