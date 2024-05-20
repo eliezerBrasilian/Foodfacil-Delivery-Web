@@ -15,7 +15,6 @@ export function BottomBar() {
     navPerfilIsActive,
     handleHomeBottomBar,
     handleCardapioBottomBar,
-    handleCarrinhoBottomBar,
     handlePedidosBottomBar,
     handlePerfilBottomBar,
     removeVisibility,
@@ -25,14 +24,13 @@ export function BottomBar() {
   const nome = location.pathname;
 
   useEffect(() => {
+    console.log("nome: " + nome);
     if (nome === Rotas.HOME) {
       handleHomeBottomBar();
     } else if (nome === Rotas.TELA_PEDIDOS) {
       handlePedidosBottomBar();
     } else if (nome === Rotas.TELA_CARDAPIO) {
       handleCardapioBottomBar();
-    } else if (nome === Rotas.TELA_CARRINHO) {
-      handleCarrinhoBottomBar();
     } else if (nome === Rotas.TELA_PERFIL) {
       handlePerfilBottomBar();
     } else {
@@ -53,6 +51,6 @@ export function BottomBar() {
           navPerfilIsActive={navPerfilIsActive}
         />
       );
-    } else return <div></div>;
-  } else return <div></div>;
+    } else return null;
+  } else return null;
 }

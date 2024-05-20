@@ -7,6 +7,7 @@ import { ItemSelecionado } from "../pages/ItemSelecionado";
 import { Login } from "../pages/Login";
 import { TelaCardapio } from "../pages/TelaCardapio";
 import { TelaCarrinhoDeCompras } from "../pages/TelaCarrinhoDeCompras";
+import { TelaEscolherPagamento } from "../pages/TelaEscolherPagamento";
 import { TelaFinalizarPedido } from "../pages/TelaFinalizarPedido";
 import { TelaNotificacoes } from "../pages/TelaNotificacoes";
 import { TelaPedidos } from "./../pages/TelaPedidos";
@@ -26,6 +27,10 @@ export function RoutesApp() {
         <Route
           path={Rotas.TELA_FINALIZAR_PEDIDO}
           element={<TelaFinalizarPedido />}
+        />
+        <Route
+          path={Rotas.TELA_ESCOLHER_PAGAMENTO}
+          element={<TelaEscolherPagamento />}
         />
       </Routes>
       <BottomBar />

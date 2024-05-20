@@ -25,7 +25,7 @@ export function FinalizarPedidoBtn() {
           columnGap: 20,
           width: "100%",
           position: "fixed",
-          bottom: 80,
+          bottom: 10,
           left: 0,
         }}
       >

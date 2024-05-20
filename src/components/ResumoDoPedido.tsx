@@ -40,7 +40,9 @@ function PedidoRow({ chave, valor }: PedidoRowProps) {
     >
       <p style={{ color: chave == "Total" ? "#000" : "#666666" }}>{chave}</p>
       <p style={{ color: chave == "Taxa de entrega" ? "#0B8900" : "#666666" }}>
-        {valor == -1 ? valor : AppUtils.toMoedaBrasileira(valor as number)}
+        {valor == -1
+          ? "à calcular"
+          : AppUtils.toMoedaBrasileira(valor as number)}
       </p>
     </div>
   );

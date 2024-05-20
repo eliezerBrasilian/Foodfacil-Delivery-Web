@@ -1,16 +1,25 @@
-import { useNavigate } from "react-router-dom";
 import { cores } from "../assets/cores";
-import { Rotas } from "../enums/Rotas";
 import { Imagem } from "./Imagem";
 
-export function MetodoDePagamentoEmFinalizarPedido() {
-  const pixTam = 20;
-  const checkTam = 20;
-
-  const nav = useNavigate();
+interface EnderecoCadastradoProps {
+  rua: string;
+  bairro: string;
+  cidade: string;
+  numero: string;
+  complemento: string;
+  onClickAtivaModal: () => void;
+}
+export function EnderecoCadastrado({
+  rua,
+  bairro,
+  cidade,
+  numero,
+  complemento,
+  onClickAtivaModal,
+}: EnderecoCadastradoProps) {
+  const localizacaoTam = 20;
   return (
     <div style={{ marginTop: 25 }}>
-      {/* cima */}
       <div
         style={{
           display: "flex",
@@ -18,17 +27,15 @@ export function MetodoDePagamentoEmFinalizarPedido() {
           alignItems: "center",
         }}
       >
-        <h4>Método de pagamento</h4>
+        <h4>Entregar no endereço</h4>
         <p
-          onClick={() => {
-            nav(Rotas.TELA_ESCOLHER_PAGAMENTO);
-          }}
+          onClick={onClickAtivaModal}
           style={{ fontSize: 13, color: cores.btn_vermelho }}
         >
           Trocar
         </p>
       </div>
-      {/* baixo */}
+
       <div
         style={{
           marginTop: 20,
@@ -43,19 +50,27 @@ export function MetodoDePagamentoEmFinalizarPedido() {
           borderRadius: 10,
         }}
       >
-        {/* esquerda */}
-        <div style={{ display: "flex", alignItems: "center", columnGap: 12 }}>
+        <div style={{ display: "flex", columnGap: 10, alignItems: "center" }}>
           <Imagem
-            height={pixTam}
-            width={pixTam}
-            imagePath="/pix_comfundo.png"
+            imagePath="/localizacao_amarela.png"
+            height={localizacaoTam}
+            width={localizacaoTam}
           />
-          <p>Pix</p>
+          <div>
+            <h4>
+              Rua {rua}, {numero}
+            </h4>
+            <p>
+              {bairro}, {cidade} - MG
+            </p>
+            <p>{complemento}</p>
+          </div>
         </div>
+
         <Imagem
-          height={checkTam}
-          width={checkTam}
           imagePath="/check_amarelo.png"
+          height={localizacaoTam}
+          width={localizacaoTam}
         />
       </div>
     </div>
