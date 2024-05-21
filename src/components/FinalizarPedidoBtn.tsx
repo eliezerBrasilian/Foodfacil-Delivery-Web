@@ -8,9 +8,11 @@ import { CustomBtn } from "./CustomBtn";
 export type Preco = number | string | undefined;
 
 interface FinalizarPedidoBtnProps {
-  onClick: () => void;
+  onClick?: () => void;
 }
-export function FinalizarPedidoBtn({ onClick }: FinalizarPedidoBtnProps) {
+export function FinalizarPedidoBtn({
+  onClick = () => {},
+}: FinalizarPedidoBtnProps) {
   const precoTotal = usePrecoTotalCarrinho();
 
   const nav = useNavigate();
