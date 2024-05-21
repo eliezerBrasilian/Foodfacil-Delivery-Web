@@ -4,7 +4,7 @@ import { Imagem } from "../components/Imagem";
 import { NotificacaoItem } from "../components/NotificacaoItem";
 import { VazioComponente } from "../components/VazioComponente";
 import { useNotificacaoContext } from "../context/NotificacaoContext";
-import { useLarguraAtual } from "../custom_hooks/useLarguraAtual";
+import { useLarguraAtual } from "../customHooks/useLarguraAtual";
 import { LocalStorageKeys } from "../enums/LocalStorageKeys";
 import { Rotas } from "../enums/Rotas";
 import ts from "../modules/TelaNotificacao.module.css";

@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { AppTitulo } from "../components/AppTitulo";
 import { CustomLoading } from "../components/CustomLoading";
@@ -6,12 +6,12 @@ import { Salgado } from "../components/Salgado";
 import { VerCarrinhoBtn } from "../components/VerCarrinhoBtn";
 import { useBottomBarContext } from "../context/BottomBarContext";
 import { useSaborContext } from "../context/SaborContext";
+import { useLarguraAtual } from "../customHooks/useLarguraAtual";
 import { useSalgadosContext } from "../defaultContexts/SalgadoContextDefault";
 import { LocalStorageKeys } from "../enums/LocalStorageKeys";
 import { Rotas } from "../enums/Rotas";
 import cs from "../modules/Cardapio.module.css";
 import { SalgadoDto } from "../types/SalgadoDto";
-import { useLarguraAtual } from "./../custom_hooks/useLarguraAtual";
 
 export function TelaCardapio() {
   const { combos, carregado, carregando, getAllSalgados } =
@@ -81,6 +81,16 @@ export function TelaCardapioMainContent({
   const nav = useNavigate();
   const larguraTotal = useLarguraAtual();
 
+  const [marginBottom, setMB] = useState(0);
+  useEffect(() => {
+    setMB(190);
+
+    return () => {
+      console.log("saiu");
+      setMB(0);
+    };
+  }, []);
+
   if (combos.length == 0)
     return (
       <p style={{ fontSize: 18 }}>
@@ -89,7 +99,7 @@ export function TelaCardapioMainContent({
     );
   else
     return (
-      <div style={{ marginTop: 25, marginBottom: 50 }}>
+      <div style={{ marginTop: 25, marginBottom: marginBottom }}>
         {combos?.map((item, index) => (
           <Salgado
             key={index}

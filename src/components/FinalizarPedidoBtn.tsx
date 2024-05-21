@@ -1,12 +1,16 @@
 import { useNavigate } from "react-router-dom";
-import { cores } from "../assets/cores";
-import { usePrecoTotalCarrinho } from "../custom_hooks/usePrecoTotalCarrinho";
+import { useTaxaContext } from "../context/TaxaContext";
+import { usePrecoTotalCarrinho } from "../customHooks/usePrecoTotalCarrinho";
 import { Rotas } from "../enums/Rotas";
 import { AppUtils } from "../utils/AppUtils";
+import { CustomBtn } from "./CustomBtn";
 
 export type Preco = number | string | undefined;
 
-export function FinalizarPedidoBtn() {
+interface FinalizarPedidoBtnProps {
+  onClick: () => void;
+}
+export function FinalizarPedidoBtn({ onClick }: FinalizarPedidoBtnProps) {
   const precoTotal = usePrecoTotalCarrinho();
 
   const nav = useNavigate();
@@ -30,7 +34,7 @@ export function FinalizarPedidoBtn() {
         }}
       >
         <Esquerdo preco={precoTotal} />
-        <Btn text="Finalizar pedido" />
+        <CustomBtn text="Finalizar pedido" onClick={onClick} />
       </div>
     );
   return null;
@@ -41,34 +45,33 @@ interface EsquerdoProps {
 }
 
 function Esquerdo({ preco }: EsquerdoProps) {
-  return (
-    <div>
-      <p style={{ color: "#3C3B3B" }}>Total sem a taxa de entrega</p>
-      <div style={{ display: "flex", columnGap: 5 }}>
-        <p>{AppUtils.toMoedaBrasileira(preco as number)}</p>
-      </div>
-    </div>
-  );
-}
+  const { taxa } = useTaxaContext();
 
-interface BtnProps {
-  text: string;
-}
-function Btn({ text }: BtnProps) {
-  return (
-    <div
-      style={{
-        backgroundColor: cores.btn_vermelho,
-        borderRadius: 10,
-        padding: 15,
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "center",
-        width: "fit-content",
-        color: "#fff",
-      }}
-    >
-      <p>{text}</p>
-    </div>
-  );
+  if (taxa == -1)
+    return (
+      <div>
+        <p style={{ color: "#3C3B3B", fontSize: 14 }}>
+          Total sem a taxa de entrega
+        </p>
+        <div style={{ display: "flex", columnGap: 5 }}>
+          <p style={{ fontSize: 16 }}>
+            {AppUtils.toMoedaBrasileira(preco as number)}
+          </p>
+        </div>
+      </div>
+    );
+  else {
+    return (
+      <div>
+        <p style={{ color: "#3C3B3B", fontSize: 14 }}>
+          Total com a taxa de entrega
+        </p>
+        <div style={{ display: "flex", columnGap: 5 }}>
+          <p style={{ fontSize: 16 }}>
+            {AppUtils.toMoedaBrasileira((preco as number) + taxa)}
+          </p>
+        </div>
+      </div>
+    );
+  }
 }

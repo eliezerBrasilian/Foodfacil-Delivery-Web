@@ -2,20 +2,18 @@ import { ReactNode, createContext, useContext, useState } from "react";
 import { api } from "../api/client/client";
 import { PedidoContextInterface } from "../types/PedidoContextInterface";
 import { PedidoRequestDto } from "../types/PedidoRequestDto";
-import { PedidoRequestEditDto } from "../types/PedidoRequestEditDto";
 import { PedidoResponseDto } from "../types/PedidoResponseDto";
+import { LocalStorageKeys } from "../enums/LocalStorageKeys";
+import { PedidoRepository } from "../repositories/PedidoRepository";
 
-const defaultPedidoContext = {
+const defaultPedidoContext: PedidoContextInterface = {
   getAllPedidos: (_token: string, _onError: (message: string) => void) => {},
   pedidos: [],
-  salvarPedido: (
+  criar: (
     _p: PedidoRequestDto,
-    _t: string,
-    _onError: (message: string) => void
+    _onSuccess: (chavePix: string | null) => void
   ) => {},
-  editarPedido: (_pedidoObj: PedidoRequestEditDto, _token: string) => {},
-  excluirPedido: (_pedidoId: string, _token: string) => {},
-} as PedidoContextInterface;
+};
 
 const PedidoContext = createContext(defaultPedidoContext);
 
@@ -29,6 +27,8 @@ interface PedidoContextProps {
 
 function PedidoContextProvider({ children }: PedidoContextProps) {
   const [pedidos, setPedidos] = useState<Array<PedidoResponseDto>>([]);
+
+  const pedidoRepository = new PedidoRepository();
 
   async function getAllPedidos(
     token: string,
@@ -57,77 +57,14 @@ function PedidoContextProvider({ children }: PedidoContextProps) {
     }
   }
 
-  async function salvarPedido(
+  async function criar(
     pedidoObj: PedidoRequestDto,
-    token: string,
-    onError: (message: string) => void
+    onSuccess: (chavePix: string | null) => void
   ) {
-    const config = {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    };
+    var token = LocalStorageKeys.TOKEN;
 
-    try {
-      const response = await api.post("/pedido", pedidoObj, config);
-
-      console.log(response.data);
-
-      window.alert("salvo com sucesso");
-    } catch (e: any) {
-      console.log("erro: " + JSON.stringify(e.response.data));
-      window.alert(e);
-      onError(e.response.data.message);
-    }
-  }
-
-  async function editarPedido(
-    pedidoObj: PedidoRequestEditDto,
-    token: string,
-    onSuccess: () => void
-  ) {
-    console.log("Pedido para editar");
-    console.log(pedidoObj);
-    const config = {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    };
-
-    try {
-      const response = await api.put(
-        `/pedido/${pedidoObj.id}`,
-        pedidoObj,
-        config
-      );
-
-      console.log(response.data);
-
-      onSuccess();
-    } catch (e: any) {
-      console.log("erro: " + e.response.data);
-      window.alert(e);
-    }
-  }
-
-  async function excluirPedido(pedidoId: string, token: string) {
-    console.log("id do Pedido que será excluido");
-    console.log(pedidoId);
-    const config = {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    };
-
-    try {
-      const response = await api.delete(`/pedido/${pedidoId}`, config);
-
-      console.log(response.data);
-
-      window.alert("excluido com sucesso");
-    } catch (e: any) {
-      console.log("erro: " + e.response);
-      window.alert(e);
+    if (token != null) {
+      await pedidoRepository.criaPedido(token, pedidoObj, onSuccess);
     }
   }
 
@@ -136,9 +73,7 @@ function PedidoContextProvider({ children }: PedidoContextProps) {
       value={{
         getAllPedidos,
         pedidos,
-        salvarPedido,
-        editarPedido,
-        excluirPedido,
+        criar,
       }}
     >
       {children}

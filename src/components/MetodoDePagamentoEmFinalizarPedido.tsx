@@ -1,13 +1,16 @@
 import { useNavigate } from "react-router-dom";
 import { cores } from "../assets/cores";
+import { useMetodoPagamentoContext } from "../defaultContexts/MetodoPagamentoContextDefault";
+import { MetodoPagamento } from "../enums/MetodoPagamento";
 import { Rotas } from "../enums/Rotas";
-import { Imagem } from "./Imagem";
+import { DinheiroView } from "./DinheiroView";
+import { PixView } from "./PixView";
 
 export function MetodoDePagamentoEmFinalizarPedido() {
-  const pixTam = 20;
-  const checkTam = 20;
+  const { metodoEscolhido } = useMetodoPagamentoContext();
 
   const nav = useNavigate();
+
   return (
     <div style={{ marginTop: 25 }}>
       {/* cima */}
@@ -32,31 +35,13 @@ export function MetodoDePagamentoEmFinalizarPedido() {
       <div
         style={{
           marginTop: 20,
-          border: "1px solid red",
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "space-between",
-          paddingLeft: 15,
-          paddingRight: 15,
-          paddingTop: 10,
-          paddingBottom: 10,
-          borderRadius: 10,
         }}
       >
-        {/* esquerda */}
-        <div style={{ display: "flex", alignItems: "center", columnGap: 12 }}>
-          <Imagem
-            height={pixTam}
-            width={pixTam}
-            imagePath="/pix_comfundo.png"
-          />
-          <p>Pix</p>
-        </div>
-        <Imagem
-          height={checkTam}
-          width={checkTam}
-          imagePath="/check_amarelo.png"
-        />
+        {metodoEscolhido == MetodoPagamento.PIX ? (
+          <PixView selecionado={true} />
+        ) : (
+          <DinheiroView selecionado={true} />
+        )}
       </div>
     </div>
   );

@@ -1,4 +1,4 @@
-import { usePrecoTotalCarrinho } from "../custom_hooks/usePrecoTotalCarrinho";
+import { usePrecoTotalCarrinho } from "../customHooks/usePrecoTotalCarrinho";
 import { Imagem } from "./Imagem";
 
 export function PedidoMinimoAviso() {

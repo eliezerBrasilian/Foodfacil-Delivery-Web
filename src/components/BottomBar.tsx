@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import { useBottomBarContext } from "../context/BottomBarContext";
-import { useLarguraAtual } from "../custom_hooks/useLarguraAtual";
+import { useLarguraAtual } from "../customHooks/useLarguraAtual";
 import { Rotas } from "../enums/Rotas";
 import { BottomBarItems } from "./BottomBarItems";
 

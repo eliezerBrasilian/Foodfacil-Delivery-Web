@@ -14,6 +14,7 @@ export function HomeHeader({ contador = 0 }: CarrinhoComCirculoProps) {
         display: "flex",
         justifyContent: "space-between",
         width: "100%",
+        padding: 15,
       }}
     >
       <Imagem imagePath="top_logo.png" height={50} width={70} />

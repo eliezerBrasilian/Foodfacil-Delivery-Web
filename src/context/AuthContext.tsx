@@ -1,16 +1,21 @@
 import { ReactNode, createContext, useContext } from "react";
 import { AuthContextInterface } from "../types/AuthContextInterface.js";
+import { UserAuthResponseDto } from "../types/UserAuthResponseDto.js";
 import { AuthRepository } from "./../repositories/AuthRepository";
 import { AuthRequestDto } from "./../types/AuthRequestDto";
 
-const defaultContext = {
-  login: (_e: string, _s: string, _onSuccess: (t: string) => void) => {},
+const defaultContext: AuthContextInterface = {
+  login: (
+    _e: string,
+    _s: string,
+    _onSuccess: (data: UserAuthResponseDto) => void
+  ) => {},
   cadastro: (
     _body: AuthRequestDto,
-    _onSuccess: (msg: string) => void,
+    _onSuccess: (data: UserAuthResponseDto) => void,
     _onError: (msg: string) => void
   ) => {},
-} as AuthContextInterface;
+};
 
 const AuthContext = createContext(defaultContext);
 
@@ -28,14 +33,14 @@ export function AuthContextProvider({ children }: AuthProviderProps) {
   async function login(
     email: string,
     senha: string,
-    onSuccess: (token: string) => void
+    onSuccess: (data: UserAuthResponseDto) => void
   ) {
     await authRepository.login(email, senha, onSuccess);
   }
 
   async function cadastro(
     body: AuthRequestDto,
-    onSuccess: (msg: string) => void,
+    onSuccess: (data: UserAuthResponseDto) => void,
     onError: (msg: string) => void
   ) {
     await authRepository.cadastro(body, onSuccess, onError);

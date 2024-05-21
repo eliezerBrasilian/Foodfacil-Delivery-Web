@@ -5,10 +5,11 @@ import { GoogleSignInBtn } from "../components/GoogleSignInBtn.js";
 import { Imagem } from "../components/Imagem.js";
 import { useAuthContext } from "../context/AuthContext.jsx";
 import { useCabecalhoContext } from "../context/CabecalhoContext.js";
-import { useLarguraAtual } from "../custom_hooks/useLarguraAtual.js";
+import { useLarguraAtual } from "../customHooks/useLarguraAtual.js";
 import { LocalStorageKeys } from "../enums/LocalStorageKeys";
 import { Rotas } from "../enums/Rotas.js";
 import ls from "../modules/Login.module.css";
+import { UserAuthResponseDto } from "../types/UserAuthResponseDto.js";
 import { AuthRequestDto } from "./../types/AuthRequestDto";
 
 export function Login() {
@@ -33,8 +34,10 @@ export function Login() {
     if (token != null) nav(Rotas.HOME);
   }, []);
 
-  const onSuccess = (token: string) => {
-    localStorage.setItem(LocalStorageKeys.TOKEN, token);
+  const onSuccess = (data: UserAuthResponseDto) => {
+    localStorage.setItem(LocalStorageKeys.TOKEN, data.token);
+    localStorage.setItem(LocalStorageKeys.USER_ID, data.userId);
+
     nav(Rotas.HOME);
   };
 

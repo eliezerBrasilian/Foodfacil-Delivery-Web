@@ -4,7 +4,9 @@ body {
 }
 
 .container {
+  background-color: white;
   min-width: 100vw;
+  min-height: 100vh;
   padding: 15px;
   .capa {
     height: 200px;

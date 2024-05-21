@@ -1,18 +1,18 @@
 import { api } from "../api/client/client";
 import { AuthRequestDto } from "../types/AuthRequestDto";
+import { UserAuthResponseDto } from "./../types/UserAuthResponseDto";
 
 export class AuthRepository {
   async cadastro(
     body: AuthRequestDto,
-    onSuccess: (msg: string) => void,
+    onSuccess: (data: UserAuthResponseDto) => void,
     onError: (msg: string) => void
   ) {
     try {
       const resp = await api.post("/auth/sign-up", body);
-      console.log(resp);
+      const data: UserAuthResponseDto = resp.data;
 
-      var token = resp.data.token;
-      onSuccess(token);
+      onSuccess(data);
     } catch (e: any) {
       var message = e.response.data.message;
 
@@ -23,16 +23,15 @@ export class AuthRepository {
   async login(
     email: string,
     senha: string,
-    onSuccess: (token: string) => void
+    onSuccess: (data: UserAuthResponseDto) => void
   ) {
     var body = { email: email, password: senha };
 
     try {
       const resp = await api.post("/auth/login", body);
-      console.log(resp);
+      const data: UserAuthResponseDto = resp.data;
 
-      var token = resp.data.token;
-      onSuccess(token);
+      onSuccess(data);
     } catch (e: any) {
       var message = e.response.data.message;
 

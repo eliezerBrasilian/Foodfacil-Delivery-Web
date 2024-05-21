@@ -9,11 +9,14 @@ import { TelaCardapio } from "../pages/TelaCardapio";
 import { TelaCarrinhoDeCompras } from "../pages/TelaCarrinhoDeCompras";
 import { TelaEscolherPagamento } from "../pages/TelaEscolherPagamento";
 import { TelaFinalizarPedido } from "../pages/TelaFinalizarPedido";
-import { TelaNotificacoes } from "../pages/TelaNotificacoes";
-import { TelaPedidos } from "./../pages/TelaPedidos";
+import { TelaPedidos } from "../pages/TelaPedidos";
+import { TelaPerfil } from "../pages/TelaPerfil";
+import { TelaVerChavePix } from "../pages/TelaVerChavePix";
 
 export function RoutesApp() {
   const rotaItemSelecionado = Rotas.TELA_ITEM_SELECIONADO + "/:id";
+  const rotaVerChavePix = Rotas.TELA_VER_CHAVE_PIX + "/:chave";
+
   return (
     <BrowserRouter>
       <Routes>
@@ -21,7 +24,7 @@ export function RoutesApp() {
         <Route path={Rotas.HOME} element={<Home />} />
         <Route path={Rotas.TELA_CARDAPIO} element={<TelaCardapio />} />
         <Route path={Rotas.TELA_PEDIDOS} element={<TelaPedidos />} />
-        <Route path={Rotas.TELA_PERFIL} element={<TelaNotificacoes />} />
+        <Route path={Rotas.TELA_PERFIL} element={<TelaPerfil />} />
         <Route path={rotaItemSelecionado} element={<ItemSelecionado />} />
         <Route path={Rotas.TELA_CARRINHO} element={<TelaCarrinhoDeCompras />} />
         <Route
@@ -32,6 +35,7 @@ export function RoutesApp() {
           path={Rotas.TELA_ESCOLHER_PAGAMENTO}
           element={<TelaEscolherPagamento />}
         />
+        <Route path={rotaVerChavePix} element={<TelaVerChavePix />} />
       </Routes>
       <BottomBar />
     </BrowserRouter>

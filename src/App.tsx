@@ -4,12 +4,13 @@ import { AuthContextProvider } from "./context/AuthContext";
 import { BottomBarContextProvider } from "./context/BottomBarContext";
 import { CabecalhoContextProvider } from "./context/CabecalhoContext";
 import { CarrinhoContextProvider } from "./context/CarrinhoContext";
+import { MetodoPagamentoContextProvider } from "./context/MetodoPagamentoContext";
 import { NotificacaoContextProvider } from "./context/NotificacaoContext";
 import { PedidoContextProvider } from "./context/PedidoContext";
 import { SaborContextProvider } from "./context/SaborContext";
 import { SalgadosContextProvider } from "./context/SalgadosContext";
 import { TaxaContextProvider } from "./context/TaxaContext";
-import { RoutesApp } from "./routes/Routes";
+import { RoutesApp } from "./routes/routes";
 function App() {
   return (
     <AuthContextProvider>
@@ -22,7 +23,9 @@ function App() {
                   <AcompanhamentoContextProvider>
                     <PedidoContextProvider>
                       <NotificacaoContextProvider>
-                        <RoutesApp />
+                        <MetodoPagamentoContextProvider>
+                          <RoutesApp />
+                        </MetodoPagamentoContextProvider>
                       </NotificacaoContextProvider>
                     </PedidoContextProvider>
                   </AcompanhamentoContextProvider>

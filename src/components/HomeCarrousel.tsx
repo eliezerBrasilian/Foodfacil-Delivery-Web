@@ -1,6 +1,7 @@
 import Slider from "react-slick";
 import "slick-carousel/slick/slick-theme.css";
 import "slick-carousel/slick/slick.css";
+import { useLarguraAtual } from "../customHooks/useLarguraAtual";
 
 export function HomeCarrousel() {
   const settings = {
@@ -11,10 +12,11 @@ export function HomeCarrousel() {
     slidesToScroll: 1,
   };
 
-  const w = 367;
+  const larguraContainer = useLarguraAtual();
+  const w = useLarguraAtual() - 10;
 
   return (
-    <div style={{ height: 182, width: 370, marginTop: 10 }}>
+    <div style={{ height: 182, width: larguraContainer, marginTop: 10 }}>
       <Slider arrows={false} {...settings}>
         <div>
           <img

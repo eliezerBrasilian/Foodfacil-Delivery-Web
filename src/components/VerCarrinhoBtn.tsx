@@ -1,7 +1,7 @@
 import { useMemo } from "react";
 import { useNavigate } from "react-router-dom";
 import { cores } from "../assets/cores";
-import { usePrecoTotalCarrinho } from "../custom_hooks/usePrecoTotalCarrinho";
+import { usePrecoTotalCarrinho } from "../customHooks/usePrecoTotalCarrinho";
 import { useCarrinhoContext } from "../defaultContexts/CarrinhoContextDefault";
 import { Rotas } from "../enums/Rotas";
 import { AppUtils } from "../utils/AppUtils";

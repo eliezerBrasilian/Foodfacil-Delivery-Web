@@ -1,17 +1,23 @@
-import { Categoria } from "../enums/Categoria"; // Importe o enum Categoria aqui
-import { Disponibilidade } from "../enums/Disponibilidade"; // Importe o tipo Disponibilidade aqui
+import { MetodoPagamento } from "../enums/MetodoPagamento";
+import { Plataforma } from "../enums/Plataforma";
+import { Address } from "./Address";
+import { PagamentoStatus } from "./PagamentoStatus";
+import { PedidoStatus } from "./PedidoStatus";
+import { SimplesAcompanhamento } from "./SimplesAdicional";
+import { SimplesSalgado } from "./SimplesSalgado";
 
 export interface PedidoRequestDto {
-  nome: string;
-  categoria: Categoria;
-  descricao: string;
-  preco: number;
-  imagem: string;
-  imagemRetangular: string;
-  imagemQuadrada: string;
-  emOferta: boolean;
-  precoEmOferta: number;
-  disponibilidade: Disponibilidade;
+  userId: string;
+  userEmail: string;
+  salgados: SimplesSalgado[];
+  acompanhamentos: SimplesAcompanhamento[];
+  endereco: Address;
+  pagamentoEscolhido: MetodoPagamento;
+  quantiaReservada: number;
+  plataforma: Plataforma;
+  dispositivoToken: string;
+  total: number;
   createdAt: number;
-  sabores: string[];
+  status: PedidoStatus;
+  pagamentoStatus: PagamentoStatus;
 }
