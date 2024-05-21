@@ -10,7 +10,7 @@ import { PedidoContextProvider } from "./context/PedidoContext";
 import { SaborContextProvider } from "./context/SaborContext";
 import { SalgadosContextProvider } from "./context/SalgadosContext";
 import { TaxaContextProvider } from "./context/TaxaContext";
-import { RoutesApp } from "./routes/routes";
+import { RoutesApp } from "./routes/Routes";
 function App() {
   return (
     <AuthContextProvider>
