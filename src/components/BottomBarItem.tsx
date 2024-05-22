@@ -1,7 +1,7 @@
 import { cores } from "../assets/cores";
+import s from "../modules/BottomBar.module.css";
 import { Imagem } from "./Imagem";
 import { Linha } from "./Linha";
-
 interface CustomNavProps {
   titulo: string;
   isActive: boolean;
@@ -16,14 +16,7 @@ export function BottomBarItem({
   icone_selecionado,
 }: CustomNavProps) {
   return (
-    <div
-      style={{
-        display: "flex",
-        flexDirection: "column",
-        alignItems: "center",
-        justifyContent: "center",
-      }}
-    >
+    <div className={s.item_container}>
       <Imagem
         height={25}
         width={30}

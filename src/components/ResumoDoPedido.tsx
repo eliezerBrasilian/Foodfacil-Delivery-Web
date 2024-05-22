@@ -19,10 +19,7 @@ export function ResumoDoPedido() {
       <h4>Resumo do pedido</h4>
       <PedidoRow chave="Subtotal" valor={subtotal} />
 
-      <PedidoRow
-        chave="Taxa de entrega"
-        valor={taxa != -1 ? taxa : "à calcular"}
-      />
+      <PedidoRow chave="Taxa de entrega" valor={taxa} />
       {taxa != -1 && <PedidoRow chave="Total" valor={total} />}
     </div>
   );

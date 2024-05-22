@@ -1,6 +1,6 @@
 import { NavLink } from "react-router-dom";
 import { Rotas } from "../enums/Rotas";
-import bbis from "../modules/BottomBarItems.module.css";
+import bbis from "../modules/BottomBar.module.css";
 import { BottomBarItem } from "./BottomBarItem";
 
 interface BottomBarItemsPros {

@@ -1,4 +1,5 @@
 import { useCarrinhoContext } from "../defaultContexts/CarrinhoContextDefault";
+import { AppUtils } from "../utils/AppUtils";
 import { CarrinhoItemImagem } from "./CarrinhoItemImagem";
 import { CarrinhoItensBts } from "./CarrinhoItensBts";
 import { Preco } from "./VerCarrinhoBtn";
@@ -48,9 +49,11 @@ export function CarrinhoItem({
     >
       <CarrinhoItemImagem imagemTransparent={imagemTransparent} />
       <div>
-        <p>{nome}</p>
-        <p>{descricao}</p>
-        <p>{precoCalculado}</p>
+        <p style={{ fontSize: 16, fontWeight: "600" }}>{nome}</p>
+        <p style={{ fontSize: 13 }}>{descricao}</p>
+        <p style={{ fontSize: 14, fontWeight: "600" }}>
+          {AppUtils.toMoedaBrasileira(precoCalculado)}
+        </p>
       </div>
       <CarrinhoItensBts
         contador={contador}

@@ -8,6 +8,26 @@ body {
   background-color: white;
 }
 
+@font-face {
+  font-family: Montserrat;
+  src: url(../public//static/Montserrat-Regular.ttf);
+}
+
+.h1,
+h2,
+h3,
+h4,
+h5,
+p {
+  font-family: Montserrat;
+  font-size: 15px;
+}
+
+@font-face {
+  font-family: Inter;
+  src: url(../public//static/Inter-Medium.ttf);
+}
+
 /* body {
   display: flex;
   justify-content: center;

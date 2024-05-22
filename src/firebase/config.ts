@@ -11,8 +11,8 @@ const firebaseConfig = {
   projectId: "foodfacil-d0c86",
   storageBucket: "foodfacil-d0c86.appspot.com",
   messagingSenderId: "191389897644",
-  appId: "1:191389897644:web:c268b48071b150fa68a009",
-  measurementId: "G-RYPM9JV8CS",
+  appId: "1:191389897644:web:6db8b8d5ced54caf68a009",
+  measurementId: "G-7QPPXBX074",
 };
 
 const app = initializeApp(firebaseConfig);

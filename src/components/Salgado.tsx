@@ -11,23 +11,17 @@ interface SalgadoProps {
 export function Salgado({ salgadoDto, onClick, ehCelular }: SalgadoProps) {
   if (ehCelular)
     return (
-      <div
-        onClick={onClick}
-        style={{
-          display: "flex",
-          alignItems: "center",
-          columnGap: 10,
-          marginBottom: 10,
-        }}
-      >
+      <div onClick={onClick} className={salgadoStyles.container}>
         <img
           src={salgadoDto?.imagemQuadrada}
           style={{ height: 90, width: 90, borderRadius: 10 }}
         />
         <div className={salgadoStyles.direita}>
-          <h2>{salgadoDto?.nome}</h2>
-          <p style={{ color: "#555353" }}>{salgadoDto?.descricao}</p>
-          <p>{AppUtils.toMoedaBrasileira(salgadoDto?.preco)}</p>
+          <h2 className={salgadoStyles.titulo}>{salgadoDto?.nome}</h2>
+          <p className={salgadoStyles.descricao}>{salgadoDto?.descricao}</p>
+          <p className={salgadoStyles.preco}>
+            {AppUtils.toMoedaBrasileira(salgadoDto?.preco)}
+          </p>
         </div>
       </div>
     );

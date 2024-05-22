@@ -13,6 +13,7 @@ import { useTaxaContext } from "../context/TaxaContext";
 import { usePrecoTotalCarrinho } from "../customHooks/usePrecoTotalCarrinho";
 import { useCarrinhoContext } from "../defaultContexts/CarrinhoContextDefault";
 import { useMetodoPagamentoContext } from "../defaultContexts/MetodoPagamentoContextDefault";
+import { LocalStorageKeys } from "../enums/LocalStorageKeys";
 import { Rotas } from "../enums/Rotas";
 import s from "../modules/TelaFinalizarPedido.module.css";
 import { PedidoService } from "../services/PedidoService";
@@ -27,10 +28,12 @@ export function TelaFinalizarPedido() {
   const total = totalCarrinho + taxa;
 
   const [loading, setLoading] = useState(false);
+  const cidade = localStorage.getItem(LocalStorageKeys.CIDADE);
 
   const nav = useNavigate();
 
   const handleClickFinalizarPedido = () => {
+    setLoading(true);
     var pedidoService = new PedidoService();
 
     pedidoService.build(
@@ -43,15 +46,18 @@ export function TelaFinalizarPedido() {
 
     var pedidoProcessado = pedidoService.getPedidoProcessado();
 
-    if (pedidoProcessado != null) {
-      setLoading(true);
-      criar(pedidoProcessado, (chavePix) => {
-        console.log("chave pix");
-        console.log(chavePix);
-        setLoading(false);
-        nav(Rotas.TELA_VER_CHAVE_PIX + "/" + chavePix);
-      });
+    if (cidade != null) {
+      if (pedidoProcessado != null) {
+        criar(pedidoProcessado, (chavePix) => {
+          console.log("chave pix");
+          console.log(chavePix);
+          setLoading(false);
+          nav(Rotas.TELA_VER_CHAVE_PIX + "/" + chavePix);
+        });
+      }
+    } else {
       setLoading(false);
+      window.alert("Adicione seu endereço !");
     }
   };
 

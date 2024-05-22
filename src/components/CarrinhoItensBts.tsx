@@ -29,7 +29,7 @@ export function CarrinhoItensBts({
         imagePath="/menos.png"
         onClick={decrementar}
       />
-      <p>{contador}</p>
+      <p style={{ fontFamily: "Inter", fontSize: 15 }}>{contador}</p>
       <Imagem
         height={tam}
         width={tam}

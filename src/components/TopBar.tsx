@@ -1,12 +1,11 @@
 import { useNavigate } from "react-router-dom";
-import { Imagem } from "./Imagem";
 
 interface TopBarProps {
   text: string;
 }
 
 export function TopBar({ text }: TopBarProps) {
-  const iconSize = 30;
+  const iconSize = 20;
   const nav = useNavigate();
   return (
     <div
@@ -18,8 +17,16 @@ export function TopBar({ text }: TopBarProps) {
         width: "fit-content",
       }}
     >
-      <Imagem imagePath="/seta_voltar.png" height={iconSize} width={iconSize} />
-      <p>{text}</p>
+      <img
+        src="/seta_voltar.png"
+        style={{
+          height: iconSize,
+          width: iconSize,
+          objectFit: "contain",
+        }}
+      />
+
+      <p style={{ fontSize: 18, fontWeight: "600" }}>{text}</p>
     </div>
   );
 }

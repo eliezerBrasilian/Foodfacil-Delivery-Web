@@ -72,11 +72,15 @@ function Esquerdo({ contador, preco }: EsquerdoProps) {
   const contadorText = contador > 1 ? "items" : "item";
   return (
     <div>
-      <p style={{ color: "#3C3B3B" }}>Total sem a entrega</p>
+      <p style={{ color: "#3C3B3B", fontSize: 13 }}>
+        Total sem a taxa de entrega
+      </p>
       <div style={{ display: "flex", columnGap: 5 }}>
-        <p>{AppUtils.toMoedaBrasileira(preco as number)}</p>
+        <p style={{ fontSize: 15, fontWeight: "bold" }}>
+          {AppUtils.toMoedaBrasileira(preco as number)}
+        </p>
 
-        <p style={{ color: "#3C3B3B" }}>
+        <p style={{ color: "#3C3B3B", fontSize: 15 }}>
           / {contador} {contadorText}
         </p>
       </div>
@@ -101,7 +105,7 @@ function Btn({ text }: BtnProps) {
         color: "#fff",
       }}
     >
-      <p>{text}</p>
+      <p style={{ fontSize: 13 }}>{text}</p>
     </div>
   );
 }

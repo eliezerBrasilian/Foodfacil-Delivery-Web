@@ -16,3 +16,28 @@
     row-gap: 5px;
   }
 }
+
+@media (max-width: 500px) {
+  .container {
+    display: flex;
+    align-items: center;
+    column-gap: 10px;
+    margin-bottom: 10px;
+  }
+  p {
+    font-family: "Inter";
+  }
+  .titulo {
+    font-size: 18px;
+    font-family: "Inter";
+    font-weight: 500;
+  }
+  .descricao {
+    color: #555353;
+    font-size: 15px;
+  }
+  .preco {
+    font-size: 15px;
+    font-weight: 700;
+  }
+}
