@@ -1,13 +1,12 @@
 import { ReactNode, createContext, useContext, useState } from "react";
-import { api } from "../api/client/client";
-import { PedidoContextInterface } from "../types/PedidoContextInterface";
-import { PedidoRequestDto } from "../types/PedidoRequestDto";
-import { PedidoResponseDto } from "../types/PedidoResponseDto";
 import { LocalStorageKeys } from "../enums/LocalStorageKeys";
 import { PedidoRepository } from "../repositories/PedidoRepository";
+import { PedidoContextInterface } from "../types/PedidoContextInterface";
+import { PedidoDoUsuarioResponseDto } from "../types/PedidoDoUsuarioResponseDto";
+import { PedidoRequestDto } from "../types/PedidoRequestDto";
 
 const defaultPedidoContext: PedidoContextInterface = {
-  getAllPedidos: (_token: string, _onError: (message: string) => void) => {},
+  getAllPedidos: () => {},
   pedidos: [],
   criar: (
     _p: PedidoRequestDto,
@@ -25,35 +24,18 @@ interface PedidoContextProps {
   children: ReactNode;
 }
 
-function PedidoContextProvider({ children }: PedidoContextProps) {
-  const [pedidos, setPedidos] = useState<Array<PedidoResponseDto>>([]);
+export function PedidoContextProvider({ children }: PedidoContextProps) {
+  const [pedidos, setPedidos] = useState<Array<PedidoDoUsuarioResponseDto>>([]);
 
   const pedidoRepository = new PedidoRepository();
 
-  async function getAllPedidos(
-    token: string,
-    onError: (message: string) => void
-  ) {
-    console.log("get all");
-    const config = {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    };
+  async function getAllPedidos() {
+    var token = localStorage.getItem(LocalStorageKeys.TOKEN);
+    var userId = localStorage.getItem(LocalStorageKeys.USER_ID);
 
-    try {
-      var response = await api.get("/pedido", config);
-      console.log(response.data.lista);
-
-      console.log("data- pedidos------");
-      console.log(response.data);
-
-      var lista: Array<PedidoResponseDto> = response.data.lista;
-
+    if (token != null && userId != null) {
+      const lista = await pedidoRepository.getAll(token, userId);
       setPedidos(lista);
-    } catch (e: any) {
-      console.log("erro: " + e.response.data);
-      onError(e.response.data.message);
     }
   }
 
@@ -61,7 +43,7 @@ function PedidoContextProvider({ children }: PedidoContextProps) {
     pedidoObj: PedidoRequestDto,
     onSuccess: (chavePix: string | null) => void
   ) {
-    var token = LocalStorageKeys.TOKEN;
+    var token = localStorage.getItem(LocalStorageKeys.TOKEN);
 
     if (token != null) {
       await pedidoRepository.criaPedido(token, pedidoObj, onSuccess);
@@ -80,4 +62,3 @@ function PedidoContextProvider({ children }: PedidoContextProps) {
     </PedidoContext.Provider>
   );
 }
-export { PedidoContextProvider };

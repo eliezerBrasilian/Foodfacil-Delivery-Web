@@ -1,7 +1,24 @@
 import { api } from "../api/client/client";
+import { PedidoDoUsuarioResponseDto } from "../types/PedidoDoUsuarioResponseDto";
 import { PedidoRequestDto } from "../types/PedidoRequestDto";
+import { ApiUtils } from "../utils/ApiUtils";
 
 export class PedidoRepository {
+  async getAll(token: string, userId: string) {
+    try {
+      const res: any = await new ApiUtils().fazerRequisicao(
+        `/user/pedidos/${userId}`,
+        token
+      );
+      console.log(res);
+      return res as Array<PedidoDoUsuarioResponseDto>;
+    } catch (error: any) {
+      console.error("Erro ao obter os dados:", error.message);
+
+      return [];
+    }
+  }
+
   async criaPedido(
     token: string,
     pedido: PedidoRequestDto,

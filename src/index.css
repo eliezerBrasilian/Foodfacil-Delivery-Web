@@ -10,7 +10,7 @@ body {
 
 @font-face {
   font-family: Montserrat;
-  src: url(../public//static/Montserrat-Regular.ttf);
+  src: url(/static/Montserrat-Regular.ttf);
 }
 
 .h1,
@@ -25,7 +25,7 @@ p {
 
 @font-face {
   font-family: Inter;
-  src: url(../public//static/Inter-Medium.ttf);
+  src: url(/static/Inter-Medium.ttf);
 }
 
 /* body {

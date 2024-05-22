@@ -1,7 +1,7 @@
 import { useParams } from "react-router-dom";
-import { ToastContainer, toast } from "react-toastify";
+import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { cores } from "../assets/cores";
+import { ChavePixView } from "../components/ChavePixView";
 import { CustomBtn } from "../components/CustomBtn";
 import { Imagem } from "../components/Imagem";
 import { TopBar } from "../components/TopBar";
@@ -9,8 +9,6 @@ import s from "../modules/TelaVerChavePix.module.css";
 export function TelaVerChavePix() {
   const { chave } = useParams();
   const tam = 190;
-
-  let strCortada = chave?.toString().substring(0, 20) + "...";
 
   const handleClickCopiaChavePix = () => {
     navigator.clipboard
@@ -47,31 +45,7 @@ export function TelaVerChavePix() {
           você vai fazer o pagamento:
         </p>
 
-        <div
-          style={{
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "space-between",
-            width: "90%",
-            backgroundColor: "#fff",
-            border: `1px solid ${cores.btn_vermelho}`,
-            borderRadius: 12,
-            padding: "8px 15px 8px 15px",
-            marginTop: 30,
-          }}
-        >
-          <p>{strCortada}</p>
-          <button
-            onClick={handleClickCopiaChavePix}
-            style={{ backgroundColor: "transparent", border: "none" }}
-          >
-            <Imagem
-              width={30}
-              height={30}
-              imagePath="/copia_cola_amarelo.png"
-            />
-          </button>
-        </div>
+        <ChavePixView chave={chave?.toString()} />
       </div>
 
       <div style={{ marginTop: 70, display: "flex", justifyContent: "center" }}>
@@ -81,7 +55,6 @@ export function TelaVerChavePix() {
           onClick={handleClickCopiaChavePix}
         />
       </div>
-      <ToastContainer />
     </div>
   );
 }

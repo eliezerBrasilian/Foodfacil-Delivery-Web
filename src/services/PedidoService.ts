@@ -24,8 +24,8 @@ export class PedidoService {
     saldo: number
   ) {
     var salgados: SimplesSalgado[] = salgadosList.map((v) => ({
-      id: "",
-      quantidade: 0,
+      id: v.id,
+      quantidade: v.quantidade,
       observacao: v.observacao,
       sabores: v.sabores,
     }));

@@ -9,8 +9,6 @@ import { MetodoDePagamentoEmFinalizarPedido } from "../components/MetodoDePagame
 import { ResumoDoPedido } from "../components/ResumoDoPedido";
 import { TopBar } from "../components/TopBar";
 import { usePedidoContext } from "../context/PedidoContext";
-import { useTaxaContext } from "../context/TaxaContext";
-import { usePrecoTotalCarrinho } from "../customHooks/usePrecoTotalCarrinho";
 import { useCarrinhoContext } from "../defaultContexts/CarrinhoContextDefault";
 import { useMetodoPagamentoContext } from "../defaultContexts/MetodoPagamentoContextDefault";
 import { LocalStorageKeys } from "../enums/LocalStorageKeys";
@@ -22,10 +20,11 @@ export function TelaFinalizarPedido() {
   const { salgadosList, acompanhamentoList } = useCarrinhoContext();
   const { metodoEscolhido, saldo } = useMetodoPagamentoContext();
   const { criar } = usePedidoContext();
-  const totalCarrinho = usePrecoTotalCarrinho();
-  const { taxa } = useTaxaContext();
+  // const totalCarrinho = usePrecoTotalCarrinho();
+  // const { taxa } = useTaxaContext();
 
-  const total = totalCarrinho + taxa;
+  //const total = totalCarrinho + taxa;
+  const total = 1;
 
   const [loading, setLoading] = useState(false);
   const cidade = localStorage.getItem(LocalStorageKeys.CIDADE);
