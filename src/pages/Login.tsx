@@ -46,7 +46,7 @@ export function Login() {
         <div
           style={{ width: "100%", display: "flex", justifyContent: "center" }}
         >
-          <Imagem imagePath="/top_logo.png" />
+          <Imagem imagePath="/top_logo.png" height={150} width={150} />
         </div>
 
         <h3 className={ls.titulo}>{loginAtivo ? "Entrar" : "Cadastrar"} </h3>
