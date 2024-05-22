@@ -40,34 +40,24 @@ export function Login() {
 
     nav(Rotas.HOME);
   };
+  if (larguraTotal <= 500) {
+    return (
+      <div className={ls.container}>
+        <div
+          style={{ width: "100%", display: "flex", justifyContent: "center" }}
+        >
+          <Imagem imagePath="/top_logo.png" />
+        </div>
 
-  return (
-    <div
-      className={ls.container}
-      style={{
-        padding: larguraTotal <= 500 ? 15 : 0,
-        paddingLeft: larguraTotal > 500 ? 80 : 0,
-      }}
-    >
-      <div className={ls.a_esquerda}>
-        <h3>{loginAtivo ? "Entrar" : "Cadastrar"} </h3>
-        <p>
+        <h3 className={ls.titulo}>{loginAtivo ? "Entrar" : "Cadastrar"} </h3>
+        <p className={ls.subtitulo}>
           {loginAtivo
             ? "Acesse já sua conta no Foodfacil - delivery"
             : "Faça seu cadastro no Foodfacil - delivery"}
         </p>
-        <form
-          style={
-            larguraTotal <= 500
-              ? {
-                  display: "flex",
-                  alignItems: "center",
-                }
-              : {}
-          }
-        >
+        <form>
           {!loginAtivo && (
-            <div>
+            <div className={ls.inputContainer}>
               <p>Nome</p>
               <input
                 type="text"
@@ -79,7 +69,7 @@ export function Login() {
             </div>
           )}
 
-          <div>
+          <div className={ls.inputContainer}>
             <p>Email</p>
             <input
               type="text"
@@ -90,7 +80,7 @@ export function Login() {
             />
           </div>
 
-          <div>
+          <div className={ls.inputContainer}>
             <p>{loginAtivo ? "Digite sua senha" : "Crie sua senha"}</p>
             <input
               type="text"
@@ -101,19 +91,7 @@ export function Login() {
             />
           </div>
 
-          <div
-            className={ls.btns}
-            style={
-              larguraTotal <= 500
-                ? {
-                    display: "flex",
-                    width: "100%",
-                    justifyContent: "center",
-                    alignItems: "center",
-                  }
-                : {}
-            }
-          >
+          <div className={ls.btns}>
             <AuthBtn
               text={loginAtivo ? "Acessar minha conta" : "Criar minha conta"}
               onClick={() => {
@@ -173,12 +151,146 @@ export function Login() {
           )}
         </form>
       </div>
+    );
+  } else
+    return (
+      <div
+        className={ls.container}
+        style={{
+          padding: larguraTotal <= 500 ? 15 : 0,
+          paddingLeft: larguraTotal > 500 ? 80 : 0,
+        }}
+      >
+        <div className={ls.a_esquerda}>
+          <h3>{loginAtivo ? "Entrar" : "Cadastrar"} </h3>
+          <p>
+            {loginAtivo
+              ? "Acesse já sua conta no Foodfacil - delivery"
+              : "Faça seu cadastro no Foodfacil - delivery"}
+          </p>
+          <form
+            style={
+              larguraTotal <= 500
+                ? {
+                    display: "flex",
+                    alignItems: "center",
+                  }
+                : {}
+            }
+          >
+            {!loginAtivo && (
+              <div>
+                <p>Nome</p>
+                <input
+                  type="text"
+                  id="fname"
+                  name="fname"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                />
+              </div>
+            )}
 
-      {larguraTotal > 500 && (
-        <div className={ls.a_direita}>
-          <Imagem imagePath="foodfacillogo_splash.png" />
+            <div>
+              <p>Email</p>
+              <input
+                type="text"
+                id="fname"
+                name="fname"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+              />
+            </div>
+
+            <div>
+              <p>{loginAtivo ? "Digite sua senha" : "Crie sua senha"}</p>
+              <input
+                type="text"
+                id="lname"
+                name="lname"
+                value={senha}
+                onChange={(e) => setSenha(e.target.value)}
+              />
+            </div>
+
+            <div
+              className={ls.btns}
+              style={
+                larguraTotal <= 500
+                  ? {
+                      display: "flex",
+                      width: "100%",
+                      justifyContent: "center",
+                      alignItems: "center",
+                    }
+                  : {}
+              }
+            >
+              <AuthBtn
+                text={loginAtivo ? "Acessar minha conta" : "Criar minha conta"}
+                onClick={() => {
+                  const body: AuthRequestDto = {
+                    email: email,
+                    name: "testenilso",
+                    password: senha,
+                    profilePicture: "",
+                    role: "USER",
+                  };
+
+                  if (loginAtivo) {
+                    login(email, senha, onSuccess);
+                  } else {
+                    cadastro(body, onSuccess, (_msg) => {
+                      alert(_msg);
+                    });
+                  }
+                }}
+              />
+              <GoogleSignInBtn
+                text={loginAtivo ? "Entrar com Google" : "Cadastrar com Google"}
+                onClick={() => {}}
+              />
+            </div>
+
+            {loginAtivo ? (
+              <p
+                className={ls.ja_possui_login}
+                onClick={() => setLoginAtivo(!loginAtivo)}
+                style={
+                  larguraTotal <= 500
+                    ? {
+                        width: "100%",
+                        textAlign: "center",
+                      }
+                    : {}
+                }
+              >
+                Não possui login? <strong>Cadastrar</strong>
+              </p>
+            ) : (
+              <p
+                className={ls.ja_possui_login}
+                onClick={() => setLoginAtivo(!loginAtivo)}
+                style={
+                  larguraTotal <= 500
+                    ? {
+                        width: "100%",
+                        textAlign: "center",
+                      }
+                    : {}
+                }
+              >
+                Já possui login? <strong>Entrar</strong>
+              </p>
+            )}
+          </form>
         </div>
-      )}
-    </div>
-  );
+
+        {larguraTotal > 500 && (
+          <div className={ls.a_direita}>
+            <Imagem imagePath="foodfacillogo_splash.png" />
+          </div>
+        )}
+      </div>
+    );
 }

@@ -21,8 +21,8 @@ export function GoogleSignInBtn({ onClick, text }: GoogleSignInBtnProps) {
         justifyContent: "center",
         alignItems: "center",
         borderRadius: 7,
-        width: 210,
-        height: 40,
+        width: "100%",
+        height: 45,
         cursor: "pointer",
       }}
       onClick={onClick}
