@@ -69,7 +69,7 @@ export function Login() {
           });
         }
       })
-      .catch((e) => console.log(e));
+      .catch((e) => alert(e));
   };
 
   if (larguraTotal <= 500) {
