@@ -1,6 +1,9 @@
 enum LocalStorageKeys {
   TOKEN = "token",
   USER_ID = "user_id",
+  EMAIL = "email",
+  NOME = "nome",
+  FOTO = "foto",
   RUA = "rua",
   NUMERO = "numero",
   CIDADE = "cidade",

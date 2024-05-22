@@ -1,3 +1,4 @@
+import { signInWithPopup } from "firebase/auth";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { AuthBtn } from "../components/AuthBtn.js";
@@ -8,6 +9,7 @@ import { useCabecalhoContext } from "../context/CabecalhoContext.js";
 import { useLarguraAtual } from "../customHooks/useLarguraAtual.js";
 import { LocalStorageKeys } from "../enums/LocalStorageKeys";
 import { Rotas } from "../enums/Rotas.js";
+import { auth, provider } from "../firebase/config.js";
 import ls from "../modules/Login.module.css";
 import { UserAuthResponseDto } from "../types/UserAuthResponseDto.js";
 import { AuthRequestDto } from "./../types/AuthRequestDto";
@@ -15,13 +17,14 @@ import { AuthRequestDto } from "./../types/AuthRequestDto";
 export function Login() {
   const [email, setEmail] = useState("testenilson@foodfacil.site");
   const [senha, setSenha] = useState("12345");
+  const [loading, setLoading] = useState(false);
 
   const [loginAtivo, setLoginAtivo] = useState(false);
   const nav = useNavigate();
 
   const { removeVisibility } = useCabecalhoContext();
 
-  const { login, cadastro } = useAuthContext();
+  const { login, cadastro, googleSignIn } = useAuthContext();
 
   const larguraTotal = useLarguraAtual();
 
@@ -36,10 +39,39 @@ export function Login() {
 
   const onSuccess = (data: UserAuthResponseDto) => {
     localStorage.setItem(LocalStorageKeys.TOKEN, data.token);
+    localStorage.setItem(LocalStorageKeys.NOME, data.name);
+    localStorage.setItem(LocalStorageKeys.FOTO, data.profilePicture);
     localStorage.setItem(LocalStorageKeys.USER_ID, data.userId);
-
+    setLoading(false);
     nav(Rotas.HOME);
   };
+
+  const loginComGoogle = () => {
+    setLoading(true);
+    signInWithPopup(auth, provider)
+      .then((result) => {
+        const user = result.user;
+
+        if (
+          user.email != null &&
+          user.displayName != null &&
+          user.photoURL != null
+        ) {
+          const authUser: AuthRequestDto = {
+            email: user.email,
+            name: user.displayName,
+            password: "12345",
+            profilePicture: user.photoURL,
+            role: "USER",
+          };
+          googleSignIn(authUser, onSuccess, (msg: string) => {
+            alert(msg);
+          });
+        }
+      })
+      .catch((e) => console.log(e));
+  };
+
   if (larguraTotal <= 500) {
     return (
       <div className={ls.container}>
@@ -114,7 +146,8 @@ export function Login() {
             />
             <GoogleSignInBtn
               text={loginAtivo ? "Entrar com Google" : "Cadastrar com Google"}
-              onClick={() => {}}
+              onClick={loginComGoogle}
+              loading={loading}
             />
           </div>
 

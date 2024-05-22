@@ -1,11 +1,17 @@
+import { CustomLoading } from "./CustomLoading";
 import { Imagem } from "./Imagem";
 
 interface GoogleSignInBtnProps {
   onClick: () => void;
   text: string;
+  loading?: boolean;
 }
 
-export function GoogleSignInBtn({ onClick, text }: GoogleSignInBtnProps) {
+export function GoogleSignInBtn({
+  onClick,
+  text,
+  loading = false,
+}: GoogleSignInBtnProps) {
   return (
     <div
       style={{
@@ -36,7 +42,11 @@ export function GoogleSignInBtn({ onClick, text }: GoogleSignInBtnProps) {
         }}
       >
         <Imagem imagePath="google_icon.png" width={20} height={20} />
-        <p style={{ color: "#000" }}>{text}</p>
+        {loading ? (
+          <CustomLoading tam={20} />
+        ) : (
+          <p style={{ color: "#000" }}>{text}</p>
+        )}
       </div>
     </div>
   );

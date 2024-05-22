@@ -1,8 +1,23 @@
 import { api } from "../api/client/client";
 import { AuthRequestDto } from "../types/AuthRequestDto";
+import { UserAuthRequestDto } from "./../types/UserAuthRequestDto";
 import { UserAuthResponseDto } from "./../types/UserAuthResponseDto";
 
 export class AuthRepository {
+  async googleSignIn(
+    userAuthRequestDto: UserAuthRequestDto,
+    onSuccess: (data: UserAuthResponseDto) => void
+  ) {
+    try {
+      const response = await api.post("/auth/google-login", userAuthRequestDto);
+      console.log("-----------login com google feito");
+      console.log(response);
+      onSuccess(response.data);
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
   async cadastro(
     body: AuthRequestDto,
     onSuccess: (data: UserAuthResponseDto) => void,

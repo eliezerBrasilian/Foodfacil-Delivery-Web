@@ -1,7 +1,10 @@
 import { initializeApp } from "firebase/app";
+import { getAuth, GoogleAuthProvider } from "firebase/auth";
+
 import { getFirestore } from "firebase/firestore";
 import { getStorage } from "firebase/storage";
 
+const provider = new GoogleAuthProvider();
 const firebaseConfig = {
   apiKey: "AIzaSyCw1vzljDixVSH67uzZHZpYBMd1-eukl_M",
   authDomain: "foodfacil-d0c86.firebaseapp.com",
@@ -15,5 +18,6 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 const storage = getStorage(app);
+const auth = getAuth(app);
 
-export { db, storage };
+export { auth, db, provider, storage };

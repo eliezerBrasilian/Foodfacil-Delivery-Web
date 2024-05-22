@@ -1,5 +1,6 @@
 import { ReactNode, createContext, useContext } from "react";
 import { AuthContextInterface } from "../types/AuthContextInterface.js";
+import { UserAuthRequestDto } from "../types/UserAuthRequestDto.js";
 import { UserAuthResponseDto } from "../types/UserAuthResponseDto.js";
 import { AuthRepository } from "./../repositories/AuthRepository";
 import { AuthRequestDto } from "./../types/AuthRequestDto";
@@ -12,6 +13,11 @@ const defaultContext: AuthContextInterface = {
   ) => {},
   cadastro: (
     _body: AuthRequestDto,
+    _onSuccess: (data: UserAuthResponseDto) => void,
+    _onError: (msg: string) => void
+  ) => {},
+  googleSignIn: (
+    _userAuthRequestDto: UserAuthRequestDto,
     _onSuccess: (data: UserAuthResponseDto) => void,
     _onError: (msg: string) => void
   ) => {},
@@ -46,11 +52,19 @@ export function AuthContextProvider({ children }: AuthProviderProps) {
     await authRepository.cadastro(body, onSuccess, onError);
   }
 
+  async function googleSignIn(
+    userAuthRequestDto: UserAuthRequestDto,
+    onSuccess: (data: UserAuthResponseDto) => void
+  ) {
+    await authRepository.googleSignIn(userAuthRequestDto, onSuccess);
+  }
+
   return (
     <AuthContext.Provider
       value={{
         login,
         cadastro,
+        googleSignIn,
       }}
     >
       {children}
