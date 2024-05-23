@@ -21,7 +21,8 @@ export class PedidoService {
     acompanhamentoList: AcompanhamentoDto[],
     metodoEscolhido: MetodoPagamento,
     total: number,
-    saldo: number
+    saldo: number,
+    taxa: number
   ) {
     var salgados: SimplesSalgado[] = salgadosList.map((v) => ({
       id: v.id,
@@ -50,6 +51,7 @@ export class PedidoService {
         LocalStorageKeys.PONTO_DE_REFERENCIA
       ) as string,
     };
+
     const novoPedido: PedidoRequestDto = {
       userId: localStorage.getItem(LocalStorageKeys.USER_ID) as string,
       userEmail: "exemplo@dominio.com",
@@ -64,6 +66,7 @@ export class PedidoService {
       createdAt: Date.now(),
       status: PedidoStatus.AGUARDANDO_PREPARO,
       pagamentoStatus: PagamentoStatus.AGUARDANDO_PAGAMENTO,
+      taxa: taxa,
     };
 
     this.pedidodata = novoPedido;

@@ -61,15 +61,13 @@ export function Home() {
   return (
     <div className={hs.container}>
       <HomeHeader />
-      <h1 style={{ marginTop: 10, fontSize: 18, marginLeft: 15 }}>Tá no app</h1>
+      <h1>Tá no app</h1>
       <HomeCarrousel />
 
-      <h1 style={{ fontSize: 19, marginLeft: 15 }}>Promoções imperdíveis</h1>
+      <h1>Promoções imperdíveis</h1>
 
       {salgadosEmPromocao.length == 0 ? (
-        <p style={{ fontSize: 18, marginLeft: 15 }}>
-          Não temos promções no momento, mas fique ligado(a)
-        </p>
+        <p>Não temos promoções no momento, mas fique ligado(a)</p>
       ) : (
         <div style={{ marginTop: 25, paddingBottom: 80, marginLeft: 15 }}>
           {salgadosEmPromocao?.map((item, index) => (

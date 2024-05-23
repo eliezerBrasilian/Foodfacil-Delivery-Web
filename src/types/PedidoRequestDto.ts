@@ -20,4 +20,5 @@ export interface PedidoRequestDto {
   createdAt: number;
   status: PedidoStatus;
   pagamentoStatus: PagamentoStatus;
+  taxa: number;
 }

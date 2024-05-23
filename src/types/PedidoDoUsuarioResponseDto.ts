@@ -18,4 +18,5 @@ export interface PedidoDoUsuarioResponseDto {
   status: PedidoStatus;
   pagamentoStatus: PagamentoStatus;
   chavePix: string;
+  taxa: number;
 }

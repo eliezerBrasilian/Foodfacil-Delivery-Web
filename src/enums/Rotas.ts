@@ -9,6 +9,7 @@ enum Rotas {
   TELA_FINALIZAR_PEDIDO = "/finalizar-pedido",
   TELA_ESCOLHER_PAGAMENTO = "/escolher-pagamento",
   TELA_VER_CHAVE_PIX = "/chave-pix",
+  TELA_DETALHES_DO_PEDIDO = "/detalhes-do-pedido",
 }
 
 export { Rotas };

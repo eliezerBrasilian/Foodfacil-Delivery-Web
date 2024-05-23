@@ -7,6 +7,7 @@ import { ItemSelecionado } from "../pages/ItemSelecionado";
 import { Login } from "../pages/Login";
 import { TelaCardapio } from "../pages/TelaCardapio";
 import { TelaCarrinhoDeCompras } from "../pages/TelaCarrinhoDeCompras";
+import { TelaDetalhesDoPedido } from "../pages/TelaDetalhesDoPedido";
 import { TelaEscolherPagamento } from "../pages/TelaEscolherPagamento";
 import { TelaFinalizarPedido } from "../pages/TelaFinalizarPedido";
 import { TelaPedidos } from "../pages/TelaPedidos";
@@ -16,6 +17,7 @@ import { TelaVerChavePix } from "../pages/TelaVerChavePix";
 export function RoutesApp() {
   const rotaItemSelecionado = Rotas.TELA_ITEM_SELECIONADO + "/:id";
   const rotaVerChavePix = Rotas.TELA_VER_CHAVE_PIX + "/:chave";
+  const rotaDetalhesDoPedido = Rotas.TELA_DETALHES_DO_PEDIDO + "/:id";
 
   return (
     <BrowserRouter>
@@ -36,6 +38,7 @@ export function RoutesApp() {
           element={<TelaEscolherPagamento />}
         />
         <Route path={rotaVerChavePix} element={<TelaVerChavePix />} />
+        <Route path={rotaDetalhesDoPedido} element={<TelaDetalhesDoPedido />} />
       </Routes>
       <BottomBar />
     </BrowserRouter>

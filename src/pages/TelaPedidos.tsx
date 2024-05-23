@@ -1,10 +1,13 @@
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { AppTitulo } from "../components/AppTitulo";
 import { ChavePixView } from "../components/ChavePixView";
 import { CustomLoading } from "../components/CustomLoading";
 import { Imagem } from "../components/Imagem";
+import { useBottomBarContext } from "../context/BottomBarContext";
 import { usePedidoContext } from "../context/PedidoContext";
 import { MetodoPagamento } from "../enums/MetodoPagamento";
+import { Rotas } from "../enums/Rotas";
 import s from "../modules/TelaPedido.module.css";
 import { PagamentoStatus } from "../types/PagamentoStatus";
 import { PedidoDoUsuarioResponseDto } from "../types/PedidoDoUsuarioResponseDto";
@@ -15,6 +18,15 @@ import { AppUtils } from "../utils/AppUtils";
 export function TelaPedidos() {
   const [carregando, _setCarregando] = useState(false);
   const { getAllPedidos, pedidos } = usePedidoContext();
+
+  const { handlePedidosBottomBar, activateVisibility } = useBottomBarContext();
+
+  // useEffect(() => localStorage.clear());
+
+  useEffect(() => {
+    activateVisibility();
+    handlePedidosBottomBar();
+  }, []);
 
   useEffect(() => {
     getAllPedidos();
@@ -65,6 +77,7 @@ interface PedidoItemProps {
 }
 
 export function PedidoItem({ pedido }: PedidoItemProps) {
+  const nav = useNavigate();
   return (
     <div>
       <p
@@ -85,7 +98,14 @@ export function PedidoItem({ pedido }: PedidoItemProps) {
           paddingBottom: 10,
         }}
       >
-        <PedidosItemCima salgados={pedido.salgados} />
+        <div
+          onClick={() => {
+            nav(Rotas.TELA_DETALHES_DO_PEDIDO + "/" + pedido.id);
+          }}
+        >
+          <PedidosItemCima salgados={pedido.salgados} />
+        </div>
+
         <PedidosItemMeio
           pagamentoStatus={pedido.pagamentoStatus}
           pagamentoEscolhido={pedido.pagamentoEscolhido}
@@ -100,7 +120,7 @@ export function PedidoItem({ pedido }: PedidoItemProps) {
   );
 }
 
-function getPedidoStatusResult(pedidoStatus: PedidoStatus) {
+export function getPedidoStatusResult(pedidoStatus: PedidoStatus) {
   if (pedidoStatus == PedidoStatus.EM_PREPARO) {
     return "Seu pedido está em preparo";
   } else if (pedidoStatus == PedidoStatus.FINALIZADO) {

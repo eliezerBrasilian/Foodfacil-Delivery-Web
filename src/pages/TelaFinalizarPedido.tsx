@@ -15,13 +15,14 @@ import { LocalStorageKeys } from "../enums/LocalStorageKeys";
 import { Rotas } from "../enums/Rotas";
 import s from "../modules/TelaFinalizarPedido.module.css";
 import { PedidoService } from "../services/PedidoService";
+import { useTaxaContext } from "../context/TaxaContext";
 
 export function TelaFinalizarPedido() {
   const { salgadosList, acompanhamentoList } = useCarrinhoContext();
   const { metodoEscolhido, saldo } = useMetodoPagamentoContext();
   const { criar } = usePedidoContext();
   // const totalCarrinho = usePrecoTotalCarrinho();
-  // const { taxa } = useTaxaContext();
+  const { taxa } = useTaxaContext();
 
   //const total = totalCarrinho + taxa;
   const total = 1;
@@ -40,7 +41,8 @@ export function TelaFinalizarPedido() {
       acompanhamentoList,
       metodoEscolhido,
       total,
-      saldo
+      saldo,
+      taxa
     );
 
     var pedidoProcessado = pedidoService.getPedidoProcessado();

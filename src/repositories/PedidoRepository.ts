@@ -4,6 +4,20 @@ import { PedidoRequestDto } from "../types/PedidoRequestDto";
 import { ApiUtils } from "../utils/ApiUtils";
 
 export class PedidoRepository {
+  async getPedido(token: string, id: string) {
+    try {
+      const res: any = await new ApiUtils().fazerRequisicao(
+        `pedido/${id}`,
+        token
+      );
+      console.log(res);
+      return res as PedidoDoUsuarioResponseDto;
+    } catch (error: any) {
+      console.error("Erro ao obter o pedido:", error.message);
+
+      return null;
+    }
+  }
   async getAll(token: string, userId: string) {
     try {
       const res: any = await new ApiUtils().fazerRequisicao(

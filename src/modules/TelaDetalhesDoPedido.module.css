@@ -1,0 +1,62 @@
+.container {
+  width: 100vw;
+  height: 100vh;
+
+  padding: 15px;
+  .parte_cinza {
+    margin-top: 20px;
+    background-color: #ebebeb;
+    height: 50px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    padding-left: 20px;
+  }
+
+  .lanche_items_container {
+    margin-top: 20px;
+  }
+
+  .lanche_item {
+    display: flex;
+    column-gap: 10px;
+    align-items: center;
+    margin-bottom: 10px;
+    .img {
+      height: 60px;
+      width: 60px;
+      border-radius: 12px;
+    }
+  }
+
+  .resumo_do_pedido_container {
+    margin-top: 20px;
+  }
+
+  .resumo_pedido_item {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    justify-content: space-between;
+  }
+  .forma_pagamento_container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-top: 10px;
+    padding-bottom: 10px;
+
+    div {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      column-gap: 5px;
+    }
+  }
+
+  .endereco_container {
+    p {
+      font-size: 15px;
+    }
+  }
+}

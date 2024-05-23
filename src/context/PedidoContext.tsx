@@ -7,6 +7,7 @@ import { PedidoRequestDto } from "../types/PedidoRequestDto";
 
 const defaultPedidoContext: PedidoContextInterface = {
   getAllPedidos: () => {},
+  getPedido: async (_id: string) => null,
   pedidos: [],
   criar: (
     _p: PedidoRequestDto,
@@ -28,6 +29,16 @@ export function PedidoContextProvider({ children }: PedidoContextProps) {
   const [pedidos, setPedidos] = useState<Array<PedidoDoUsuarioResponseDto>>([]);
 
   const pedidoRepository = new PedidoRepository();
+
+  async function getPedido(id: string) {
+    var token = localStorage.getItem(LocalStorageKeys.TOKEN);
+
+    if (token != null) {
+      const pedido = await pedidoRepository.getPedido(token, id);
+      return pedido;
+    }
+    return null;
+  }
 
   async function getAllPedidos() {
     var token = localStorage.getItem(LocalStorageKeys.TOKEN);
@@ -56,6 +67,7 @@ export function PedidoContextProvider({ children }: PedidoContextProps) {
         getAllPedidos,
         pedidos,
         criar,
+        getPedido,
       }}
     >
       {children}
