@@ -8,7 +8,9 @@ import { MetodoPagamento } from "../enums/MetodoPagamento";
 import s from "../modules/TelaPedido.module.css";
 import { PagamentoStatus } from "../types/PagamentoStatus";
 import { PedidoDoUsuarioResponseDto } from "../types/PedidoDoUsuarioResponseDto";
+import { PedidoStatus } from "../types/PedidoStatus";
 import { SalgadoResumidoResponseDto } from "../types/SalgadoResumidoResponseDto";
+import { AppUtils } from "../utils/AppUtils";
 
 export function TelaPedidos() {
   const [carregando, _setCarregando] = useState(false);
@@ -64,24 +66,78 @@ interface PedidoItemProps {
 
 export function PedidoItem({ pedido }: PedidoItemProps) {
   return (
-    <div
-      style={{
-        border: "1px solid #787878",
-        borderRadius: 12,
-        marginBottom: 10,
-        paddingBottom: 10,
-      }}
-    >
-      <PedidosItemCima salgados={pedido.salgados} />
-      <PedidosItemMeio
-        pagamentoStatus={pedido.pagamentoStatus}
-        pagamentoEscolhido={pedido.pagamentoEscolhido}
-      />
-      <div style={{ display: "flex", justifyContent: "center", marginTop: 20 }}>
-        <ChavePixView chave={pedido.chavePix} marginTop={0} />
+    <div>
+      <p
+        style={{
+          marginTop: 10,
+          marginBottom: 10,
+          color: "#545454",
+          fontSize: 12,
+        }}
+      >
+        {AppUtils.milisegundosParaDiaAbreviadoDeMesDeAno(pedido.createdAt)}
+      </p>
+      <div
+        style={{
+          border: "1px solid #787878",
+          borderRadius: 12,
+          marginBottom: 10,
+          paddingBottom: 10,
+        }}
+      >
+        <PedidosItemCima salgados={pedido.salgados} />
+        <PedidosItemMeio
+          pagamentoStatus={pedido.pagamentoStatus}
+          pagamentoEscolhido={pedido.pagamentoEscolhido}
+        />
+        <PedidosItemBaixo
+          chavePix={pedido.chavePix}
+          pagamentoStatus={pedido.pagamentoStatus}
+          pedidoStatus={pedido.status}
+        />
       </div>
     </div>
   );
+}
+
+function getPedidoStatusResult(pedidoStatus: PedidoStatus) {
+  if (pedidoStatus == PedidoStatus.EM_PREPARO) {
+    return "Seu pedido está em preparo";
+  } else if (pedidoStatus == PedidoStatus.FINALIZADO) {
+    return "Seu já está pronto :)";
+  } else if (pedidoStatus == PedidoStatus.SAIU_PARA_ENTREGA) {
+    return "Seu pedido saiu pra entrega";
+  } else if (pedidoStatus == PedidoStatus.CHEGOU_NO_ENDERECO) {
+    return "Seu pedido chegou no seu endereço";
+  } else {
+    return "Seu pedido vai ser preparado já";
+  }
+}
+
+interface PedidosItemBaixoProps {
+  chavePix: string;
+  pagamentoStatus: PagamentoStatus;
+  pedidoStatus: PedidoStatus;
+}
+
+function PedidosItemBaixo({
+  chavePix,
+  pagamentoStatus,
+  pedidoStatus,
+}: PedidosItemBaixoProps) {
+  if (pagamentoStatus == PagamentoStatus.AGUARDANDO_PAGAMENTO)
+    return (
+      <div style={{ display: "flex", justifyContent: "center", marginTop: 20 }}>
+        <ChavePixView chave={chavePix} marginTop={0} />
+      </div>
+    );
+  else {
+    return (
+      <div style={{ display: "flex", justifyContent: "center", marginTop: 20 }}>
+        <p>{getPedidoStatusResult(pedidoStatus)}</p>
+      </div>
+    );
+  }
 }
 
 interface PedidosItemCimaProps {
@@ -94,7 +150,7 @@ export function PedidosItemCima({ salgados }: PedidosItemCimaProps) {
       {salgados.map((v, i) => (
         <PedidoItemCima
           imagem={v.imagem}
-          descricao={v.nome}
+          descricao={v.descricao}
           titulo={v.nome}
           key={i}
         />
@@ -121,6 +177,7 @@ export function PedidoItemCima({
         justifyContent: "space-between",
         alignItems: "center",
         height: 40,
+        marginBottom: 20,
       }}
     >
       <div style={{ display: "flex", alignItems: "center", columnGap: 19 }}>

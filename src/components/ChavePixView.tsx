@@ -22,6 +22,7 @@ export function ChavePixView({ chave, marginTop = 30 }: ChavePixViewProps) {
 
   return (
     <div
+      onClick={handleClickCopiaChavePix}
       style={{
         display: "flex",
         alignItems: "center",
@@ -35,10 +36,7 @@ export function ChavePixView({ chave, marginTop = 30 }: ChavePixViewProps) {
       }}
     >
       <p>{strCortada}</p>
-      <button
-        onClick={handleClickCopiaChavePix}
-        style={{ backgroundColor: "transparent", border: "none" }}
-      >
+      <button style={{ backgroundColor: "transparent", border: "none" }}>
         <Imagem width={30} height={30} imagePath="/copia_cola_amarelo.png" />
       </button>
       <ToastContainer />
