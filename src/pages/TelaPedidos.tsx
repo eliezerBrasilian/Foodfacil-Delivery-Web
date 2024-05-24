@@ -1,19 +1,12 @@
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
 import { AppTitulo } from "../components/AppTitulo";
-import { ChavePixView } from "../components/ChavePixView";
 import { CustomLoading } from "../components/CustomLoading";
-import { Imagem } from "../components/Imagem";
+import { PedidoItem } from "../components/PedidoItem";
 import { useBottomBarContext } from "../context/BottomBarContext";
 import { usePedidoContext } from "../context/PedidoContext";
-import { MetodoPagamento } from "../enums/MetodoPagamento";
-import { Rotas } from "../enums/Rotas";
 import s from "../modules/TelaPedido.module.css";
-import { PagamentoStatus } from "../types/PagamentoStatus";
 import { PedidoDoUsuarioResponseDto } from "../types/PedidoDoUsuarioResponseDto";
 import { PedidoStatus } from "../types/PedidoStatus";
-import { SalgadoResumidoResponseDto } from "../types/SalgadoResumidoResponseDto";
-import { AppUtils } from "../utils/AppUtils";
 
 export function TelaPedidos() {
   const [carregando, _setCarregando] = useState(false);
@@ -72,187 +65,49 @@ export function PedidoMainContent({ pedidos }: PedidoMainContentprops) {
   );
 }
 
-interface PedidoItemProps {
-  pedido: PedidoDoUsuarioResponseDto;
+interface PedidoStatusResultProps {
+  text: string;
+  icone: string;
 }
 
-export function PedidoItem({ pedido }: PedidoItemProps) {
-  const nav = useNavigate();
-  return (
-    <div>
-      <p
-        style={{
-          marginTop: 10,
-          marginBottom: 10,
-          color: "#545454",
-          fontSize: 12,
-        }}
-      >
-        {AppUtils.milisegundosParaDiaAbreviadoDeMesDeAno(pedido.createdAt)}
-      </p>
-      <div
-        style={{
-          border: "1px solid #787878",
-          borderRadius: 12,
-          marginBottom: 10,
-          paddingBottom: 10,
-        }}
-      >
-        <div
-          onClick={() => {
-            nav(Rotas.TELA_DETALHES_DO_PEDIDO + "/" + pedido.id);
-          }}
-        >
-          <PedidosItemCima salgados={pedido.salgados} />
-        </div>
-
-        <PedidosItemMeio
-          pagamentoStatus={pedido.pagamentoStatus}
-          pagamentoEscolhido={pedido.pagamentoEscolhido}
-        />
-        <PedidosItemBaixo
-          chavePix={pedido.chavePix}
-          pagamentoStatus={pedido.pagamentoStatus}
-          pedidoStatus={pedido.status}
-        />
-      </div>
-    </div>
-  );
-}
-
-export function getPedidoStatusResult(pedidoStatus: PedidoStatus) {
-  if (pedidoStatus == PedidoStatus.EM_PREPARO) {
-    return "Seu pedido está em preparo";
-  } else if (pedidoStatus == PedidoStatus.FINALIZADO) {
-    return "Seu já está pronto :)";
+export function getPedidoStatusResult(
+  pedidoStatus: PedidoStatus
+): PedidoStatusResultProps {
+  if (pedidoStatus == PedidoStatus.FINALIZADO) {
+    return {
+      text: "Seu já está pronto :)",
+      icone: "/pedido_finalizado.png",
+    };
   } else if (pedidoStatus == PedidoStatus.SAIU_PARA_ENTREGA) {
-    return "Seu pedido saiu pra entrega";
+    return {
+      text: "Seu pedido saiu pra entrega",
+      icone: "/pedido_rotaentrega.png",
+    };
   } else if (pedidoStatus == PedidoStatus.CHEGOU_NO_ENDERECO) {
-    return "Seu pedido chegou no seu endereço";
+    return {
+      text: "Seu pedido chegou no seu endereço",
+      icone: "/pagamento_naoconfirmado.png",
+    };
+  } else if (pedidoStatus == PedidoStatus.AGUARDANDO_PREPARO) {
+    return {
+      text: "Já vamos preparar seu pedido, aguarde...",
+      icone: "/esperando.png",
+    };
   } else {
-    return "Seu pedido vai ser preparado já";
+    return {
+      text: "Seu pedido está sendo prepararado",
+      icone: "/cooking.png",
+    };
   }
 }
 
-interface PedidosItemBaixoProps {
-  chavePix: string;
-  pagamentoStatus: PagamentoStatus;
-  pedidoStatus: PedidoStatus;
-}
+/*
+  FINALIZADO = "FINALIZADO",
+    SAIU_PARA_ENTREGA = "SAIU_PARA_ENTREGA",
+     CHEGOU_NO_ENDERECO = "CHEGOU_NO_ENDERECO",
+  AGUARDANDO_PREPARO = "AGUARDANDO_PREPARO",
+  EM_PREPARO = "EM_PREPARO",
 
-function PedidosItemBaixo({
-  chavePix,
-  pagamentoStatus,
-  pedidoStatus,
-}: PedidosItemBaixoProps) {
-  if (pagamentoStatus == PagamentoStatus.AGUARDANDO_PAGAMENTO)
-    return (
-      <div style={{ display: "flex", justifyContent: "center", marginTop: 20 }}>
-        <ChavePixView chave={chavePix} marginTop={0} />
-      </div>
-    );
-  else {
-    return (
-      <div style={{ display: "flex", justifyContent: "center", marginTop: 20 }}>
-        <p>{getPedidoStatusResult(pedidoStatus)}</p>
-      </div>
-    );
-  }
-}
 
-interface PedidosItemCimaProps {
-  salgados: SalgadoResumidoResponseDto[];
-}
-
-export function PedidosItemCima({ salgados }: PedidosItemCimaProps) {
-  return (
-    <div style={{ padding: 12 }}>
-      {salgados.map((v, i) => (
-        <PedidoItemCima
-          imagem={v.imagem}
-          descricao={v.descricao}
-          titulo={v.nome}
-          key={i}
-        />
-      ))}
-    </div>
-  );
-}
-
-interface PedidoItemCimaProps {
-  imagem: string;
-  titulo: string;
-  descricao: string;
-}
-
-export function PedidoItemCima({
-  imagem,
-  titulo,
-  descricao,
-}: PedidoItemCimaProps) {
-  return (
-    <div
-      style={{
-        display: "flex",
-        justifyContent: "space-between",
-        alignItems: "center",
-        height: 40,
-        marginBottom: 20,
-      }}
-    >
-      <div style={{ display: "flex", alignItems: "center", columnGap: 19 }}>
-        <Imagem height={25} width={25} imagePath={imagem} />
-        <div>
-          <h2>{titulo}</h2>
-          <p>{descricao}</p>
-        </div>
-      </div>
-
-      <Imagem height={15} width={15} imagePath={"/setadire_vermelho.png"} />
-    </div>
-  );
-}
-
-interface PedidosItemMeioProps {
-  pagamentoStatus: PagamentoStatus;
-  pagamentoEscolhido: MetodoPagamento;
-}
-
-export function PedidosItemMeio({
-  pagamentoStatus,
-  pagamentoEscolhido,
-}: PedidosItemMeioProps) {
-  var text = "";
-  if (pagamentoStatus == PagamentoStatus.AGUARDANDO_PAGAMENTO) {
-    text =
-      pagamentoEscolhido == MetodoPagamento.PIX
-        ? "Aguardando pagamento via pix"
-        : "Aguardando pagamento em dinheiro";
-  } else if (pagamentoStatus == PagamentoStatus.PAGAMENTO_APROVADO) {
-    text = "Pagamento aprovado";
-  } else if (pagamentoStatus == PagamentoStatus.PAGAMENTO_REEMBOLSADO) {
-    text = "Pagamento foi reembolsado";
-  } else if (pagamentoStatus == PagamentoStatus.PAGAMENTO_REJEITADO) {
-    text = "Pagamento foi rejeitado";
-  }
-
-  return (
-    <div
-      style={{
-        width: "100%",
-        height: 40,
-        backgroundColor: "#F5F5F5",
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center",
-        columnGap: 8,
-      }}
-    >
-      <Imagem height={15} width={15} imagePath={"/aguardando_pagamento.png"} />
-
-      <p style={{ fontSize: 13, fontWeight: "500", fontFamily: "Inter" }}>
-        {text}
-      </p>
-    </div>
-  );
-}
+ 
+  */

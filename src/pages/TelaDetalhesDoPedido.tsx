@@ -30,9 +30,14 @@ export function TelaDetalhesDoPedido() {
     return (
       <div className={s.container}>
         <TopBar text={`Detalhes do pedido - ${id}`} />
-        <div className={s.parte_cinza}>
-          <p>{getPedidoStatusResult(pedido.status)}</p>
-        </div>
+        {AppUtils.isExpired(pedido.createdAt) ? (
+          <p className={s.pedido_expirado}>Pedido expirado</p>
+        ) : (
+          <div className={s.parte_cinza}>
+            <p>{getPedidoStatusResult(pedido.status).text}</p>
+          </div>
+        )}
+
         <div className={s.lanche_items_container}>
           {pedido.salgados.map((v, i) => (
             <div className={s.lanche_item} key={i}>
@@ -67,16 +72,21 @@ export function TelaDetalhesDoPedido() {
 
         <div className={s.forma_pagamento_container}>
           <p>Forma de pagamento</p>
+
           <div>
             <Imagem
-              imagePath={"../../public/pix_semfundo.png"}
+              imagePath={
+                pedido.pagamentoEscolhido == MetodoPagamento.PIX
+                  ? "/pix_semfundo.png"
+                  : "/cedula_dinheiro.png"
+              }
               height={20}
               width={20}
             />
             <p>
               {pedido.pagamentoEscolhido == MetodoPagamento.PIX
                 ? "Pix"
-                : "Dinheiro"}{" "}
+                : "Dinheiro"}
             </p>
           </div>
         </div>

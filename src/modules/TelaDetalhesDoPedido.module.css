@@ -3,6 +3,12 @@
   height: 100vh;
 
   padding: 15px;
+
+  .pedido_expirado {
+    color: red;
+    text-align: center;
+    font-size: 14px;
+  }
   .parte_cinza {
     margin-top: 20px;
     background-color: #ebebeb;

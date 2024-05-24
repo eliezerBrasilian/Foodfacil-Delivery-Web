@@ -1,4 +1,10 @@
 .container {
   width: 100vw;
   height: 100vh;
+
+  .pedido_expirado {
+    color: red;
+    text-align: center;
+    font-size: 14px;
+  }
 }
