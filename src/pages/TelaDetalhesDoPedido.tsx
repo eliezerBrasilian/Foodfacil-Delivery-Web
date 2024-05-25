@@ -1,18 +1,23 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+import { ToastContainer } from "react-toastify";
+import { CustomBtn } from "../components/CustomBtn";
 import { Imagem } from "../components/Imagem";
 import { Linha } from "../components/Linha";
 import { TopBar } from "../components/TopBar";
 import { usePedidoContext } from "../context/PedidoContext";
 import { MetodoPagamento } from "../enums/MetodoPagamento";
 import s from "../modules/TelaDetalhesDoPedido.module.css";
+import { PedidoService } from "../services/PedidoService";
+import { PagamentoStatus } from "../types/PagamentoStatus";
 import { PedidoDoUsuarioResponseDto } from "../types/PedidoDoUsuarioResponseDto";
 import { AppUtils } from "../utils/AppUtils";
-import { getPedidoStatusResult } from "./TelaPedidos";
+
 export function TelaDetalhesDoPedido() {
   const { id } = useParams();
   const { getPedido } = usePedidoContext();
   const [pedido, setPedido] = useState<null | PedidoDoUsuarioResponseDto>(null);
+  const pedidoService = new PedidoService();
 
   useEffect(() => {
     async function buscaPedido() {
@@ -24,29 +29,62 @@ export function TelaDetalhesDoPedido() {
       }
     }
     buscaPedido();
+
+    const intervalId = setInterval(buscaPedido, 3000);
+
+    return () => clearInterval(intervalId);
   }, []);
+
+  const handleClickCopiaChavePix = (chave: string) => {
+    AppUtils.copiaChavePixParaTeclado(chave as string);
+  };
 
   if (pedido != null)
     return (
       <div className={s.container}>
         <TopBar text={`Detalhes do pedido - ${id}`} />
-        {AppUtils.isExpired(pedido.createdAt) ? (
+        {AppUtils.isExpired(pedido.createdAt) &&
+        pedido.pagamentoStatus != PagamentoStatus.PAGAMENTO_APROVADO ? (
           <p className={s.pedido_expirado}>Pedido expirado</p>
         ) : (
           <div className={s.parte_cinza}>
-            <p>{getPedidoStatusResult(pedido.status).text}</p>
+            <Imagem
+              imagePath={
+                pedidoService.getPedidoStatusResult(pedido.status).icone
+              }
+              height={20}
+              width={20}
+            />
+
+            <p>
+              {pedido.pagamentoStatus == PagamentoStatus.AGUARDANDO_PAGAMENTO
+                ? `Aguardando pagamento via ${
+                    pedido.pagamentoEscolhido == MetodoPagamento.PIX
+                      ? "PIX"
+                      : "Dinheiro"
+                  }`
+                : pedidoService.getPedidoStatusResult(pedido.status).text}
+            </p>
           </div>
         )}
 
         <div className={s.lanche_items_container}>
           {pedido.salgados.map((v, i) => (
-            <div className={s.lanche_item} key={i}>
-              <img className={s.img} src={v.imagem} />
-              <div>
-                <p>{v.nome}</p>
-                <p>{v.descricao}</p>
+            <div>
+              <div className={s.lanche_item} key={i}>
+                <img className={s.img} src={v.imagem} />
+                <div>
+                  <p>{v.nome}</p>
+                  <p>{v.descricao}</p>
+                </div>
+                <p>{AppUtils.toMoedaBrasileira(v.preco)}</p>
               </div>
-              <p>{AppUtils.toMoedaBrasileira(v.preco)}</p>
+              {v.observacao != "" && (
+                <div>
+                  <p className={s.observacao}>Observacao: {v.observacao}</p>
+                  <Linha borderBottomColor="gray" borderBottomWidth={0.2} />
+                </div>
+              )}
             </div>
           ))}
         </div>
@@ -108,6 +146,25 @@ export function TelaDetalhesDoPedido() {
           <p>Cidade: {pedido.endereco.cidade}</p>
           <p>Ponto de referência: {pedido.endereco.complemento}</p>
         </div>
+
+        {pedido.pagamentoEscolhido == MetodoPagamento.PIX &&
+          !AppUtils.isExpired(pedido.createdAt) &&
+          pedido.pagamentoStatus == PagamentoStatus.AGUARDANDO_PAGAMENTO && (
+            <div
+              style={{
+                marginTop: 25,
+                width: "100%",
+                display: "flex",
+                justifyContent: "center",
+              }}
+            >
+              <CustomBtn
+                text="Copiar chave Pix"
+                onClick={() => handleClickCopiaChavePix(pedido.chavePix)}
+              />
+            </div>
+          )}
+        <ToastContainer />
       </div>
     );
 }

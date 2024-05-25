@@ -6,15 +6,12 @@ import { useBottomBarContext } from "../context/BottomBarContext";
 import { usePedidoContext } from "../context/PedidoContext";
 import s from "../modules/TelaPedido.module.css";
 import { PedidoDoUsuarioResponseDto } from "../types/PedidoDoUsuarioResponseDto";
-import { PedidoStatus } from "../types/PedidoStatus";
 
 export function TelaPedidos() {
   const [carregando, _setCarregando] = useState(false);
   const { getAllPedidos, pedidos } = usePedidoContext();
 
   const { handlePedidosBottomBar, activateVisibility } = useBottomBarContext();
-
-  // useEffect(() => localStorage.clear());
 
   useEffect(() => {
     activateVisibility();
@@ -23,6 +20,12 @@ export function TelaPedidos() {
 
   useEffect(() => {
     getAllPedidos();
+
+    // Set interval to fetch data every 2 seconds
+    const intervalId = setInterval(getAllPedidos, 3000);
+
+    // Cleanup function to clear the interval
+    return () => clearInterval(intervalId);
   }, []);
 
   return (
@@ -64,50 +67,3 @@ export function PedidoMainContent({ pedidos }: PedidoMainContentprops) {
     </div>
   );
 }
-
-interface PedidoStatusResultProps {
-  text: string;
-  icone: string;
-}
-
-export function getPedidoStatusResult(
-  pedidoStatus: PedidoStatus
-): PedidoStatusResultProps {
-  if (pedidoStatus == PedidoStatus.FINALIZADO) {
-    return {
-      text: "Seu já está pronto :)",
-      icone: "/pedido_finalizado.png",
-    };
-  } else if (pedidoStatus == PedidoStatus.SAIU_PARA_ENTREGA) {
-    return {
-      text: "Seu pedido saiu pra entrega",
-      icone: "/pedido_rotaentrega.png",
-    };
-  } else if (pedidoStatus == PedidoStatus.CHEGOU_NO_ENDERECO) {
-    return {
-      text: "Seu pedido chegou no seu endereço",
-      icone: "/pagamento_naoconfirmado.png",
-    };
-  } else if (pedidoStatus == PedidoStatus.AGUARDANDO_PREPARO) {
-    return {
-      text: "Já vamos preparar seu pedido, aguarde...",
-      icone: "/esperando.png",
-    };
-  } else {
-    return {
-      text: "Seu pedido está sendo prepararado",
-      icone: "/cooking.png",
-    };
-  }
-}
-
-/*
-  FINALIZADO = "FINALIZADO",
-    SAIU_PARA_ENTREGA = "SAIU_PARA_ENTREGA",
-     CHEGOU_NO_ENDERECO = "CHEGOU_NO_ENDERECO",
-  AGUARDANDO_PREPARO = "AGUARDANDO_PREPARO",
-  EM_PREPARO = "EM_PREPARO",
-
-
- 
-  */

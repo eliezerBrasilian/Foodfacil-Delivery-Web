@@ -1,5 +1,6 @@
-import { ToastContainer, toast } from "react-toastify";
+import { ToastContainer } from "react-toastify";
 import { cores } from "../assets/cores";
+import { AppUtils } from "../utils/AppUtils";
 import { Imagem } from "./Imagem";
 
 interface ChavePixViewProps {
@@ -10,14 +11,7 @@ export function ChavePixView({ chave, marginTop = 30 }: ChavePixViewProps) {
   let strCortada = chave?.toString().substring(0, 20) + "...";
 
   const handleClickCopiaChavePix = () => {
-    navigator.clipboard
-      .writeText(chave as string)
-      .then(() => {
-        toast("chave pix copiada");
-      })
-      .catch((_err) => {
-        alert("Erro ao copiar chave pix");
-      });
+    AppUtils.copiaChavePixParaTeclado(chave as string);
   };
 
   return (

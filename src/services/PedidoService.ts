@@ -10,6 +10,11 @@ import { SalgadoDto } from "../types/SalgadoDto";
 import { SimplesAcompanhamento } from "../types/SimplesAdicional";
 import { SimplesSalgado } from "../types/SimplesSalgado";
 
+export interface PedidoStatusResultProps {
+  text: string;
+  icone: string;
+}
+
 export class PedidoService {
   private pedidodata: PedidoRequestDto | null;
 
@@ -74,5 +79,39 @@ export class PedidoService {
 
   getPedidoProcessado() {
     return this.pedidodata;
+  }
+
+  getPedidoStatusResult(pedidoStatus: PedidoStatus): PedidoStatusResultProps {
+    if (pedidoStatus == PedidoStatus.FINALIZADO) {
+      return {
+        text: "Seu já está pronto :)",
+        icone: "/pedido_finalizado.png",
+      };
+    } else if (pedidoStatus == PedidoStatus.SAIU_PARA_ENTREGA) {
+      return {
+        text: "Seu pedido saiu pra entrega",
+        icone: "/pedido_rotaentrega.png",
+      };
+    } else if (pedidoStatus == PedidoStatus.CHEGOU_NO_ENDERECO) {
+      return {
+        text: "Seu pedido chegou no seu endereço",
+        icone: "/pagamento_naoconfirmado.png",
+      };
+    } else if (pedidoStatus == PedidoStatus.AGUARDANDO_PREPARO) {
+      return {
+        text: "Já vamos preparar seu pedido, aguarde...",
+        icone: "/esperando.png",
+      };
+    } else if (pedidoStatus == PedidoStatus.ENTREGUE) {
+      return {
+        text: "Entregamos seu pedido com sucesso :)",
+        icone: "/entregue.png",
+      };
+    } else {
+      return {
+        text: "Seu pedido está sendo prepararado",
+        icone: "/cooking.png",
+      };
+    }
   }
 }

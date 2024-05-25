@@ -1,10 +1,10 @@
-import { getPedidoStatusResult } from "../pages/TelaPedidos";
 import { PagamentoStatus } from "../types/PagamentoStatus";
 import { PedidoStatus } from "../types/PedidoStatus";
 import { AppUtils } from "../utils/AppUtils";
 import { ChavePixView } from "./ChavePixView";
 
 import s from "../modules/TelaPedido.module.css";
+import { PedidoService } from "../services/PedidoService";
 import { Imagem } from "./Imagem";
 
 interface PedidosItemBaixoProps {
@@ -20,6 +20,8 @@ export function PedidosItemBaixo({
   pedidoStatus,
   createdAt,
 }: PedidosItemBaixoProps) {
+  const pedidoService = new PedidoService();
+
   if (
     pagamentoStatus == PagamentoStatus.AGUARDANDO_PAGAMENTO &&
     !AppUtils.isExpired(createdAt)
@@ -52,9 +54,9 @@ export function PedidosItemBaixo({
         <Imagem
           height={15}
           width={15}
-          imagePath={getPedidoStatusResult(pedidoStatus).icone}
+          imagePath={pedidoService.getPedidoStatusResult(pedidoStatus).icone}
         />
-        <p>{getPedidoStatusResult(pedidoStatus).text}</p>
+        <p>{pedidoService.getPedidoStatusResult(pedidoStatus).text}</p>
       </div>
     );
 }
