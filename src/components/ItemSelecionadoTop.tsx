@@ -14,7 +14,7 @@ export function ItemSelecionadoTop({ capa }: ItemSelecionadoTopProps) {
         }}
       />
 
-      <img className={s.capa} src={capa} height={200} width={"100%"} />
+      <img className={s.capa} src={capa} />
     </div>
   );
 }

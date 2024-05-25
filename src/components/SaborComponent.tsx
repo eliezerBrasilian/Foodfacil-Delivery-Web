@@ -22,7 +22,7 @@ export function SaborComponent({
           marginBottom: 10,
         }}
       >
-        <p>{nome}</p>
+        <p style={{ fontSize: 14 }}>{nome}</p>
         <CustomCheckBox checked={isChecked} onClick={() => onClick(nome)} />
       </div>
 

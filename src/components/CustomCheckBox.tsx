@@ -13,8 +13,8 @@ export function CustomCheckBox({
     <div
       onClick={onClick}
       style={{
-        height: 30,
-        width: 30,
+        height: 24,
+        width: 24,
         borderRadius: 6,
         borderStyle: "solid",
         borderWidth: 1,

@@ -10,9 +10,7 @@ export function SaboresParaEscolher({
   lista,
   saboresEscolhidos,
   onClick,
-}: // handleIsChecked,
-
-SaboresParaEscolherProps) {
+}: SaboresParaEscolherProps) {
   return (
     <div style={{ padding: 15 }}>
       {lista.map((sab) => (

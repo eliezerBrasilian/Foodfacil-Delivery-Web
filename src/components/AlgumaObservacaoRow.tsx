@@ -16,7 +16,7 @@ export function AlgumaObservacaoRow({
       }}
     >
       <ObservacaoRowEsquerda />
-      <p style={{ color: "#4C4C4C", fontWeight: "600" }}>
+      <p style={{ color: "#4C4C4C", fontWeight: "600", fontSize: 13 }}>
         {contadorDeCaracteresDigitados}/140
       </p>
     </div>

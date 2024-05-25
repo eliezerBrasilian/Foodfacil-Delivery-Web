@@ -1,10 +1,6 @@
-body {
-  margin: 0;
-  padding: 0;
-}
-
 .container {
-  min-width: 100vw;
+  width: 100vw;
+  height: 100vh;
 
   .seta_voltar {
     height: 25px;
@@ -15,40 +11,42 @@ body {
   }
 
   .capa {
-    height: 200px;
+    height: 170px;
     width: 100%;
+    object-fit: fill;
   }
   .detalhes_container {
     padding: 15px;
     display: flex;
     flex-direction: column;
-    row-gap: 8px;
+    row-gap: 6px;
+
+    .titulo {
+      font-size: 17px;
+      color: black;
+      font-weight: 700;
+    }
+
+    .descricao {
+      font-size: 14px;
+      color: #555353;
+    }
+
+    .preco {
+      font-size: 17px;
+      color: #28d84f;
+      font-weight: bold;
+    }
+
+    .taxa_de_entrega {
+      font-size: 13px;
+      color: #3c3b3b;
+    }
 
     .chao {
       display: flex;
       justify-content: space-between;
       align-items: center;
     }
-  }
-
-  .titulo {
-    font-size: 19px;
-    color: black;
-    font-weight: 700;
-  }
-
-  .descricao {
-    font-size: 18px;
-    color: #555353;
-  }
-
-  .preco {
-    font-size: 18px;
-    color: #28d84f;
-  }
-
-  .taxa_de_entrega {
-    font-size: 15px;
-    color: #3c3b3b;
   }
 }
