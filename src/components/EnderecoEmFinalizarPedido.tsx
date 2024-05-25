@@ -168,9 +168,9 @@ export function EnderecoEmFinalizarPedido() {
   }
 }
 
-function IsNotEmpty(s: string) {
+export function IsNotEmpty(s: string) {
   return s != "";
 }
-function IsEmpty(s: string) {
+export function IsEmpty(s: string) {
   return s == "";
 }

@@ -1,4 +1,5 @@
 enum LocalStorageKeys {
+  CREATED_AT = "created_at",
   TOKEN = "token",
   USER_ID = "user_id",
   EMAIL = "email",

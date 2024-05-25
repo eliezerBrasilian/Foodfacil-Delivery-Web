@@ -11,7 +11,7 @@ import { LocalStorageKeys } from "../enums/LocalStorageKeys";
 import { Rotas } from "../enums/Rotas.js";
 import { auth, provider } from "../firebase/config.js";
 import ls from "../modules/Login.module.css";
-import { UserAuthResponseDto } from "../types/UserAuthResponseDto.js";
+import { AuthResponseDto } from "../types/AuthResponseDto.js";
 import { AuthRequestDto } from "./../types/AuthRequestDto";
 
 export function Login() {
@@ -37,11 +37,13 @@ export function Login() {
     if (token != null) nav(Rotas.HOME);
   }, []);
 
-  const onSuccess = (data: UserAuthResponseDto) => {
+  const onSuccess = (data: AuthResponseDto) => {
     localStorage.setItem(LocalStorageKeys.TOKEN, data.token);
     localStorage.setItem(LocalStorageKeys.NOME, data.name);
     localStorage.setItem(LocalStorageKeys.FOTO, data.profilePicture);
     localStorage.setItem(LocalStorageKeys.USER_ID, data.userId);
+    localStorage.setItem(LocalStorageKeys.EMAIL, data.email);
+    localStorage.setItem(LocalStorageKeys.CREATED_AT, data.createdAt);
     setLoading(false);
     nav(Rotas.HOME);
   };

@@ -1,22 +1,21 @@
 import { AuthRequestDto } from "./AuthRequestDto";
-import { UserAuthRequestDto } from "./UserAuthRequestDto";
-import { UserAuthResponseDto } from "./UserAuthResponseDto";
+import { AuthResponseDto } from "./AuthResponseDto";
 
 export interface AuthContextInterface {
   login: (
     email: string,
     senha: string,
-    onSuccess: (data: UserAuthResponseDto) => void
+    onSuccess: (data: AuthResponseDto) => void
   ) => void;
   cadastro: (
     body: AuthRequestDto,
-    onSuccess: (data: UserAuthResponseDto) => void,
+    onSuccess: (data: AuthResponseDto) => void,
     onError: (msg: string) => void
   ) => void;
 
   googleSignIn: (
-    userAuthRequestDto: UserAuthRequestDto,
-    onSuccess: (data: UserAuthResponseDto) => void,
+    userAuthRequestDto: AuthRequestDto,
+    onSuccess: (data: AuthResponseDto) => void,
     onError: (msg: string) => void
   ) => void;
 }

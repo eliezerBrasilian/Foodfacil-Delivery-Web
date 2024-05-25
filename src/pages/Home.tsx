@@ -26,8 +26,6 @@ export function Home() {
   const nav = useNavigate();
   const larguraAtual = useLarguraAtual();
 
-  // useEffect(() => localStorage.clear());
-
   useEffect(() => {
     activateVisibility();
     handleHomeBottomBar();

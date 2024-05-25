@@ -20,6 +20,28 @@ export class AppUtils {
     return currentTime - timestamp >= MILLISECONDS_IN_24_HOURS;
   }
 
+  static milisegundosParaDiaAbreviadoDeMesDeAnoHoraMinutoSegundo(
+    milisegundos: number
+  ): string {
+    console.log("milisegundos: " + milisegundos);
+
+    try {
+      const data = new Date(milisegundos);
+
+      console.log("-------data: " + data);
+
+      if (isNaN(data.getTime())) {
+        throw new RangeError("Invalid time value");
+      }
+
+      return format(data, "dd 'de' MMMM 'de' yyyy 'às' HH:mm:ss", {
+        locale: ptBR,
+      });
+    } catch (error: any) {
+      throw new Error(error);
+    }
+  }
+
   static milisegundosParaDiaAbreviadoDeMesDeAno(milisegundos: number): string {
     const data = new Date(milisegundos);
     return format(data, "E. dd 'de' MMMM 'de' yyyy", { locale: ptBR });

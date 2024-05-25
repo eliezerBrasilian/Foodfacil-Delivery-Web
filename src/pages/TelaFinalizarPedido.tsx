@@ -9,13 +9,13 @@ import { MetodoDePagamentoEmFinalizarPedido } from "../components/MetodoDePagame
 import { ResumoDoPedido } from "../components/ResumoDoPedido";
 import { TopBar } from "../components/TopBar";
 import { usePedidoContext } from "../context/PedidoContext";
+import { useTaxaContext } from "../context/TaxaContext";
 import { useCarrinhoContext } from "../defaultContexts/CarrinhoContextDefault";
 import { useMetodoPagamentoContext } from "../defaultContexts/MetodoPagamentoContextDefault";
 import { LocalStorageKeys } from "../enums/LocalStorageKeys";
 import { Rotas } from "../enums/Rotas";
 import s from "../modules/TelaFinalizarPedido.module.css";
 import { PedidoService } from "../services/PedidoService";
-import { useTaxaContext } from "../context/TaxaContext";
 
 export function TelaFinalizarPedido() {
   const { salgadosList, acompanhamentoList } = useCarrinhoContext();

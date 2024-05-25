@@ -26,7 +26,7 @@ export function TopBar({ text }: TopBarProps) {
         }}
       />
 
-      <p style={{ fontSize: 18, fontWeight: "600" }}>{text}</p>
+      <p style={{ fontSize: 15, fontFamily: "Inter" }}>{text}</p>
     </div>
   );
 }

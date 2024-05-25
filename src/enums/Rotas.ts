@@ -10,6 +10,8 @@ enum Rotas {
   TELA_ESCOLHER_PAGAMENTO = "/escolher-pagamento",
   TELA_VER_CHAVE_PIX = "/chave-pix",
   TELA_DETALHES_DO_PEDIDO = "/detalhes-do-pedido",
+  TELA_DADOS_DA_CONTA = "/detalhes-da-minha-conta",
+  TELA_MEU_ENDERECO = "/meu-endereco",
 }
 
 export { Rotas };

@@ -1,18 +1,22 @@
 import { api } from "../api/client/client";
 import { AuthRequestDto } from "../types/AuthRequestDto";
+import { AuthResponseDto } from "../types/AuthResponseDto";
 import { UserAuthRequestDto } from "./../types/UserAuthRequestDto";
-import { UserAuthResponseDto } from "./../types/UserAuthResponseDto";
 
 export class AuthRepository {
   async googleSignIn(
     userAuthRequestDto: UserAuthRequestDto,
-    onSuccess: (data: UserAuthResponseDto) => void
+    onSuccess: (data: AuthResponseDto) => void
   ) {
     try {
-      const response = await api.post("/auth/google-login", userAuthRequestDto);
+      const response: any = await api.post(
+        "/auth/google-login",
+        userAuthRequestDto
+      );
       console.log("-----------login com google feito");
       console.log(response);
-      onSuccess(response.data);
+
+      onSuccess(response.data as AuthResponseDto);
     } catch (error) {
       console.log(error);
     }
@@ -20,12 +24,12 @@ export class AuthRepository {
 
   async cadastro(
     body: AuthRequestDto,
-    onSuccess: (data: UserAuthResponseDto) => void,
+    onSuccess: (data: AuthResponseDto) => void,
     onError: (msg: string) => void
   ) {
     try {
       const resp = await api.post("/auth/sign-up", body);
-      const data: UserAuthResponseDto = resp.data;
+      const data: AuthResponseDto = resp.data;
 
       onSuccess(data);
     } catch (e: any) {
@@ -38,13 +42,13 @@ export class AuthRepository {
   async login(
     email: string,
     senha: string,
-    onSuccess: (data: UserAuthResponseDto) => void
+    onSuccess: (data: AuthResponseDto) => void
   ) {
     var body = { email: email, password: senha };
 
     try {
       const resp = await api.post("/auth/login", body);
-      const data: UserAuthResponseDto = resp.data;
+      const data: AuthResponseDto = resp.data;
 
       onSuccess(data);
     } catch (e: any) {

@@ -7,9 +7,11 @@ import { ItemSelecionado } from "../pages/ItemSelecionado";
 import { Login } from "../pages/Login";
 import { TelaCardapio } from "../pages/TelaCardapio";
 import { TelaCarrinhoDeCompras } from "../pages/TelaCarrinhoDeCompras";
+import { TelaDadosDaConta } from "../pages/TelaDadosDaConta";
 import { TelaDetalhesDoPedido } from "../pages/TelaDetalhesDoPedido";
 import { TelaEscolherPagamento } from "../pages/TelaEscolherPagamento";
 import { TelaFinalizarPedido } from "../pages/TelaFinalizarPedido";
+import { TelaMeuEndereco } from "../pages/TelaMeuEndereco";
 import { TelaPedidos } from "../pages/TelaPedidos";
 import { TelaPerfil } from "../pages/TelaPerfil";
 import { TelaVerChavePix } from "../pages/TelaVerChavePix";
@@ -39,6 +41,11 @@ export function RoutesApp() {
         />
         <Route path={rotaVerChavePix} element={<TelaVerChavePix />} />
         <Route path={rotaDetalhesDoPedido} element={<TelaDetalhesDoPedido />} />
+        <Route
+          path={Rotas.TELA_DADOS_DA_CONTA}
+          element={<TelaDadosDaConta />}
+        />
+        <Route path={Rotas.TELA_MEU_ENDERECO} element={<TelaMeuEndereco />} />
       </Routes>
       <BottomBar />
     </BrowserRouter>
