@@ -1,51 +1,95 @@
-import { useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
 import { cores } from "../assets/cores";
-import { Rotas } from "../enums/Rotas";
+import { useContadorTotalCarrinho } from "../customHooks/useContadorTotalCarrinho";
+import { OnlineRepository } from "../repositories/OnlineRepository";
+import { OnlineStatus } from "../types/OnlineStatus";
 import { Imagem } from "./Imagem";
 
-interface CarrinhoComCirculoProps {
-  contador?: number;
-}
+export function HomeHeader() {
+  var onlineRepository = new OnlineRepository();
+  const [status, setStatus] = useState(OnlineStatus.OFFLINE);
 
-export function HomeHeader({ contador = 0 }: CarrinhoComCirculoProps) {
+  useEffect(() => {
+    async function getOnlineStatus() {
+      const resp = await onlineRepository.consultaOnline();
+      setStatus(resp);
+    }
+
+    getOnlineStatus();
+  }, []);
   return (
     <div
       style={{
         display: "flex",
         justifyContent: "space-between",
+        alignItems: "center",
         width: "100%",
         padding: 15,
       }}
     >
       <Imagem imagePath="top_logo.png" height={50} width={70} />
-      <div>
-        <p>Estamos funcionando!</p>
-        <p>De 18:30 às 22h</p>
-      </div>
-      <CarrinhoComCirculo contador={contador} />
+
+      <OnlineStatusComponent status={status} />
+
+      <CarrinhoComCirculo />
     </div>
   );
 }
 
-function CarrinhoComCirculo({ contador }: CarrinhoComCirculoProps) {
-  const nav = useNavigate();
+interface OnlineStatusComponentProps {
+  status: OnlineStatus;
+}
+export function OnlineStatusComponent({ status }: OnlineStatusComponentProps) {
   return (
-    <div onClick={() => nav(Rotas.TELA_CARRINHO)}>
-      <Imagem imagePath="top_carrinho.png" height={25} width={25} />
+    <div
+      style={{
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        columnGap: 5,
+      }}
+    >
+      <p style={{ fontWeight: "600", marginBottom: 5 }}>
+        {status == OnlineStatus.ONLINE
+          ? "Estamos funcionando!"
+          : "Estamos fechados agora!"}
+      </p>
       <div
         style={{
-          height: 19,
-          width: 19,
-          borderRadius: 19 / 2,
-          background: cores.font_ativa,
+          height: 12,
+          width: 12,
+          borderRadius: "50%",
+          backgroundColor:
+            status == OnlineStatus.ONLINE ? "green" : cores.btn_vermelho,
+        }}
+      />
+    </div>
+  );
+}
+
+export function CarrinhoComCirculo() {
+  const contadorTotal = useContadorTotalCarrinho();
+  return (
+    <div style={{ position: "relative", display: "inline-block" }}>
+      <img src="top_carrinho.png" height={30} width={30} />
+      <div
+        style={{
           position: "absolute",
-          top: 30,
+          top: "10%",
+          right: "-10%",
+          height: 20,
+          width: 20,
+          backgroundColor: cores.contador_circulo_amarelo,
+          borderRadius: "50%",
           display: "flex",
           justifyContent: "center",
           alignItems: "center",
+          color: cores.font_ativa,
+          fontSize: "11px",
+          fontWeight: "bold",
         }}
       >
-        <p style={{ color: "white", fontSize: 15 }}>{contador}</p>
+        {contadorTotal}
       </div>
     </div>
   );

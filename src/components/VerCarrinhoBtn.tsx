@@ -1,6 +1,7 @@
-import { useMemo } from "react";
 import { useNavigate } from "react-router-dom";
 import { cores } from "../assets/cores";
+import { useTaxaContext } from "../context/TaxaContext";
+import { useContadorTotalCarrinho } from "../customHooks/useContadorTotalCarrinho";
 import { usePrecoTotalCarrinho } from "../customHooks/usePrecoTotalCarrinho";
 import { useCarrinhoContext } from "../defaultContexts/CarrinhoContextDefault";
 import { Rotas } from "../enums/Rotas";
@@ -11,29 +12,11 @@ export type Preco = number | string | undefined;
 export function VerCarrinhoBtn() {
   const precoTotal = usePrecoTotalCarrinho();
 
-  const { salgadosList, acompanhamentoList } = useCarrinhoContext();
+  const { salgadosList } = useCarrinhoContext();
 
   const nav = useNavigate();
 
-  const contadorTotalSalgados = useMemo(() => {
-    var total = 0;
-    salgadosList.forEach((salg) => {
-      var quantidade = salg.quantidade;
-
-      total += quantidade;
-    });
-    return total;
-  }, [salgadosList]);
-
-  const contadorAcompanhamentos = useMemo(() => {
-    var total = 0;
-    acompanhamentoList.forEach((a) => {
-      var quantidade = a.quantidade;
-
-      total += quantidade;
-    });
-    return total;
-  }, [salgadosList]);
+  const contadorTotal = useContadorTotalCarrinho();
 
   if (salgadosList.length > 0)
     return (
@@ -53,10 +36,7 @@ export function VerCarrinhoBtn() {
           left: 0,
         }}
       >
-        <Esquerdo
-          contador={contadorTotalSalgados + contadorAcompanhamentos}
-          preco={precoTotal}
-        />
+        <Esquerdo contador={contadorTotal} preco={precoTotal} />
         <Btn text="Ver carrinho" />
       </div>
     );
@@ -64,20 +44,25 @@ export function VerCarrinhoBtn() {
 }
 
 interface EsquerdoProps {
-  preco: Preco;
+  preco: number;
   contador: number;
 }
 
 function Esquerdo({ contador, preco }: EsquerdoProps) {
   const contadorText = contador > 1 ? "items" : "item";
+
+  const { taxa } = useTaxaContext();
+
+  const total = taxa == -1 ? preco : taxa + preco;
+
   return (
     <div>
       <p style={{ color: "#3C3B3B", fontSize: 13 }}>
-        Total sem a taxa de entrega
+        Total {taxa == -1 ? "sem" : "com"} a taxa de entrega
       </p>
       <div style={{ display: "flex", columnGap: 5 }}>
         <p style={{ fontSize: 15, fontWeight: "bold" }}>
-          {AppUtils.toMoedaBrasileira(preco as number)}
+          {AppUtils.toMoedaBrasileira(total)}
         </p>
 
         <p style={{ color: "#3C3B3B", fontSize: 15 }}>

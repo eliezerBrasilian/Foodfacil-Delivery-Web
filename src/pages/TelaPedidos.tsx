@@ -25,10 +25,8 @@ export function TelaPedidos() {
   useEffect(() => {
     getAllPedidos();
 
-    // Set interval to fetch data every 2 seconds
     const intervalId = setInterval(getAllPedidos, 3000);
 
-    // Cleanup function to clear the interval
     return () => clearInterval(intervalId);
   }, []);
 

@@ -59,7 +59,7 @@ export function Home() {
   return (
     <div className={hs.container}>
       <HomeHeader />
-      <h1>Tá no app</h1>
+      <h1>Tá no site</h1>
       <HomeCarrousel />
 
       <h1>Promoções imperdíveis</h1>
@@ -78,6 +78,10 @@ export function Home() {
           ))}
         </div>
       )}
+
+      {/* <h2>Segue a gente no Instagram</h2>
+      <p>Temos salgados congelados</p> */}
+
       <VerCarrinhoBtn />
     </div>
   );
