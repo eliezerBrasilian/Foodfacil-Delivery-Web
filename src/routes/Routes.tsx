@@ -15,6 +15,7 @@ import { TelaMeuEndereco } from "../pages/TelaMeuEndereco";
 import { TelaPedidos } from "../pages/TelaPedidos";
 import { TelaPerfil } from "../pages/TelaPerfil";
 import { TelaVerChavePix } from "../pages/TelaVerChavePix";
+import { TelaVerPedidoCriadoAoPagarComDinheiro } from "../pages/TelaVerPedidoCriadoAoPagarComDinheiro";
 
 export function RoutesApp() {
   const rotaItemSelecionado = Rotas.TELA_ITEM_SELECIONADO + "/:id";
@@ -46,6 +47,10 @@ export function RoutesApp() {
           element={<TelaDadosDaConta />}
         />
         <Route path={Rotas.TELA_MEU_ENDERECO} element={<TelaMeuEndereco />} />
+        <Route
+          path={Rotas.TELA_VER_PEDIDO_CRIADO_APOS_PAGAR_COM_DINHEIRO}
+          element={<TelaVerPedidoCriadoAoPagarComDinheiro />}
+        />
       </Routes>
       <BottomBar />
     </BrowserRouter>

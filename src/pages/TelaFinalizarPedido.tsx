@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { CustomLoading } from "../components/CustomLoading";
 import { EnderecoEmFinalizarPedido } from "../components/EnderecoEmFinalizarPedido";
@@ -10,9 +10,10 @@ import { ResumoDoPedido } from "../components/ResumoDoPedido";
 import { TopBar } from "../components/TopBar";
 import { usePedidoContext } from "../context/PedidoContext";
 import { useTaxaContext } from "../context/TaxaContext";
+import { usePrecoTotalCarrinho } from "../customHooks/usePrecoTotalCarrinho";
 import { useCarrinhoContext } from "../defaultContexts/CarrinhoContextDefault";
 import { useMetodoPagamentoContext } from "../defaultContexts/MetodoPagamentoContextDefault";
-import { LocalStorageKeys } from "../enums/LocalStorageKeys";
+import { MetodoPagamento } from "../enums/MetodoPagamento";
 import { Rotas } from "../enums/Rotas";
 import s from "../modules/TelaFinalizarPedido.module.css";
 import { PedidoService } from "../services/PedidoService";
@@ -21,14 +22,20 @@ export function TelaFinalizarPedido() {
   const { salgadosList, acompanhamentoList } = useCarrinhoContext();
   const { metodoEscolhido, saldo } = useMetodoPagamentoContext();
   const { criar } = usePedidoContext();
-  // const totalCarrinho = usePrecoTotalCarrinho();
+  const totalCarrinho = usePrecoTotalCarrinho();
   const { taxa } = useTaxaContext();
 
-  //const total = totalCarrinho + taxa;
-  const total = 1;
+  const total = totalCarrinho + taxa;
+  //const total = 1;
 
   const [loading, setLoading] = useState(false);
-  const cidade = localStorage.getItem(LocalStorageKeys.CIDADE);
+
+  const [bairroState, setBairroState] = useState("");
+
+  console.log("saldo: " + saldo);
+  console.log("total: " + total);
+
+  useEffect(() => {}, [bairroState]);
 
   const nav = useNavigate();
 
@@ -47,13 +54,17 @@ export function TelaFinalizarPedido() {
 
     var pedidoProcessado = pedidoService.getPedidoProcessado();
 
-    if (cidade != null) {
+    if (bairroState != "") {
       if (pedidoProcessado != null) {
         criar(pedidoProcessado, (chavePix) => {
           console.log("chave pix");
           console.log(chavePix);
           setLoading(false);
-          nav(Rotas.TELA_VER_CHAVE_PIX + "/" + chavePix);
+          if (metodoEscolhido == MetodoPagamento.PIX)
+            nav(Rotas.TELA_VER_CHAVE_PIX + "/" + chavePix);
+          else {
+            nav(Rotas.TELA_VER_PEDIDO_CRIADO_APOS_PAGAR_COM_DINHEIRO);
+          }
         });
       }
     } else {
@@ -72,8 +83,8 @@ export function TelaFinalizarPedido() {
       </p>
       <Linha borderBottomColor="gray" borderBottomWidth={0.4} />
       <ResumoDoPedido />
-      <EnderecoEmFinalizarPedido />
-      <MetodoDePagamentoEmFinalizarPedido />
+      <EnderecoEmFinalizarPedido setBairroState={setBairroState} />
+      <MetodoDePagamentoEmFinalizarPedido bairroState={bairroState} />
       {!loading && <FinalizarPedidoBtn onClick={handleClickFinalizarPedido} />}
       {loading && <TelaDeLoadingAPorcima />}
     </div>

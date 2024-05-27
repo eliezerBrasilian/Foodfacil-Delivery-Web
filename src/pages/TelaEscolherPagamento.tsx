@@ -14,6 +14,8 @@ export function TelaEscolherPagamento() {
   const { escolheMetodo, metodoEscolhido, defineSaldo, saldo } =
     useMetodoPagamentoContext();
 
+  const [valorInput, setValorInput] = useState(0);
+
   const [popUpVisivel, setPopUpVisivel] = useState(false);
 
   const total = usePrecoTotalCarrinho();
@@ -21,17 +23,9 @@ export function TelaEscolherPagamento() {
 
   const [btnConfirmarVisivel, setBtnConfirmarVisivel] = useState(false);
 
-  const inicialTotalState = saldo == 0 ? total + taxa : saldo;
-
   useEffect(() => {
-    const t = total + taxa;
-
-    if (inicialTotalState > t) {
-      setBtnConfirmarVisivel(true);
-    } else setBtnConfirmarVisivel(false);
+    setValorInput(saldo);
   }, []);
-
-  const [valorInput, setValorInput] = useState(inicialTotalState);
 
   const handleClickPixView = () => {
     escolheMetodo(MetodoPagamento.PIX);
@@ -46,7 +40,7 @@ export function TelaEscolherPagamento() {
     setPopUpVisivel(false);
   };
   const handleClickNaoPrecisoDeTroco = () => {
-    defineSaldo(total + taxa);
+    setValorInput(saldo);
     setPopUpVisivel(false);
   };
 
@@ -56,7 +50,6 @@ export function TelaEscolherPagamento() {
 
   const onChangeValorInput = (values: Values) => {
     const v = values.floatValue;
-    console.log("v: " + v);
 
     if (!isNaN(v)) {
       setValorInput(v);
@@ -67,7 +60,6 @@ export function TelaEscolherPagamento() {
         setBtnConfirmarVisivel(true);
       } else setBtnConfirmarVisivel(false);
     } else {
-      console.log("exato");
       setValorInput(0);
       setBtnConfirmarVisivel(false);
     }

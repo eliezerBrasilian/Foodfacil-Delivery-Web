@@ -1,4 +1,5 @@
 import { useNavigate } from "react-router-dom";
+import { MetodoPagamento } from "../enums/MetodoPagamento";
 import { Rotas } from "../enums/Rotas";
 import { PedidoDoUsuarioResponseDto } from "../types/PedidoDoUsuarioResponseDto";
 import { AppUtils } from "../utils/AppUtils";
@@ -46,12 +47,14 @@ export function PedidoItem({ pedido }: PedidoItemProps) {
           createdAt={pedido.createdAt}
         />
 
-        <PedidosItemBaixo
-          chavePix={pedido.chavePix}
-          pagamentoStatus={pedido.pagamentoStatus}
-          pedidoStatus={pedido.status}
-          createdAt={pedido.createdAt}
-        />
+        {pedido.pagamentoEscolhido == MetodoPagamento.PIX && (
+          <PedidosItemBaixo
+            chavePix={pedido.chavePix}
+            pagamentoStatus={pedido.pagamentoStatus}
+            pedidoStatus={pedido.status}
+            createdAt={pedido.createdAt}
+          />
+        )}
       </div>
     </div>
   );

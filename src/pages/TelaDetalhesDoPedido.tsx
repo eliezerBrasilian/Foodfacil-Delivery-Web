@@ -94,7 +94,7 @@ export function TelaDetalhesDoPedido() {
           <h4>Resumo do pedido</h4>
           <div className={s.resumo_pedido_item}>
             <p>Subtotal</p>
-            <p>{AppUtils.toMoedaBrasileira(pedido.total)}</p>
+            <p>{AppUtils.toMoedaBrasileira(pedido.total - pedido.taxa)}</p>
           </div>
           <div className={s.resumo_pedido_item}>
             <p>Taxa de entrega</p>
@@ -103,7 +103,7 @@ export function TelaDetalhesDoPedido() {
 
           <div className={s.resumo_pedido_item}>
             <p>Total</p>
-            <p>{AppUtils.toMoedaBrasileira(pedido.taxa + pedido.total)}</p>
+            <p>{AppUtils.toMoedaBrasileira(pedido.total)}</p>
           </div>
         </div>
         <Linha borderBottomColor="#EBEBEB" />

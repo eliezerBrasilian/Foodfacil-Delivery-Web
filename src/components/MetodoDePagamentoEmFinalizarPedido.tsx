@@ -6,7 +6,12 @@ import { Rotas } from "../enums/Rotas";
 import { DinheiroView } from "./DinheiroView";
 import { PixView } from "./PixView";
 
-export function MetodoDePagamentoEmFinalizarPedido() {
+interface MetodoDePagamentoEmFinalizarPedidoProps {
+  bairroState: string;
+}
+export function MetodoDePagamentoEmFinalizarPedido({
+  bairroState,
+}: MetodoDePagamentoEmFinalizarPedidoProps) {
   const { metodoEscolhido } = useMetodoPagamentoContext();
 
   const nav = useNavigate();
@@ -24,7 +29,11 @@ export function MetodoDePagamentoEmFinalizarPedido() {
         <h4>Método de pagamento</h4>
         <p
           onClick={() => {
-            nav(Rotas.TELA_ESCOLHER_PAGAMENTO);
+            if (bairroState == "") {
+              window.alert("adicione seu endereço primeiro");
+            } else {
+              nav(Rotas.TELA_ESCOLHER_PAGAMENTO);
+            }
           }}
           style={{ fontSize: 13, color: cores.btn_vermelho }}
         >

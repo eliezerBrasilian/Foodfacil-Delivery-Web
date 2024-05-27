@@ -1,13 +1,8 @@
-body {
-  margin: 0;
-  padding: 0;
-}
-
 .container {
   width: 100vw;
   height: 100vh;
   padding: 15px;
-  margin-bottom: 110px;
+
   .capa {
     height: 200px;
     width: 100%;

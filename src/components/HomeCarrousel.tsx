@@ -20,7 +20,7 @@ export function HomeCarrousel() {
       <Slider arrows={false} {...settings}>
         <div>
           <img
-            src="banner1.png"
+            src="banner0.png"
             style={{ height: 150, width: w, objectFit: "fill" }}
           />
         </div>

@@ -1,26 +1,14 @@
-import { useNavigate, useParams } from "react-router-dom";
-import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
 import "react-toastify/dist/ReactToastify.css";
-import { ChavePixView } from "../components/ChavePixView";
 import { CustomBtn } from "../components/CustomBtn";
 import { Imagem } from "../components/Imagem";
 import { TopBar } from "../components/TopBar";
 import { Rotas } from "../enums/Rotas";
 import s from "../modules/TelaVerChavePix.module.css";
-export function TelaVerChavePix() {
-  const { chave } = useParams();
-  const tam = 190;
+export function TelaVerPedidoCriadoAoPagarComDinheiro() {
   const nav = useNavigate();
-  const handleClickCopiaChavePix = () => {
-    navigator.clipboard
-      .writeText(chave as string)
-      .then(() => {
-        toast("chave pix copiada");
-      })
-      .catch((_err) => {
-        alert("Erro ao copiar chave pix");
-      });
-  };
+  const tam = 190;
+
   return (
     <div className={s.container}>
       <TopBar text="Confirme seu Pagamento" />
@@ -42,22 +30,12 @@ export function TelaVerChavePix() {
         <h3>Pedido aguardando pagamento</h3>
         <div style={{ marginTop: 20 }} />
         <p>
-          Copie o código abaixo e utilize o pix copia e cola no aplicativo que
-          você vai fazer o pagamento:
+          Seu pedido foi criado com sucesso, você pode realizar o pagamento
+          diretamente com o entregador
         </p>
-
-        <ChavePixView chave={chave?.toString()} />
       </div>
 
       <div style={{ marginTop: 70, display: "flex", justifyContent: "center" }}>
-        <CustomBtn
-          text="Copiar chave pix"
-          width="90%"
-          onClick={handleClickCopiaChavePix}
-        />
-      </div>
-
-      <div style={{ marginTop: 15, display: "flex", justifyContent: "center" }}>
         <CustomBtn
           text="Acompanhar pedido"
           width="90%"

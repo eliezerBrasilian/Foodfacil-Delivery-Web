@@ -10,7 +10,12 @@ import { ModalAdicionarEndereco } from "./ModalAdicionarEndereco";
 import { NaoPossuiEnderecoEmFinalizarPedido } from "./NaoPossuiEnderecoEmFinalizarPedido";
 Modal.setAppElement("#root");
 
-export function EnderecoEmFinalizarPedido() {
+interface EnderecoEmFinalizarPedidoProps {
+  setBairroState: React.Dispatch<React.SetStateAction<string>>;
+}
+export function EnderecoEmFinalizarPedido({
+  setBairroState,
+}: EnderecoEmFinalizarPedidoProps) {
   const [enderecoDefinido, setDefineEndereco] = useState(false);
   const [clicouAdicionarEndereco, setClicouAdicionarEndereco] = useState(false);
 
@@ -36,6 +41,7 @@ export function EnderecoEmFinalizarPedido() {
       setNumero(optionalNum);
       setBairro(optionalB);
       setComplemento(optionalPr);
+      setBairroState(optionalB);
     }
   }, []);
 
@@ -122,6 +128,7 @@ export function EnderecoEmFinalizarPedido() {
       defineTaxa(cidadeSelecionada);
       setDefineEndereco(true);
       setClicouAdicionarEndereco(false);
+      setBairroState(bairro.trim());
     }
   };
 

@@ -11,7 +11,7 @@ export function AppTitulo({ text }: AppTituloProps) {
         justifyContent: "center",
         alignItems: "center",
         width: "100%",
-        height: 100,
+        height: 90,
       }}
     >
       <p style={{ color: "#FF0303" }}>{text}</p>
