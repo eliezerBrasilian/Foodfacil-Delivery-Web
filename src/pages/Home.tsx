@@ -6,7 +6,6 @@ import { HomeSalgado } from "../components/HomeSalgado";
 import { VerCarrinhoBtn } from "../components/VerCarrinhoBtn";
 import { useBottomBarContext } from "../context/BottomBarContext";
 import { useSaborContext } from "../context/SaborContext";
-import { useLarguraAtual } from "../customHooks/useLarguraAtual";
 import { useAcompanhamentoContext } from "../defaultContexts/AcompanhamentoContextDefault";
 import { useSalgadosContext } from "../defaultContexts/SalgadoContextDefault";
 import { LocalStorageKeys } from "../enums/LocalStorageKeys";
@@ -14,7 +13,7 @@ import { Rotas } from "../enums/Rotas";
 import hs from "../modules/Home.module.css";
 
 export function Home() {
-  const { getAllSalgados, salgadosEmPromocao, carregado } =
+  const { getAllSalgados, salgadosEmPromocao, carregado, maisPedidos } =
     useSalgadosContext();
 
   const { getAll, carregado: saborFoiCarregado } = useSaborContext();
@@ -24,7 +23,6 @@ export function Home() {
   const { handleHomeBottomBar, activateVisibility } = useBottomBarContext();
 
   const nav = useNavigate();
-  const larguraAtual = useLarguraAtual();
 
   useEffect(() => {
     activateVisibility();
@@ -67,13 +65,41 @@ export function Home() {
       {salgadosEmPromocao.length == 0 ? (
         <p>Não temos promoções no momento, mas fique ligado(a)</p>
       ) : (
-        <div style={{ marginTop: 25, paddingBottom: 80, marginLeft: 15 }}>
+        <div
+          style={{
+            marginTop: 15,
+            paddingBottom: 80,
+            paddingLeft: 10,
+            paddingRight: 10,
+          }}
+        >
           {salgadosEmPromocao?.map((item, index) => (
             <HomeSalgado
               key={index}
               salgadoDto={item}
               handlePopUpEdicaoVisibilidade={() => {}}
-              ehCelular={larguraAtual <= 500}
+            />
+          ))}
+        </div>
+      )}
+      <h1 style={{ marginTop: 40 }}>Mais pedidos</h1>
+
+      {maisPedidos.length == 0 ? (
+        <p>Não temos promoções no momento, mas fique ligado(a)</p>
+      ) : (
+        <div
+          style={{
+            marginTop: 15,
+            paddingBottom: 80,
+            paddingLeft: 10,
+            paddingRight: 10,
+          }}
+        >
+          {maisPedidos?.map((item, index) => (
+            <HomeSalgado
+              key={index}
+              salgadoDto={item}
+              handlePopUpEdicaoVisibilidade={() => {}}
             />
           ))}
         </div>

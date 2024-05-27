@@ -5,6 +5,7 @@ import { SalgadoDto } from "../types/SalgadoDto";
 const defaultContext: SalgadoContextInterface = {
   salgados: Array<SalgadoDto>(),
   salgadosEmPromocao: Array<SalgadoDto>(),
+  maisPedidos: Array<SalgadoDto>(),
   combos: Array<SalgadoDto>(),
   carregado: false,
   carregando: true,

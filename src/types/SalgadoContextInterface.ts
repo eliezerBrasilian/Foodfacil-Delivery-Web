@@ -4,6 +4,7 @@ export interface SalgadoContextInterface {
   salgados: Array<SalgadoDto>;
   salgadosEmPromocao: Array<SalgadoDto>;
   combos: Array<SalgadoDto>;
+  maisPedidos: SalgadoDto[];
   carregando: boolean;
   carregado: boolean;
   getAllSalgados: () => void;

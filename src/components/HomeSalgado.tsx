@@ -6,7 +6,6 @@ import { AppUtils } from "../utils/AppUtils";
 interface SalgadoProps {
   salgadoDto: SalgadoDto;
   handlePopUpEdicaoVisibilidade: () => void;
-  ehCelular: boolean;
 }
 
 export function HomeSalgado({
@@ -20,7 +19,7 @@ export function HomeSalgado({
     >
       <div className={salgadoStyles.esquerda}>
         <h2>{salgadoDto?.nome}</h2>
-        <p style={{ color: "#555353" }}>{salgadoDto?.descricao}</p>
+        <p>{salgadoDto?.descricao}</p>
         <p className={salgadoStyles.preco} style={{ color: cores.preco }}>
           {AppUtils.toMoedaBrasileira(salgadoDto?.preco)}
         </p>

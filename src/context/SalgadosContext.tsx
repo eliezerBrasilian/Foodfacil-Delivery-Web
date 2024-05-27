@@ -5,6 +5,7 @@ import { LocalStorageKeys } from "../enums/LocalStorageKeys";
 import { SalgadoRepository } from "../repositories/SalgadoRepository";
 import { SalgadoDto } from "../types/SalgadoDto";
 import { SalgadoResponseDto } from "../types/SalgadoResponseDto";
+import { getRandomIndices } from "../services/RandomIndicesService";
 
 type SalgadoProviderProps = {
   children: ReactNode;
@@ -17,6 +18,7 @@ export function SalgadosContextProvider({ children }: SalgadoProviderProps) {
     Array<SalgadoDto>
   >([]);
   const [combos, setCombos] = useState<Array<SalgadoDto>>([]);
+  const [maisPedidos, setMaisPedidos] = useState<Array<SalgadoDto>>([]);
 
   const [carregado, setCarregado] = useState(false);
   const [carregando, setCarregando] = useState(true);
@@ -73,6 +75,19 @@ export function SalgadosContextProvider({ children }: SalgadoProviderProps) {
       setCombos(
         listaMapeada.filter((salg) => salg.categoria == Categoria.COMBO)
       );
+
+      var maisPedidosListAux: SalgadoDto[] = [];
+
+      var indices = getRandomIndices(listaMapeada.length, 3);
+      var primeiroMaisPedido = listaMapeada[indices[0]];
+      var segundoMaisPedido = listaMapeada[indices[1]];
+      var terceiroMaisPedido = listaMapeada[indices[2]];
+
+      maisPedidosListAux.push(primeiroMaisPedido);
+      maisPedidosListAux.push(segundoMaisPedido);
+      maisPedidosListAux.push(terceiroMaisPedido);
+
+      setMaisPedidos(maisPedidosListAux);
     }
 
     setCarregado(true);
@@ -115,6 +130,7 @@ export function SalgadosContextProvider({ children }: SalgadoProviderProps) {
         salgados,
         salgadosEmPromocao,
         combos,
+        maisPedidos,
         carregado,
         carregando,
         getAllSalgados,
