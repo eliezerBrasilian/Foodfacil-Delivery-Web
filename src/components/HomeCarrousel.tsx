@@ -15,28 +15,47 @@ export function HomeCarrousel() {
   const larguraContainer = useLarguraAtual();
   const w = useLarguraAtual() - 10;
 
+  if (larguraContainer <= 500)
+    return (
+      <div style={{ height: 182, width: larguraContainer, marginTop: 10 }}>
+        <Slider arrows={false} {...settings}>
+          <div>
+            <img
+              src="banner0.png"
+              style={{ height: 150, width: w, objectFit: "fill" }}
+            />
+          </div>
+          <div>
+            <img
+              src="banner2.png"
+              style={{ height: 150, width: w, objectFit: "fill" }}
+            />
+          </div>
+          <div>
+            <img
+              src="banner3.png"
+              style={{ height: 150, width: w, objectFit: "fill" }}
+            />
+          </div>
+        </Slider>
+      </div>
+    );
   return (
-    <div style={{ height: 182, width: larguraContainer, marginTop: 10 }}>
-      <Slider arrows={false} {...settings}>
-        <div>
-          <img
-            src="banner0.png"
-            style={{ height: 150, width: w, objectFit: "fill" }}
-          />
-        </div>
-        <div>
-          <img
-            src="banner2.png"
-            style={{ height: 150, width: w, objectFit: "fill" }}
-          />
-        </div>
-        <div>
-          <img
-            src="banner3.png"
-            style={{ height: 150, width: w, objectFit: "fill" }}
-          />
-        </div>
-      </Slider>
+    <div style={{ height: 222, marginTop: 10 }}>
+      <div style={{ display: "flex", columnGap: 14 }}>
+        <img
+          src="banner0.png"
+          style={{ height: 170, objectFit: "fill", borderRadius: 12 }}
+        />
+        <img
+          src="banner2.png"
+          style={{ height: 170, width: 674, objectFit: "fill" }}
+        />
+        <img
+          src="banner3.png"
+          style={{ height: 170, width: 674, objectFit: "fill" }}
+        />
+      </div>
     </div>
   );
 }

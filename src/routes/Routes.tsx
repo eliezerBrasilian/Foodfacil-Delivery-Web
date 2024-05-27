@@ -1,6 +1,7 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 
 import { BottomBar } from "../components/BottomBar";
+import ScrollToTop from "../components/ScrollToTop";
 import { Rotas } from "../enums/Rotas";
 import { Home } from "../pages/Home";
 import { ItemSelecionado } from "../pages/ItemSelecionado";
@@ -24,6 +25,7 @@ export function RoutesApp() {
 
   return (
     <BrowserRouter>
+      <ScrollToTop />
       <Routes>
         <Route path={Rotas.LOGIN} element={<Login />} />
         <Route path={Rotas.HOME} element={<Home />} />

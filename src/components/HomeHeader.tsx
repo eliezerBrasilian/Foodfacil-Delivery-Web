@@ -4,6 +4,7 @@ import { useContadorTotalCarrinho } from "../customHooks/useContadorTotalCarrinh
 import { OnlineRepository } from "../repositories/OnlineRepository";
 import { OnlineStatus } from "../types/OnlineStatus";
 import { Imagem } from "./Imagem";
+import { OnlineStatusComponent } from "./OnlineStatusComponent";
 
 export function HomeHeader() {
   var onlineRepository = new OnlineRepository();
@@ -32,37 +33,6 @@ export function HomeHeader() {
       <OnlineStatusComponent status={status} />
 
       <CarrinhoComCirculo />
-    </div>
-  );
-}
-
-interface OnlineStatusComponentProps {
-  status: OnlineStatus;
-}
-export function OnlineStatusComponent({ status }: OnlineStatusComponentProps) {
-  return (
-    <div
-      style={{
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center",
-        columnGap: 5,
-      }}
-    >
-      <p style={{ fontWeight: "600", marginBottom: 5 }}>
-        {status == OnlineStatus.ONLINE
-          ? "Estamos funcionando!"
-          : "Estamos fechados agora!"}
-      </p>
-      <div
-        style={{
-          height: 12,
-          width: 12,
-          borderRadius: "50%",
-          backgroundColor:
-            status == OnlineStatus.ONLINE ? "green" : cores.btn_vermelho,
-        }}
-      />
     </div>
   );
 }
