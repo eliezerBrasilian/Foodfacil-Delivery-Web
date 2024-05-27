@@ -13,16 +13,28 @@ export function HomeCarrousel() {
   };
 
   const larguraContainer = useLarguraAtual();
-  const w = useLarguraAtual() - 10;
+  const w = useLarguraAtual() - 20;
 
   if (larguraContainer <= 500)
     return (
-      <div style={{ height: 182, width: larguraContainer, marginTop: 10 }}>
+      <div
+        style={{
+          height: 182,
+          width: larguraContainer,
+          marginTop: 10,
+          paddingLeft: 10,
+        }}
+      >
         <Slider arrows={false} {...settings}>
           <div>
             <img
               src="banner0.png"
-              style={{ height: 150, width: w, objectFit: "fill" }}
+              style={{
+                height: 150,
+                width: w,
+                objectFit: "fill",
+                borderRadius: 12,
+              }}
             />
           </div>
           <div>

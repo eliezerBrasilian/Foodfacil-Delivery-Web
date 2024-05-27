@@ -13,8 +13,7 @@ import { Rotas } from "../enums/Rotas";
 import hs from "../modules/Home.module.css";
 
 export function Home() {
-  const { getAllSalgados, salgadosEmPromocao, carregado, maisPedidos } =
-    useSalgadosContext();
+  const { getAllSalgados, carregado, maisPedidos } = useSalgadosContext();
 
   const { getAll, carregado: saborFoiCarregado } = useSaborContext();
   const { getAllAcompanhamentos, carregado: carregadoAcompabhamento } =
@@ -60,7 +59,7 @@ export function Home() {
       <h1>Tá no site</h1>
       <HomeCarrousel />
 
-      <h1>Promoções imperdíveis</h1>
+      {/* <h1>Promoções imperdíveis</h1>
 
       {salgadosEmPromocao.length == 0 ? (
         <p>Não temos promoções no momento, mas fique ligado(a)</p>
@@ -81,8 +80,8 @@ export function Home() {
             />
           ))}
         </div>
-      )}
-      <h1 style={{ marginTop: 40 }}>Mais pedidos</h1>
+      )} */}
+      <h1 style={{ marginTop: 20 }}>Mais pedidos</h1>
 
       {maisPedidos.length == 0 ? (
         <p>Não temos promoções no momento, mas fique ligado(a)</p>
@@ -90,9 +89,9 @@ export function Home() {
         <div
           style={{
             marginTop: 15,
-            paddingBottom: 80,
             paddingLeft: 10,
             paddingRight: 10,
+            height: 550,
           }}
         >
           {maisPedidos?.map((item, index) => (
