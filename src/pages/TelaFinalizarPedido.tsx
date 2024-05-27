@@ -26,14 +26,10 @@ export function TelaFinalizarPedido() {
   const { taxa } = useTaxaContext();
 
   const total = totalCarrinho + taxa;
-  //const total = 1;
 
   const [loading, setLoading] = useState(false);
 
   const [bairroState, setBairroState] = useState("");
-
-  console.log("saldo: " + saldo);
-  console.log("total: " + total);
 
   useEffect(() => {}, [bairroState]);
 
@@ -84,7 +80,8 @@ export function TelaFinalizarPedido() {
       <Linha borderBottomColor="gray" borderBottomWidth={0.4} />
       <ResumoDoPedido />
       <EnderecoEmFinalizarPedido setBairroState={setBairroState} />
-      <MetodoDePagamentoEmFinalizarPedido bairroState={bairroState} />
+      {/* <MetodoDePagamentoEmFinalizarPedido bairroState={bairroState} /> */}
+      <MetodoDePagamentoEmFinalizarPedido />
       {!loading && <FinalizarPedidoBtn onClick={handleClickFinalizarPedido} />}
       {loading && <TelaDeLoadingAPorcima />}
     </div>
