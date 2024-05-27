@@ -15,8 +15,8 @@ import { AuthResponseDto } from "../types/AuthResponseDto.js";
 import { AuthRequestDto } from "./../types/AuthRequestDto";
 
 export function Login() {
-  const [email, setEmail] = useState("testenilson@foodfacil.site");
-  const [senha, setSenha] = useState("12345");
+  const [email, setEmail] = useState("");
+  const [senha, setSenha] = useState("");
   const [loading, setLoading] = useState(false);
 
   const [loginAtivo, setLoginAtivo] = useState(false);
@@ -97,6 +97,7 @@ export function Login() {
                 type="text"
                 id="fname"
                 name="fname"
+                placeholder="Digite seu nome"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
               />
@@ -109,6 +110,7 @@ export function Login() {
               type="text"
               id="fname"
               name="fname"
+              placeholder="Digite seu email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
             />
@@ -120,6 +122,7 @@ export function Login() {
               type="text"
               id="lname"
               name="lname"
+              placeholder={loginAtivo ? "DIgite sua senha" : "Crie uma senha"}
               value={senha}
               onChange={(e) => setSenha(e.target.value)}
             />
@@ -172,14 +175,10 @@ export function Login() {
             <p
               className={ls.ja_possui_login}
               onClick={() => setLoginAtivo(!loginAtivo)}
-              style={
-                larguraTotal <= 500
-                  ? {
-                      width: "100%",
-                      textAlign: "center",
-                    }
-                  : {}
-              }
+              style={{
+                width: "100%",
+                textAlign: "center",
+              }}
             >
               Já possui login? <strong>Entrar</strong>
             </p>
@@ -189,143 +188,140 @@ export function Login() {
     );
   } else
     return (
-      <div
-        className={ls.container}
-        style={{
-          padding: larguraTotal <= 500 ? 15 : 0,
-          paddingLeft: larguraTotal > 500 ? 80 : 0,
-        }}
-      >
-        <div className={ls.a_esquerda}>
-          <h3>{loginAtivo ? "Entrar" : "Cadastrar"} </h3>
-          <p>
-            {loginAtivo
-              ? "Acesse já sua conta no Foodfacil - delivery"
-              : "Faça seu cadastro no Foodfacil - delivery"}
-          </p>
-          <form
-            style={
-              larguraTotal <= 500
-                ? {
-                    display: "flex",
-                    alignItems: "center",
-                  }
-                : {}
-            }
-          >
-            {!loginAtivo && (
-              <div>
-                <p>Nome</p>
+      <div className={ls.container}>
+        <div className={ls.quadrado}>
+          <div className={ls.a_esquerda}>
+            <h3 className={ls.titulo}>
+              {loginAtivo ? "Entrar" : "Cadastrar"}{" "}
+            </h3>
+            <p className={ls.subtitulo}>
+              {loginAtivo
+                ? "Acesse já sua conta no Foodfacil - delivery"
+                : "Faça seu cadastro no Foodfacil - delivery"}
+            </p>
+            <form>
+              {!loginAtivo && (
+                <div className={ls.inputContainer}>
+                  <p>Nome</p>
+                  <input
+                    type="text"
+                    id="fname"
+                    name="fname"
+                    placeholder="Digite seu nome"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                  />
+                </div>
+              )}
+
+              <div className={ls.inputContainer}>
+                <p>Email</p>
                 <input
                   type="text"
                   id="fname"
                   name="fname"
+                  placeholder="Digite seu email"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                 />
               </div>
-            )}
 
-            <div>
-              <p>Email</p>
-              <input
-                type="text"
-                id="fname"
-                name="fname"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-              />
-            </div>
-
-            <div>
-              <p>{loginAtivo ? "Digite sua senha" : "Crie sua senha"}</p>
-              <input
-                type="text"
-                id="lname"
-                name="lname"
-                value={senha}
-                onChange={(e) => setSenha(e.target.value)}
-              />
-            </div>
-
-            <div
-              className={ls.btns}
-              style={
-                larguraTotal <= 500
-                  ? {
-                      display: "flex",
-                      width: "100%",
-                      justifyContent: "center",
-                      alignItems: "center",
-                    }
-                  : {}
-              }
-            >
-              <AuthBtn
-                text={loginAtivo ? "Acessar minha conta" : "Criar minha conta"}
-                onClick={() => {
-                  const body: AuthRequestDto = {
-                    email: email,
-                    name: "testenilso",
-                    password: senha,
-                    profilePicture: "",
-                    role: "USER",
-                  };
-
-                  if (loginAtivo) {
-                    login(email, senha, onSuccess);
-                  } else {
-                    cadastro(body, onSuccess, (_msg) => {
-                      alert(_msg);
-                    });
+              <div className={ls.inputContainer}>
+                <p>{loginAtivo ? "Digite sua senha" : "Crie sua senha"}</p>
+                <input
+                  type="text"
+                  id="lname"
+                  name="lname"
+                  placeholder={
+                    loginAtivo ? "DIgite sua senha" : "Crie uma senha"
                   }
-                }}
-              />
-              <GoogleSignInBtn
-                text={loginAtivo ? "Entrar com Google" : "Cadastrar com Google"}
-                onClick={() => {}}
-              />
-            </div>
+                  value={senha}
+                  onChange={(e) => setSenha(e.target.value)}
+                />
+              </div>
 
-            {loginAtivo ? (
-              <p
-                className={ls.ja_possui_login}
-                onClick={() => setLoginAtivo(!loginAtivo)}
+              <div
+                className={ls.btns}
                 style={
                   larguraTotal <= 500
                     ? {
+                        display: "flex",
                         width: "100%",
-                        textAlign: "center",
+                        justifyContent: "center",
+                        alignItems: "center",
                       }
                     : {}
                 }
               >
-                Não possui login? <strong>Cadastrar</strong>
-              </p>
-            ) : (
-              <p
-                className={ls.ja_possui_login}
-                onClick={() => setLoginAtivo(!loginAtivo)}
-                style={
-                  larguraTotal <= 500
-                    ? {
-                        width: "100%",
-                        textAlign: "center",
-                      }
-                    : {}
-                }
-              >
-                Já possui login? <strong>Entrar</strong>
-              </p>
-            )}
-          </form>
-        </div>
+                <AuthBtn
+                  text={
+                    loginAtivo ? "Acessar minha conta" : "Criar minha conta"
+                  }
+                  onClick={() => {
+                    const body: AuthRequestDto = {
+                      email: email,
+                      name: "testenilso",
+                      password: senha,
+                      profilePicture: "",
+                      role: "USER",
+                    };
 
-        {larguraTotal > 500 && (
+                    if (loginAtivo) {
+                      login(email, senha, onSuccess);
+                    } else {
+                      cadastro(body, onSuccess, (_msg) => {
+                        alert(_msg);
+                      });
+                    }
+                  }}
+                />
+                <GoogleSignInBtn
+                  text={
+                    loginAtivo ? "Entrar com Google" : "Cadastrar com Google"
+                  }
+                  onClick={loginComGoogle}
+                  loading={loading}
+                />
+              </div>
+
+              {loginAtivo ? (
+                <p
+                  className={ls.ja_possui_login}
+                  onClick={() => setLoginAtivo(!loginAtivo)}
+                  style={
+                    larguraTotal <= 500
+                      ? {
+                          width: "100%",
+                          textAlign: "center",
+                        }
+                      : {}
+                  }
+                >
+                  Não possui login? <strong>Cadastrar</strong>
+                </p>
+              ) : (
+                <p
+                  className={ls.ja_possui_login}
+                  onClick={() => setLoginAtivo(!loginAtivo)}
+                  style={
+                    larguraTotal <= 500
+                      ? {
+                          width: "100%",
+                          textAlign: "center",
+                        }
+                      : {}
+                  }
+                >
+                  Já possui login? <strong>Entrar</strong>
+                </p>
+              )}
+            </form>
+          </div>
+
           <div className={ls.a_direita}>
             <Imagem imagePath="foodfacillogo_splash.png" />
           </div>
-        )}
+        </div>
       </div>
     );
 }

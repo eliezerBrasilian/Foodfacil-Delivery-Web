@@ -1,13 +1,12 @@
 .container {
   display: flex;
+  flex-direction: column;
   background-color: #fff;
   width: 100vw;
   height: 100vh;
   column-gap: 10px;
   border-radius: 6px;
   padding: 40px;
-  display: flex;
-  flex-direction: column;
 
   .titulo {
     font-size: 27px;
@@ -45,45 +44,66 @@
   .subtitulo {
     font-size: 19px;
   }
+}
 
-  /* padding-left: 80px; */
-
-  .a_esquerda {
+@media (min-width: 501px) {
+  .container {
     display: flex;
-    flex-direction: column;
-    row-gap: 2px;
-    margin-top: 70px;
-    margin-bottom: 70px;
+    /* flex-direction: row; */
+    align-items: center;
+    justify-content: center;
+    /* column-gap: 10%; */
 
-    form {
+    .quadrado {
+      height: 700px;
+      width: 790px;
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+      column-gap: 10%;
+    }
+
+    .titulo {
+      font-size: 30px;
+    }
+
+    .subtitulo {
+      font-size: 18px;
+    }
+
+    .a_esquerda {
       display: flex;
       flex-direction: column;
-      row-gap: 10px;
-      margin-top: 15px;
-      width: 100%;
+      row-gap: 2px;
+      margin-top: 70px;
+      margin-bottom: 70px;
 
-      input {
-        width: 90%;
-        height: 40px;
-      }
-
-      .btns {
+      form {
         display: flex;
         flex-direction: column;
-        row-gap: 15px;
-        margin-top: 20px;
-      }
-      .ja_possui_login {
-        cursor: pointer;
+        row-gap: 10px;
+        margin-top: 15px;
+        width: 450px;
+
+        .btns {
+          display: flex;
+          flex-direction: column;
+          row-gap: 15px;
+          margin-top: 20px;
+        }
+        .ja_possui_login {
+          cursor: pointer;
+        }
       }
     }
-  }
 
-  .a_direita {
-    background-color: red;
-    width: 300px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    .a_direita {
+      background-color: red;
+      width: 300px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 597px;
+    }
   }
 }
