@@ -7,8 +7,6 @@ import { PagamentoStatus } from "../types/PagamentoStatus";
 import { PedidoRequestDto } from "../types/PedidoRequestDto";
 import { PedidoStatus } from "../types/PedidoStatus";
 import { SalgadoDto } from "../types/SalgadoDto";
-import { SimplesAcompanhamento } from "../types/SimplesAdicional";
-import { SimplesSalgado } from "../types/SimplesSalgado";
 
 export interface PedidoStatusResultProps {
   text: string;
@@ -29,20 +27,6 @@ export class PedidoService {
     saldo: number,
     taxa: number
   ) {
-    var salgados: SimplesSalgado[] = salgadosList.map((v) => ({
-      id: v.id,
-      quantidade: v.quantidade,
-      observacao: v.observacao,
-      sabores: v.sabores,
-    }));
-
-    var acompanhamentos: SimplesAcompanhamento[] = acompanhamentoList.map(
-      (v) => ({
-        id: v.id,
-        quantidade: v.quantidade,
-      })
-    );
-
     const numeroCasa = localStorage.getItem(
       LocalStorageKeys.NUMERO
     ) as unknown as number;
@@ -60,8 +44,8 @@ export class PedidoService {
     const novoPedido: PedidoRequestDto = {
       userId: localStorage.getItem(LocalStorageKeys.USER_ID) as string,
       userEmail: "exemplo@dominio.com",
-      salgados: salgados,
-      acompanhamentos: acompanhamentos,
+      salgados: salgadosList,
+      acompanhamentos: acompanhamentoList,
       endereco: endereco,
       pagamentoEscolhido: metodoEscolhido,
       quantiaReservada: saldo,

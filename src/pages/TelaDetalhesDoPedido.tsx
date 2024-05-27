@@ -70,21 +70,48 @@ export function TelaDetalhesDoPedido() {
 
         <div className={s.lanche_items_container}>
           {pedido.salgados.map((v, i) => (
-            <div>
-              <div className={s.lanche_item} key={i}>
+            <div key={i}>
+              <div className={s.lanche_item}>
                 <img className={s.img} src={v.imagem} />
                 <div>
                   <p>{v.nome}</p>
                   <p>{v.descricao}</p>
                 </div>
-                <p>{AppUtils.toMoedaBrasileira(v.preco)}</p>
+                <div>
+                  <p>{AppUtils.toMoedaBrasileira(v.preco)}</p>
+                  <p style={{ fontSize: 12 }}>{v.quantidade} unidades</p>
+                </div>
               </div>
+
               {v.observacao != "" && (
                 <div>
                   <p className={s.observacao}>Observacao: {v.observacao}</p>
                   <Linha borderBottomColor="gray" borderBottomWidth={0.2} />
                 </div>
               )}
+            </div>
+          ))}
+        </div>
+
+        <p style={{ fontWeight: "bold", fontSize: 13 }}>-- Acompanhamentos</p>
+        <div className={s.lanche_items_container}>
+          {pedido.acompanhamentos.map((v, i) => (
+            <div key={i}>
+              <div className={s.lanche_item}>
+                <img
+                  className={s.img}
+                  src={v.imagem}
+                  style={{ height: 40, width: 40 }}
+                />
+                <div>
+                  <p>{v.nome}</p>
+                  <p>{v.descricao}</p>
+                </div>
+                <div>
+                  <p>{AppUtils.toMoedaBrasileira(v.preco)}</p>
+                  <p style={{ fontSize: 12 }}>{v.quantidade} unidades</p>
+                </div>
+              </div>
             </div>
           ))}
         </div>

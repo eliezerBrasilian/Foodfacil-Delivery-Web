@@ -6,13 +6,15 @@ interface SalgadoRequestDto {
   categoria: Categoria | string;
   descricao: string;
   preco: number;
-  imagem: string | null;
+  imagem: string;
   imagemRetangular: string | null;
   imagemQuadrada: string | null;
   emOferta: boolean;
   precoEmOferta: number;
   disponibilidade: Disponibilidade | string;
   createdAt: number;
+  observacao: string;
+  quantidade: number;
   sabores: string[];
 }
 

@@ -13,8 +13,8 @@ export interface SalgadoDto {
   emOferta: boolean;
   precoEmOferta: number;
   disponibilidade: Disponibilidade;
-  quantidade: number;
   createdAt: number;
   observacao: string;
+  quantidade: number;
   sabores: string[];
 }

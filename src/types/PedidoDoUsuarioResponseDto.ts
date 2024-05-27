@@ -1,15 +1,15 @@
 import { MetodoPagamento } from "../enums/MetodoPagamento";
-import { AcompanhamentoResumidoResponseDto } from "./AcompanhamentoResumidoResponseDto";
+import { AcompanhamentoRequestDto } from "./AcompanhamentoRequestDto";
 import { Address } from "./Address";
 import { PagamentoStatus } from "./PagamentoStatus";
 import { PedidoStatus } from "./PedidoStatus";
-import { SalgadoResumidoResponseDto } from "./SalgadoResumidoResponseDto";
+import { SalgadoRequestDto } from "./SalgadoRequestDto";
 
 export interface PedidoDoUsuarioResponseDto {
   id: string;
   userId: string;
-  salgados: SalgadoResumidoResponseDto[];
-  acompanhamentos: AcompanhamentoResumidoResponseDto[];
+  salgados: SalgadoRequestDto[];
+  acompanhamentos: AcompanhamentoRequestDto[];
   endereco: Address;
   pagamentoEscolhido: MetodoPagamento;
   quantiaReservada: number;

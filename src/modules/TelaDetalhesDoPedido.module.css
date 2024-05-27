@@ -1,7 +1,6 @@
 .container {
   width: 100vw;
   height: 100vh;
-
   padding: 15px;
 
   .pedido_expirado {
@@ -17,6 +16,7 @@
     display: flex;
     align-items: center;
     padding-left: 20px;
+    column-gap: 5px;
   }
 
   .lanche_items_container {

@@ -4,7 +4,8 @@ export interface AcompanhamentoRequestDto {
   nome: string;
   descricao: string;
   preco: number;
-  imagem: string | null;
+  imagem: string;
   disponibilidade: Disponibilidade;
   createdAt: number;
+  quantidade: number;
 }
