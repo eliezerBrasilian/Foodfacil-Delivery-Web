@@ -1,23 +1,9 @@
-import { useEffect, useState } from "react";
 import { cores } from "../assets/cores";
 import { useContadorTotalCarrinho } from "../customHooks/useContadorTotalCarrinho";
-import { OnlineRepository } from "../repositories/OnlineRepository";
-import { OnlineStatus } from "../types/OnlineStatus";
 import { Imagem } from "./Imagem";
 import { OnlineStatusComponent } from "./OnlineStatusComponent";
 
 export function HomeHeader() {
-  var onlineRepository = new OnlineRepository();
-  const [status, setStatus] = useState(OnlineStatus.OFFLINE);
-
-  useEffect(() => {
-    async function getOnlineStatus() {
-      const resp = await onlineRepository.consultaOnline();
-      setStatus(resp);
-    }
-
-    getOnlineStatus();
-  }, []);
   return (
     <div
       style={{
@@ -30,7 +16,7 @@ export function HomeHeader() {
     >
       <Imagem imagePath="top_logo.png" height={50} width={70} />
 
-      <OnlineStatusComponent status={status} />
+      <OnlineStatusComponent />
 
       <CarrinhoComCirculo />
     </div>
