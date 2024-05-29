@@ -6,7 +6,7 @@ import axios from "axios";
 // const api = apiLocal;
 
 const apiProd = axios.create({
-  baseURL: `https://foodfacil.site/food-facil/api/v1`,
+  baseURL: `http://191.252.92.39/food-facil/api/v1`,
 });
 
 const api = apiProd;
