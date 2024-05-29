@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import { Rotas } from "../enums/Rotas";
 
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useBottomBarContext } from "../context/BottomBarContext";
 import { LocalStorageKeys } from "../enums/LocalStorageKeys";
 import s from "../modules/TelaPerfil.module.css";
@@ -16,8 +16,15 @@ export function TelaPerfil() {
     handlePerfilBottomBar();
   }, []);
 
-  var imagemPerfil = localStorage.getItem(LocalStorageKeys.FOTO);
+  const [imagemPerfil, setImagemPerifil] = useState("/user.png");
   var nome = localStorage.getItem(LocalStorageKeys.NOME);
+
+  useEffect(() => {
+    var _imagemPerfil = localStorage.getItem(LocalStorageKeys.FOTO);
+
+    setImagemPerifil(_imagemPerfil == null ? "/user.png" : _imagemPerfil);
+  }, []);
+
   return (
     <div className={s.container}>
       <div className={s.cima}>
@@ -45,15 +52,35 @@ export function TelaPerfil() {
         <img src={"/location.png"} />
         <p>Meu endereço</p>
       </div>
-      <button
-        style={{ marginTop: 40 }}
-        onClick={() => {
-          localStorage.clear();
-          nav(Rotas.LOGIN);
+
+      <div
+        style={{
+          marginTop: 40,
+          display: "flex",
+          justifyContent: "center",
         }}
       >
-        <p>Sair</p>
-      </button>
+        <button
+          style={{
+            backgroundColor: "#E71D36",
+            border: "none",
+            width: 100,
+            height: 25,
+            borderRadius: 11,
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+          }}
+          onClick={() => {
+            localStorage.clear();
+            nav(Rotas.LOGIN);
+          }}
+        >
+          <p style={{ color: "#fff", fontWeight: "bold", fontSize: 12 }}>
+            Sair
+          </p>
+        </button>
+      </div>
     </div>
   );
 }

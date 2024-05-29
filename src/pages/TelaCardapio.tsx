@@ -7,6 +7,7 @@ import { VerCarrinhoBtn } from "../components/VerCarrinhoBtn";
 import { useBottomBarContext } from "../context/BottomBarContext";
 import { useSaborContext } from "../context/SaborContext";
 import { useLarguraAtual } from "../customHooks/useLarguraAtual";
+import { useCarrinhoContext } from "../defaultContexts/CarrinhoContextDefault";
 import { useSalgadosContext } from "../defaultContexts/SalgadoContextDefault";
 import { LocalStorageKeys } from "../enums/LocalStorageKeys";
 import { Rotas } from "../enums/Rotas";
@@ -46,11 +47,18 @@ export function TelaCardapio() {
     }
   }, []);
 
+  const { salgadosList } = useCarrinhoContext();
+
   return (
-    <div className={cs.container}>
+    <div className={cs.container} style={{}}>
       <AppTitulo text="Cardápio" />
 
-      <div style={{ padding: 15 }}>
+      <div
+        style={{
+          padding: 15,
+          paddingBottom: salgadosList.length > 0 ? 70 : 0,
+        }}
+      >
         <h3>COMBOS</h3>
 
         {carregando ? (
@@ -89,7 +97,7 @@ export function TelaCardapioMainContent({
     );
   else
     return (
-      <div style={{ marginTop: 25 }}>
+      <div style={{ marginTop: 25, paddingBottom: 100 }}>
         {combos?.map((item, index) => (
           <Salgado
             key={index}

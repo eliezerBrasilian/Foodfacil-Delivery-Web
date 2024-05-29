@@ -8,7 +8,7 @@ export function ObservacaoTextInput({
   onChangeText,
 }: ObservacaoTextInputProps) {
   return (
-    <div style={{ width: "100%", padding: 15, marginBottom: 20 }}>
+    <div style={{ width: "100%", padding: 15 }}>
       <textarea
         value={value}
         onChange={onChangeText}

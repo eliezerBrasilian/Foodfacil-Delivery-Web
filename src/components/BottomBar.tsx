@@ -1,7 +1,6 @@
 import { useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import { useBottomBarContext } from "../context/BottomBarContext";
-import { useLarguraAtual } from "../customHooks/useLarguraAtual";
 import { Rotas } from "../enums/Rotas";
 import { BottomBarItems } from "./BottomBarItems";
 
@@ -24,7 +23,6 @@ export function BottomBar() {
   const nome = location.pathname;
 
   useEffect(() => {
-    console.log("nome: " + nome);
     if (nome === Rotas.HOME) {
       handleHomeBottomBar();
     } else if (nome === Rotas.TELA_PEDIDOS) {
@@ -38,19 +36,15 @@ export function BottomBar() {
     }
   }, [location]);
 
-  const larguraAtual = useLarguraAtual();
-
   if (isVisible) {
-    if (larguraAtual <= 500) {
-      return (
-        <BottomBarItems
-          navHomeIsActive={navHomeIsActive}
-          navCardapioIsActive={navCardapioIsActive}
-          navPedidosIsActive={navPedidosIsActive}
-          navCarrinhoIsActive={navCarrinhoIsActive}
-          navPerfilIsActive={navPerfilIsActive}
-        />
-      );
-    } else return null;
+    return (
+      <BottomBarItems
+        navHomeIsActive={navHomeIsActive}
+        navCardapioIsActive={navCardapioIsActive}
+        navPedidosIsActive={navPedidosIsActive}
+        navCarrinhoIsActive={navCarrinhoIsActive}
+        navPerfilIsActive={navPerfilIsActive}
+      />
+    );
   } else return null;
 }

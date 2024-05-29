@@ -7,6 +7,7 @@ import { VerCarrinhoBtn } from "../components/VerCarrinhoBtn";
 import { useBottomBarContext } from "../context/BottomBarContext";
 import { useSaborContext } from "../context/SaborContext";
 import { useAcompanhamentoContext } from "../defaultContexts/AcompanhamentoContextDefault";
+import { useCarrinhoContext } from "../defaultContexts/CarrinhoContextDefault";
 import { useSalgadosContext } from "../defaultContexts/SalgadoContextDefault";
 import { LocalStorageKeys } from "../enums/LocalStorageKeys";
 import { Rotas } from "../enums/Rotas";
@@ -22,6 +23,8 @@ export function Home() {
   const { handleHomeBottomBar, activateVisibility } = useBottomBarContext();
 
   const nav = useNavigate();
+
+  const { salgadosList } = useCarrinhoContext();
 
   useEffect(() => {
     activateVisibility();
@@ -54,7 +57,12 @@ export function Home() {
   }, []);
 
   return (
-    <div className={hs.container}>
+    <div
+      className={hs.container}
+      style={{
+        marginBottom: salgadosList.length > 0 ? 90 : 0,
+      }}
+    >
       <HomeHeader />
       <h1>Tá no site</h1>
       <HomeCarrousel />
@@ -91,21 +99,19 @@ export function Home() {
             marginTop: 15,
             paddingLeft: 10,
             paddingRight: 10,
-            height: 550,
           }}
         >
           {maisPedidos?.map((item, index) => (
             <HomeSalgado
               key={index}
               salgadoDto={item}
-              handlePopUpEdicaoVisibilidade={() => {}}
+              handlePopUpEdicaoVisibilidade={() => {
+                nav(`${Rotas.TELA_ITEM_SELECIONADO}/${item.id}`);
+              }}
             />
           ))}
         </div>
       )}
-
-      {/* <h2>Segue a gente no Instagram</h2>
-      <p>Temos salgados congelados</p> */}
 
       <VerCarrinhoBtn />
     </div>

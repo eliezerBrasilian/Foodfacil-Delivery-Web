@@ -1,6 +1,8 @@
 .container {
   width: 100vw;
   height: 100vh;
+  /* margin-bottom: 350px; */
+  /* background-color: red; */
 
   .seta_voltar {
     height: 25px;

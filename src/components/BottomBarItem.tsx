@@ -18,8 +18,8 @@ export function BottomBarItem({
   return (
     <div className={s.item_container}>
       <Imagem
-        height={25}
-        width={30}
+        height={22}
+        width={22}
         imagePath={isActive ? icone_selecionado : icone_padrao}
       />
       <p
