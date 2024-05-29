@@ -1,22 +1,16 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { cores } from "../assets/cores";
-import { OnlineRepository } from "../repositories/OnlineRepository";
+import { useOnlineContext } from "../defaultContexts/OnlineContext";
 import { OnlineStatus } from "../types/OnlineStatus";
 
 export function OnlineStatusComponent() {
-  var onlineRepository = new OnlineRepository();
-  const [status, setStatus] = useState(OnlineStatus.OFFLINE);
+  const { status, getOnlineStatus } = useOnlineContext();
 
   useEffect(() => {
-    async function getOnlineStatus() {
-      const resp = await onlineRepository.consultaOnline();
-      setStatus(resp);
-    }
-
     const intervalId = setInterval(getOnlineStatus, 3000);
 
     return () => clearInterval(intervalId);
-  }, []);
+  }, [status]);
 
   return (
     <div

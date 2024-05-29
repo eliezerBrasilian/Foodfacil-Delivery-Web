@@ -6,6 +6,7 @@ import { CabecalhoContextProvider } from "./context/CabecalhoContext";
 import { CarrinhoContextProvider } from "./context/CarrinhoContext";
 import { MetodoPagamentoContextProvider } from "./context/MetodoPagamentoContext";
 import { NotificacaoContextProvider } from "./context/NotificacaoContext";
+import { OnlineContextProvider } from "./context/OnlineContext";
 import { PedidoContextProvider } from "./context/PedidoContext";
 import { SaborContextProvider } from "./context/SaborContext";
 import { SalgadosContextProvider } from "./context/SalgadosContext";
@@ -14,27 +15,29 @@ import { RoutesApp } from "./routes/Routes";
 function App() {
   return (
     <AuthContextProvider>
-      <CabecalhoContextProvider>
-        <BottomBarContextProvider>
-          <TaxaContextProvider>
-            <SalgadosContextProvider>
-              <CarrinhoContextProvider>
-                <SaborContextProvider>
-                  <AcompanhamentoContextProvider>
-                    <PedidoContextProvider>
-                      <NotificacaoContextProvider>
-                        <MetodoPagamentoContextProvider>
-                          <RoutesApp />
-                        </MetodoPagamentoContextProvider>
-                      </NotificacaoContextProvider>
-                    </PedidoContextProvider>
-                  </AcompanhamentoContextProvider>
-                </SaborContextProvider>
-              </CarrinhoContextProvider>
-            </SalgadosContextProvider>
-          </TaxaContextProvider>
-        </BottomBarContextProvider>
-      </CabecalhoContextProvider>
+      <OnlineContextProvider>
+        <CabecalhoContextProvider>
+          <BottomBarContextProvider>
+            <TaxaContextProvider>
+              <SalgadosContextProvider>
+                <CarrinhoContextProvider>
+                  <SaborContextProvider>
+                    <AcompanhamentoContextProvider>
+                      <PedidoContextProvider>
+                        <NotificacaoContextProvider>
+                          <MetodoPagamentoContextProvider>
+                            <RoutesApp />
+                          </MetodoPagamentoContextProvider>
+                        </NotificacaoContextProvider>
+                      </PedidoContextProvider>
+                    </AcompanhamentoContextProvider>
+                  </SaborContextProvider>
+                </CarrinhoContextProvider>
+              </SalgadosContextProvider>
+            </TaxaContextProvider>
+          </BottomBarContextProvider>
+        </CabecalhoContextProvider>
+      </OnlineContextProvider>
     </AuthContextProvider>
   );
 }

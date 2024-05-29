@@ -27,6 +27,7 @@ export function CarrinhoContextProvider({ children }: CarrinhoContextProps) {
       });
     }
   }
+
   function decrementar(id: string) {
     const index = salgadosList.findIndex((a) => a.id == id);
 
